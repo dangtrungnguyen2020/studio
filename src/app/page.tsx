@@ -1,3 +1,166 @@
+"use client";
+
+import { useState, useMemo, useCallback, useEffect } from "react";
+import { Keyboard as KeyboardIcon, RefreshCw, Bot, Settings, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
+import Keyboard from "@/components/keystroke-symphony/keyboard";
+import TypingTest from "@/components/keystroke-symphony/typing-test";
+import Results from "@/components/keystroke-symphony/results";
+
+import { generate, generateCustom } from "@/lib/words";
+import { KEYBOARD_LAYOUTS } from "@/lib/keyboards";
+import type { KeyboardLayout, Difficulty } from "@/lib/keyboards";
+
+type TestStats = {
+  wpm: number;
+  accuracy: number;
+  errors: Map<string, number>;
+};
+
 export default function Home() {
-  return <></>;
+  const [layout, setLayout] = useState<KeyboardLayout>("QWERTY");
+  const [difficulty, setDifficulty] = useState<Difficulty>("medium");
+  const [customText, setCustomText] = useState("");
+  const [mode, setMode] = useState<"practice" | "custom">("practice");
+  
+  const [testText, setTestText] = useState(() => generate(difficulty));
+  const [testId, setTestId] = useState(0);
+
+  const [lastPressedKey, setLastPressedKey] = useState<string | null>(null);
+
+  const [results, setResults] = useState<TestStats | null>(null);
+  const [showResults, setShowResults] = useState(false);
+
+  const handleRestart = useCallback(() => {
+    setShowResults(false);
+    setResults(null);
+    if (mode === "practice") {
+      setTestText(generate(difficulty));
+    } else {
+      setTestText(generateCustom(customText));
+    }
+    setTestId(prev => prev + 1);
+  }, [mode, difficulty, customText]);
+  
+  const handleTestComplete = (stats: TestStats) => {
+    setResults(stats);
+    setShowResults(true);
+  };
+  
+  // Effect to handle Escape key to restart test
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        handleRestart();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleRestart]);
+
+  return (
+    <TooltipProvider>
+      <div className="min-h-screen bg-background text-foreground flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 font-body">
+        <header className="w-full max-w-5xl mx-auto flex justify-between items-center mb-6">
+          <div className="flex items-center gap-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-primary font-headline">Keystroke Symphony</h1>
+          </div>
+          <a href="https://github.com/firebase/genkit/tree/main/studio/samples/keystroke-symphony" target="_blank" rel="noopener noreferrer">
+            <Button variant="ghost" size="icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+            </Button>
+          </a>
+        </header>
+
+        <main className="w-full max-w-5xl mx-auto flex flex-col gap-8">
+          <Card className="shadow-lg border-primary/20">
+            <CardContent className="p-4 sm:p-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <Tabs value={mode} onValueChange={(v) => setMode(v as "practice" | "custom")} className="md:col-span-3">
+                  <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="practice">Practice</TabsTrigger>
+                    <TabsTrigger value="custom">Custom Text</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="practice" className="mt-4">
+                     <Select value={difficulty} onValueChange={(v) => setDifficulty(v as Difficulty)}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select difficulty" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="easy">Easy</SelectItem>
+                        <SelectItem value="medium">Medium</SelectItem>
+                        <SelectItem value="hard">Hard</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </TabsContent>
+                  <TabsContent value="custom" className="mt-4">
+                    <Textarea
+                      placeholder="Paste your custom text here..."
+                      value={customText}
+                      onChange={(e) => setCustomText(e.target.value)}
+                      className="min-h-[50px]"
+                    />
+                  </TabsContent>
+                </Tabs>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <KeyboardIcon className="h-4 w-4" />
+                  <span>Layout:</span>
+                  <Select value={layout} onValueChange={(v) => setLayout(v as KeyboardLayout)}>
+                    <SelectTrigger className="w-[120px]">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.keys(KEYBOARD_LAYOUTS).map(l => (
+                        <SelectItem key={l} value={l}>{l}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button onClick={handleRestart} variant="outline" size="sm">
+                      <RefreshCw className="mr-2 h-4 w-4" />
+                      Restart Test
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Press <kbd className="bg-muted-foreground/20 px-1.5 py-0.5 rounded">Esc</kbd> to restart</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+
+              <TypingTest
+                key={testId}
+                text={testText}
+                onComplete={handleTestComplete}
+                onKeyPress={setLastPressedKey}
+              />
+            </CardContent>
+          </Card>
+
+          <Keyboard layout={layout} lastPressedKey={lastPressedKey} />
+        </main>
+        
+        {results && (
+           <Results
+            stats={results}
+            isOpen={showResults}
+            onClose={() => setShowResults(false)}
+            onRestart={handleRestart}
+            difficulty={difficulty}
+          />
+        )}
+      </div>
+    </TooltipProvider>
+  );
 }
