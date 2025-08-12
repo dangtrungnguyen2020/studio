@@ -41,6 +41,15 @@ body {
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --key-bg: hsl(var(--muted) / 0.4);
+    --key-text: hsl(var(--foreground));
+    --key-border: hsl(var(--border));
+    --key-accent-bg: hsl(var(--primary));
+    --key-accent-text: hsl(var(--primary-foreground));
+    --key-target-bg: 210 100% 85%;
+    --key-target-ring: 210 100% 65%;
+
   }
   .dark {
     --background: 180 10% 3%;
@@ -75,6 +84,44 @@ body {
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --key-bg: hsl(var(--muted) / 0.4);
+    --key-text: hsl(var(--foreground));
+    --key-border: hsl(var(--border));
+    --key-accent-bg: hsl(var(--primary));
+    --key-accent-text: hsl(var(--primary-foreground));
+    --key-target-bg: 33 100% 64%;
+    --key-target-ring: 33 100% 54%;
+  }
+
+  .theme-retro {
+    --key-bg: 220 13% 91%;
+    --key-text: 220 13% 20%;
+    --key-border: 220 13% 81%;
+    --key-accent-bg: 25 95% 53%;
+    --key-accent-text: 0 0% 100%;
+    --key-target-bg: 181 100% 74%;
+    --key-target-ring: 181 100% 64%;
+  }
+
+  .theme-80s-kid {
+    --key-bg: 260 50% 95%;
+    --key-text: 260 50% 20%;
+    --key-border: 260 50% 85%;
+    --key-accent-bg: 330 100% 50%;
+    --key-accent-text: 0 0% 100%;
+    --key-target-bg: 50 100% 60%;
+    --key-target-ring: 50 100% 50%;
+  }
+
+  .theme-carbon {
+    --key-bg: 220 10% 20%;
+    --key-text: 0 0% 90%;
+    --key-border: 220 10% 10%;
+    --key-accent-bg: 25 95% 53%;
+    --key-accent-text: 0 0% 100%;
+    --key-target-bg: 181 100% 74%;
+    --key-target-ring: 181 100% 64%;
   }
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useCallback, useEffect } from "react";
-import { Keyboard as KeyboardIcon, RefreshCw, Bot, Settings, ChevronDown } from "lucide-react";
+import { Keyboard as KeyboardIcon, RefreshCw, Bot, Settings, ChevronDown, Palette } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -15,7 +15,7 @@ import Results from "@/components/keystroke-symphony/results";
 
 import { generate, generateCustom } from "@/lib/words";
 import { KEYBOARD_LAYOUTS } from "@/lib/keyboards";
-import type { KeyboardLayout, Difficulty } from "@/lib/keyboards";
+import type { KeyboardLayout, Difficulty, KeyboardTheme } from "@/lib/keyboards";
 
 type TestStats = {
   wpm: number;
@@ -23,8 +23,16 @@ type TestStats = {
   errors: Map<string, number>;
 };
 
+const themes: { name: string, value: KeyboardTheme }[] = [
+    { name: 'Default', value: 'default' },
+    { name: 'Retro', value: 'retro' },
+    { name: '80s Kid', value: '80s-kid' },
+    { name: 'Carbon', value: 'carbon' },
+];
+
 export default function Home() {
   const [layout, setLayout] = useState<KeyboardLayout>("QWERTY");
+  const [theme, setTheme] = useState<KeyboardTheme>('default');
   const [difficulty, setDifficulty] = useState<Difficulty>("medium");
   const [customText, setCustomText] = useState("");
   const [mode, setMode] = useState<"practice" | "custom">("practice");
@@ -68,7 +76,7 @@ export default function Home() {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-background text-foreground flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 font-body">
+      <div className={`min-h-screen bg-background text-foreground flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 font-body ${theme !== 'default' ? `theme-${theme}` : ''}`}>
         <header className="w-full max-w-5xl mx-auto flex justify-between items-center mb-6">
           <div className="flex items-center gap-2">
             <h1 className="text-2xl sm:text-3xl font-bold text-primary font-headline">Keystroke Symphony</h1>
@@ -113,19 +121,35 @@ export default function Home() {
               </div>
 
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <KeyboardIcon className="h-4 w-4" />
-                  <span>Layout:</span>
-                  <Select value={layout} onValueChange={(v) => setLayout(v as KeyboardLayout)}>
-                    <SelectTrigger className="w-[120px]">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {Object.keys(KEYBOARD_LAYOUTS).map(l => (
-                        <SelectItem key={l} value={l}>{l}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <KeyboardIcon className="h-4 w-4" />
+                    <span>Layout:</span>
+                    <Select value={layout} onValueChange={(v) => setLayout(v as KeyboardLayout)}>
+                      <SelectTrigger className="w-[120px]">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.keys(KEYBOARD_LAYOUTS).map(l => (
+                          <SelectItem key={l} value={l}>{l}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Palette className="h-4 w-4" />
+                    <span>Theme:</span>
+                     <Select value={theme} onValueChange={(v) => setTheme(v as KeyboardTheme)}>
+                        <SelectTrigger className="w-[120px]">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {themes.map(t => (
+                            <SelectItem key={t.value} value={t.value}>{t.name}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                  </div>
                 </div>
 
                 <Tooltip>
@@ -153,6 +177,7 @@ export default function Home() {
 
           <Keyboard
             layout={layout}
+            theme={theme}
             lastPressedKey={lastPressedKey}
             text={testText}
             currentCharIndex={currentCharIndex}

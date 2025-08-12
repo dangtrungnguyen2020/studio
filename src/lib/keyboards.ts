@@ -1,5 +1,6 @@
 export type KeyboardLayout = "QWERTY" | "DVORAK" | "AZERTY" | "TKL" | "75%" | "Full-size" | "60%" | "Numpad";
 export type Difficulty = "easy" | "medium" | "hard";
+export type KeyboardTheme = 'default' | 'retro' | '80s-kid' | 'carbon';
 
 export const KEYBOARD_LAYOUTS: Record<KeyboardLayout, string[][]> = {
   QWERTY: [
