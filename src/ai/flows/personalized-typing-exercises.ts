@@ -53,8 +53,9 @@ const personalizedExercisesPrompt = ai.definePrompt({
   Typing Patterns: {{{typingPatterns}}}
   Difficulty Level: {{{difficultyLevel}}}
 
-  Instructions: Generate 5 exercises, each between 10 and 20 words long. Include an explanation of why these exercises were chosen to help the user understand the purpose of the exercises.
-  `,config: {
+  Instructions: Generate 5 exercises, each between 10 and 20 words long. Include an explanation of why these exercises were chosen to help the user understand the purpose of the exercises. Respond with only a JSON object matching the output schema.
+  `,
+  config: {
     safetySettings: [
       {
         category: 'HARM_CATEGORY_HATE_SPEECH',
