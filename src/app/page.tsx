@@ -29,7 +29,7 @@ type TestStats = {
 
 export default function Home() {
   const [layout, setLayout] = useState<KeyboardLayout>("QWERTY");
-  const { theme: pageTheme } = useTheme();
+  const { theme: pageTheme, setTheme, resolvedTheme } = useTheme();
   const [keyboardTheme, setKeyboardTheme] = useState<KeyboardTheme>('default');
   const [difficulty, setDifficulty] = useState<Difficulty>("medium");
   const [customText, setCustomText] = useState("");
@@ -97,9 +97,21 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleRestart]);
 
+  useEffect(() => {
+    // Add keyboard theme class to body
+    document.body.classList.forEach(className => {
+      if (className.startsWith('theme-')) {
+        document.body.classList.remove(className);
+      }
+    });
+    if (keyboardTheme !== 'default') {
+      document.body.classList.add(`theme-${keyboardTheme}`);
+    }
+  }, [keyboardTheme]);
+
   return (
     <TooltipProvider>
-      <div className={`min-h-screen bg-background text-foreground flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 font-body ${keyboardTheme !== 'default' ? `theme-${keyboardTheme}` : ''}`}>
+      <div className={`min-h-screen bg-background text-foreground flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 font-body`}>
         <header className="w-full max-w-5xl mx-auto flex justify-between items-center mb-6">
           <div className="flex items-center gap-2">
             <h1 className="text-2xl sm:text-3xl font-bold text-primary font-headline">Keystroke Symphony</h1>

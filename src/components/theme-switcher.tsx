@@ -2,7 +2,8 @@
 
 import * as React from "react"
 import { Moon, Sun, Monitor, Paintbrush } from "lucide-react"
-import { useTheme } from "@/components/theme-provider"
+import { useTheme } from "next-themes"
+import { cn } from "@/lib/utils"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -10,23 +11,39 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuLabel,
   DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu"
 
 const themes = [
-  { name: "Blue", value: "blue" },
-  { name: "Green", value: "green" },
-  { name: "Orange", value: "orange" },
-  { name: "Rose", value: "rose" },
-  { name: "Citron", value: "citron" },
-  { name: "Silver", value: "silver" },
+  { name: "Blue", value: "theme-blue" },
+  { name: "Green", value: "theme-green" },
+  { name: "Orange", value: "theme-orange" },
+  { name: "Rose", value: "theme-rose" },
+  { name: "Citron", value: "theme-citron" },
+  { name: "Silver", value: "theme-silver" },
 ];
 
 export function ThemeSwitcher() {
-  const { colorTheme, setColorTheme, theme, setTheme } = useTheme()
+  const { theme, setTheme, resolvedTheme } = useTheme()
+  const [colorTheme, setColorTheme] = React.useState('theme-silver');
+  
+  React.useEffect(() => {
+    const savedColorTheme = localStorage.getItem('color-theme');
+    if (savedColorTheme) {
+      setColorTheme(savedColorTheme);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    document.body.classList.forEach(className => {
+      if (className.startsWith('theme-')) {
+        document.body.classList.remove(className);
+      }
+    });
+    document.body.classList.add(colorTheme);
+    localStorage.setItem('color-theme', colorTheme);
+  }, [colorTheme]);
 
   return (
     <DropdownMenu>
