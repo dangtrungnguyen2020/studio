@@ -4,7 +4,7 @@ const easyWords = "the of to and a in is it you that he was for on are with as I
 const mediumWords = "people my than first water been call who oil its now find long down day did get come made may part time if about many then them write would like so these her look two more has see could no way been that was for on are".split(" ");
 const hardWords = "government think said point next end world system city case area general high number part place small group different fact night public really company service important form development".split(" ");
 
-const generateWords = (count: number, difficulty: Difficulty): string => {
+export const generateWords = (count: number, difficulty: Difficulty): string => {
   let words;
   switch (difficulty) {
     case 'easy':

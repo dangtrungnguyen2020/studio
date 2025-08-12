@@ -4,9 +4,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { generate } from '@/lib/words';
+import { generateWords } from '@/lib/words';
 import { Card, CardContent } from '../ui/card';
-import Image from 'next/image';
 
 type Word = {
   id: number;
@@ -15,42 +14,58 @@ type Word = {
   x: number;
 };
 
-type GameStatus = 'waiting' | 'playing' | 'won' | 'lost';
+type GameStatus = 'waiting' | 'playing' | 'lost';
 
 const Game = () => {
   const [status, setStatus] = useState<GameStatus>('waiting');
-  const [playerHealth, setPlayerHealth] = useState(100);
-  const [monsterHealth, setMonsterHealth] = useState(100);
+  const [health, setHealth] = useState(100);
   const [words, setWords] = useState<Word[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [score, setScore] = useState(0);
+  const [level, setLevel] = useState(1);
+  const [streak, setStreak] = useState(0);
+  const [multiplier, setMultiplier] = useState(1);
+  
   const inputRef = useRef<HTMLInputElement>(null);
   const gameLoopRef = useRef<NodeJS.Timeout>();
   const wordIdCounter = useRef(0);
 
-  const difficulty = 'medium'; // Or make this selectable
+  const getWord = useCallback(() => {
+      let difficulty: 'easy' | 'medium' | 'hard' = 'easy';
+      if (level > 5) difficulty = 'medium';
+      if (level > 10) difficulty = 'hard';
+      const wordList = generateWords(1, difficulty).split(' ');
+      return wordList[Math.floor(Math.random() * wordList.length)];
+  }, [level]);
+
 
   const resetGame = useCallback(() => {
     setStatus('playing');
-    setPlayerHealth(100);
-    setMonsterHealth(100);
+    setHealth(100);
     setWords([]);
     setInputValue('');
     setScore(0);
+    setLevel(1);
+    setStreak(0);
+    setMultiplier(1);
     wordIdCounter.current = 0;
     inputRef.current?.focus();
   }, []);
   
-  // Start game
+  // Game loop
   useEffect(() => {
     if (status === 'playing') {
       inputRef.current?.focus();
+      
+      const wordFallSpeed = 100 - (level * 2);
+      const wordFrequency = 0.1 + (level * 0.01);
+
       gameLoopRef.current = setInterval(() => {
         // Add new word
-        if (Math.random() < 0.1) { // Adjust for word frequency
+        if (Math.random() < wordFrequency) {
           const newWord: Word = {
             id: wordIdCounter.current++,
-            text: generate(difficulty).split(' ')[0],
+            text: getWord(),
             y: 0,
             x: Math.random() * 80 + 10, // 10% to 90% of width
           };
@@ -59,46 +74,63 @@ const Game = () => {
 
         // Move words
         setWords(prevWords => 
-          prevWords.map(word => ({ ...word, y: word.y + 1 })) // Adjust speed
+          prevWords.map(word => ({ ...word, y: word.y + 0.5 })) // Adjust speed
             .filter(word => {
               if (word.y >= 100) {
                 // Word reached the bottom
-                setPlayerHealth(h => Math.max(0, h - 10));
+                setHealth(h => Math.max(0, h - 10));
+                setStreak(0); // Reset streak
+                setMultiplier(1);
                 return false;
               }
               return true;
             })
         );
-      }, 100);
+      }, Math.max(wordFallSpeed, 20)); // Ensure interval doesn't get too fast
     }
     return () => {
       if (gameLoopRef.current) {
         clearInterval(gameLoopRef.current);
       }
     };
-  }, [status, difficulty]);
+  }, [status, level, getWord]);
 
-  // Check for win/loss
+  // Check for game over
   useEffect(() => {
-    if (playerHealth <= 0) {
+    if (health <= 0) {
       setStatus('lost');
     }
-    if (monsterHealth <= 0) {
-      setStatus('won');
-    }
-  }, [playerHealth, monsterHealth]);
+  }, [health]);
+
+  // Increase level based on score
+  useEffect(() => {
+      const newLevel = Math.floor(score / 100) + 1;
+      if (newLevel > level) {
+          setLevel(newLevel);
+      }
+  }, [score, level]);
+
+  // Update multiplier based on streak
+  useEffect(() => {
+      const newMultiplier = Math.floor(streak / 5) + 1;
+      setMultiplier(newMultiplier);
+  }, [streak]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value.endsWith(' ')) {
       const typedWord = value.trim();
-      const matchedWordIndex = words.findIndex(w => w.text === typedWord);
+      const matchedWordIndex = words.findIndex(w => w.text.toLowerCase() === typedWord.toLowerCase());
       
       if (matchedWordIndex !== -1) {
         setWords(prev => prev.filter((_, index) => index !== matchedWordIndex));
-        setMonsterHealth(h => Math.max(0, h - 5));
-        setScore(s => s + typedWord.length);
+        setScore(s => s + (typedWord.length * multiplier));
+        setStreak(s => s + 1);
         setInputValue('');
+      } else {
+        // Incorrect word, reset streak
+        setStreak(0);
+        setMultiplier(1);
       }
     } else {
       setInputValue(value);
@@ -107,20 +139,20 @@ const Game = () => {
 
   if (status === 'waiting') {
     return (
-      <div className="flex flex-col items-center justify-center h-full text-center">
-        <h2 className="text-2xl font-bold mb-4">Word Wizards vs. Codezilla</h2>
-        <p className="mb-6">Type the words falling from Codezilla to defeat it! Don't let them reach you.</p>
+      <div className="flex flex-col items-center justify-center h-full text-center p-4">
+        <h2 className="text-2xl font-bold mb-4">Falling Words</h2>
+        <p className="mb-6 max-w-md">Type the words before they reach the bottom. Build up a streak to get a score multiplier! The game gets harder as you score more points.</p>
         <Button onClick={resetGame}>Start Game</Button>
       </div>
     );
   }
 
-  if (status === 'won' || status === 'lost') {
+  if (status === 'lost') {
     return (
-      <div className="flex flex-col items-center justify-center h-full text-center">
-        <h2 className="text-3xl font-bold mb-4">{status === 'won' ? 'You Win!' : 'Game Over'}</h2>
+      <div className="flex flex-col items-center justify-center h-full text-center p-4">
+        <h2 className="text-3xl font-bold mb-4">Game Over</h2>
         <p className="text-xl mb-2">Final Score: {score}</p>
-        <p className="mb-6">{status === 'won' ? 'You have defeated Codezilla!' : 'Codezilla has defeated you.'}</p>
+        <p className="mb-6">The words have overwhelmed you.</p>
         <Button onClick={resetGame}>Play Again</Button>
       </div>
     );
@@ -128,47 +160,38 @@ const Game = () => {
 
   return (
     <Card className="w-full h-[500px] flex flex-col p-4" onClick={() => inputRef.current?.focus()}>
-      {/* Health Bars & Score */}
-      <div className="flex justify-between items-center mb-4">
+      {/* Health Bar, Score, etc. */}
+      <div className="flex justify-between items-center mb-4 gap-4">
         <div>
-          <label className="text-sm font-semibold">Wizard</label>
-          <Progress value={playerHealth} className="w-48" />
+          <label className="text-sm font-semibold">Health</label>
+          <Progress value={health} className="w-32 sm:w-48" />
         </div>
-        <div className="text-2xl font-bold text-primary">Score: {score}</div>
-        <div>
-           <label className="text-sm font-semibold text-right block">Codezilla</label>
-           <Progress value={monsterHealth} className="w-48" />
+        <div className="text-center">
+            <div className="text-2xl font-bold text-primary">{score}</div>
+            <div className="text-xs text-muted-foreground">Level {level}</div>
+        </div>
+        <div className="text-right">
+           <label className="text-sm font-semibold">Streak: {streak}</label>
+           <div className="text-lg font-bold text-primary">{multiplier}x</div>
         </div>
       </div>
 
       {/* Game Area */}
-      <div className="relative flex-1 bg-muted/30 rounded-md overflow-hidden">
-        {/* Monster */}
-         <Image 
-          data-ai-hint="monster"
-          src="https://placehold.co/150x150.png"
-          alt="Codezilla" 
-          width={100} height={100}
-          className="absolute top-0 left-1/2 -translate-x-1/2 z-10" 
-        />
-        {/* Words */}
+      <div className="relative flex-1 bg-muted/30 rounded-md overflow-hidden border">
         {words.map(word => (
           <span
             key={word.id}
-            className="absolute font-mono bg-destructive/80 text-destructive-foreground px-2 py-1 rounded"
-            style={{ top: `${word.y}%`, left: `${word.x}%`, transform: 'translateX(-50%)' }}
+            className="absolute font-mono bg-card text-card-foreground px-2 py-1 rounded shadow-md"
+            style={{ 
+              top: `${word.y}%`, 
+              left: `${word.x}%`, 
+              transform: 'translateX(-50%)',
+              transition: 'top 0.1s linear'
+            }}
           >
             {word.text}
           </span>
         ))}
-         {/* Player */}
-        <Image 
-          data-ai-hint="wizard"
-          src="https://placehold.co/100x100.png"
-          alt="Wizard" 
-          width={80} height={80}
-          className="absolute bottom-5 left-1/2 -translate-x-1/2" 
-        />
       </div>
 
       {/* Input */}
@@ -181,6 +204,7 @@ const Game = () => {
           className="w-full p-2 text-center text-lg font-mono rounded-md border bg-background"
           placeholder="Type words here and press space..."
           autoFocus
+          disabled={status !== 'playing'}
         />
       </div>
     </Card>
