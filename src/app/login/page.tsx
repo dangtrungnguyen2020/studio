@@ -1,3 +1,4 @@
+
 // src/app/login/page.tsx
 "use client";
 
@@ -10,9 +11,10 @@ import {
   TwitterAuthProvider
 } from "firebase/auth";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { FaGoogle, FaFacebook, FaLinkedin, FaApple } from 'react-icons/fa';
 import { FaXTwitter } from "react-icons/fa6";
+import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import { useToast } from "@/hooks/use-toast";
@@ -73,6 +75,11 @@ const SignInPage = () => {
           </Button>
           {error && <p className="text-destructive text-center text-sm">{error}</p>}
         </CardContent>
+        <CardFooter className="flex justify-center">
+            <Button variant="link" onClick={() => router.push('/')}>
+              <ArrowLeft className="mr-2 h-4 w-4" /> Go back to typing
+            </Button>
+        </CardFooter>
       </Card>
     </div>
   );
