@@ -32,7 +32,7 @@ export default function Home() {
   const [customText, setCustomText] = useState("");
   const [mode, setMode] = useState<"practice" | "custom">("practice");
   
-  const [testText, setTestText] = useState(() => generate(difficulty));
+  const [testText, setTestText] = useState("");
   const [testId, setTestId] = useState(0);
 
   const [lastPressedKey, setLastPressedKey] = useState<string | null>(null);
@@ -40,6 +40,10 @@ export default function Home() {
 
   const [results, setResults] = useState<TestStats | null>(null);
   const [showResults, setShowResults] = useState(false);
+  
+  useEffect(() => {
+    setTestText(generate(difficulty));
+  }, [difficulty]);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('keystroke-symphony-theme') as KeyboardTheme | null;
