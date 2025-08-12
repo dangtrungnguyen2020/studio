@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 import Keyboard from "@/components/keystroke-symphony/keyboard";
 import TypingTest from "@/components/keystroke-symphony/typing-test";
@@ -96,10 +97,11 @@ export default function Home() {
             <h1 className="text-2xl sm:text-3xl font-bold text-primary font-headline">Keystroke Symphony</h1>
           </div>
           <div className="flex items-center gap-2">
+            <ThemeSwitcher />
             <Link href="/themes">
               <Button variant="ghost">
                 <Palette className="mr-2" />
-                Themes
+                Keyboard Themes
               </Button>
             </Link>
             <a href="https://github.com/firebase/genkit/tree/main/studio/samples/keystroke-symphony" target="_blank" rel="noopener noreferrer">
