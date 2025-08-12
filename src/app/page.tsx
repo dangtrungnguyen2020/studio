@@ -1,3 +1,4 @@
+// src/app/page.tsx
 "use client";
 
 import { useState, useMemo, useCallback, useEffect } from "react";
@@ -18,7 +19,7 @@ import { generate, generateCustom } from "@/lib/words";
 import { KEYBOARD_LAYOUTS } from "@/lib/keyboards";
 import type { KeyboardLayout, Difficulty, KeyboardTheme } from "@/lib/keyboards";
 import Link from "next/link";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/components/theme-provider";
 
 
 type TestStats = {
@@ -29,7 +30,7 @@ type TestStats = {
 
 export default function Home() {
   const [layout, setLayout] = useState<KeyboardLayout>("QWERTY");
-  const { theme: pageTheme, setTheme, resolvedTheme } = useTheme();
+  const { theme, colorTheme, setColorTheme, setTheme } = useTheme();
   const [keyboardTheme, setKeyboardTheme] = useState<KeyboardTheme>('default');
   const [difficulty, setDifficulty] = useState<Difficulty>("medium");
   const [customText, setCustomText] = useState("");
@@ -60,11 +61,23 @@ export default function Home() {
     const savedTheme = localStorage.getItem('keystroke-symphony-theme') as KeyboardTheme | null;
     if (savedTheme) {
       setKeyboardTheme(savedTheme);
+      document.body.classList.add(`theme-${savedTheme}`);
+    }
+    const savedColorTheme = localStorage.getItem('color-theme') as any;
+    if(savedColorTheme) {
+      setColorTheme(savedColorTheme);
     }
   }, []);
   
   const handleKeyboardThemeChange = (theme: KeyboardTheme) => {
+    // remove old theme
+    document.body.classList.forEach(className => {
+      if (className.startsWith('theme-')) {
+        document.body.classList.remove(className);
+      }
+    });
     setKeyboardTheme(theme);
+    document.body.classList.add(`theme-${theme}`);
     localStorage.setItem('keystroke-symphony-theme', theme);
   };
 
@@ -97,26 +110,17 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleRestart]);
 
-  useEffect(() => {
-    // Add keyboard theme class to body
-    document.body.classList.forEach(className => {
-      if (className.startsWith('theme-')) {
-        document.body.classList.remove(className);
-      }
-    });
-    if (keyboardTheme !== 'default') {
-      document.body.classList.add(`theme-${keyboardTheme}`);
-    }
-  }, [keyboardTheme]);
-
   return (
     <TooltipProvider>
-      <div className={`min-h-screen bg-background text-foreground flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 font-body`}>
+      <div className={`min-h-screen bg-background text-foreground flex flex-col items-center justify-center p-4 sm:p-6 md:p-8`}>
         <header className="w-full max-w-5xl mx-auto flex justify-between items-center mb-6">
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl sm:text-3xl font-bold text-primary font-headline">Keystroke Symphony</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-primary">Keystroke Symphony</h1>
           </div>
           <div className="flex items-center gap-2">
+            <Link href="/login">
+              <Button variant="outline">Login</Button>
+            </Link>
             <ThemeSwitcher />
             <a href="https://github.com/firebase/genkit/tree/main/studio/samples/keystroke-symphony" target="_blank" rel="noopener noreferrer">
               <Button variant="ghost" size="icon">
@@ -204,13 +208,44 @@ export default function Home() {
                 </Tooltip>
               </div>
 
-              <TypingTest
-                key={testId}
-                text={testText}
-                onComplete={handleTestComplete}
-                onKeyPress={setLastPressedKey}
-                onCharIndexChange={setCurrentCharIndex}
-              />
+              <div className="relative p-4 rounded-lg bg-muted/30">
+                <div 
+                  className="text-2xl tracking-wider leading-relaxed font-mono select-none"
+                  style={{
+                    height: '7.5rem', // 3 lines * 2.5rem line-height
+                    overflowY: 'hidden',
+                  }}
+                >
+                  <div
+                    className="transition-transform duration-200 ease-in-out"
+                    style={{
+                      transform: `translateY(-${Math.floor(currentCharIndex / 50) * 2.5}rem)`
+                    }}
+                  >
+                    {text.split('').map((char, index) => {
+                      let charState: 'correct' | 'incorrect' | 'current' | 'pending' = 'pending';
+
+                      if (index < currentCharIndex) {
+                        charState = text[index] === char ? 'correct' : 'incorrect';
+                      } else if (index === currentCharIndex) {
+                        charState = 'current';
+                      }
+                      
+                      return (
+                        <span key={index} className={cn('whitespace-pre-wrap', {
+                          'text-primary': charState === 'correct',
+                          'text-destructive': charState === 'incorrect',
+                          'text-muted-foreground': charState === 'pending',
+                          'relative': charState === 'current',
+                        })}>
+                          {charState === 'current' && <span className="absolute bottom-0 left-0 w-full h-0.5 bg-accent animate-pulse" />}
+                          {char}
+                        </span>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
             </CardContent>
           </Card>
 
@@ -218,7 +253,7 @@ export default function Home() {
             layout={layout}
             theme={keyboardTheme}
             lastPressedKey={lastPressedKey}
-            text={testText}
+            text={text}
             currentCharIndex={currentCharIndex}
           />
         </main>
