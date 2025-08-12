@@ -1,14 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { RefreshCw, Bot, Loader2 } from "lucide-react";
-import { getAIPoweredExercises } from "@/app/actions";
+import { getAIPoweredExercises, saveTestResults } from "@/app/actions";
 import { useToast } from "@/hooks/use-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { Difficulty } from "@/lib/keyboards";
 import type { PersonalizedExercisesOutput } from "@/ai/flows/personalized-typing-exercises";
+import { auth } from "@/lib/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 
 interface ResultsProps {
@@ -25,8 +27,27 @@ interface ResultsProps {
 
 const Results = ({ stats, isOpen, onClose, onRestart, difficulty }: ResultsProps) => {
   const { toast } = useToast();
+  const [user] = useAuthState(auth);
   const [isLoadingAI, setIsLoadingAI] = useState(false);
   const [aiExercises, setAiExercises] = useState<PersonalizedExercisesOutput | null>(null);
+
+  useEffect(() => {
+    if (isOpen && user) {
+      const errorsObject: Record<string, number> = {};
+      stats.errors.forEach((value, key) => {
+        errorsObject[key] = value;
+      });
+
+      saveTestResults({
+        userId: user.uid,
+        wpm: stats.wpm,
+        accuracy: stats.accuracy,
+        errors: errorsObject,
+        difficulty: difficulty,
+      });
+    }
+  }, [isOpen, user, stats, difficulty]);
+
 
   const handleGetAIExercises = async () => {
     setIsLoadingAI(true);
