@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { Moon, Sun, Monitor, Paintbrush } from "lucide-react"
-import { useTheme } from "next-themes"
+import { useTheme } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 
 import { Button } from "@/components/ui/button"
@@ -25,25 +25,7 @@ const themes = [
 ];
 
 export function ThemeSwitcher() {
-  const { theme, setTheme, resolvedTheme } = useTheme()
-  const [colorTheme, setColorTheme] = React.useState('theme-silver');
-  
-  React.useEffect(() => {
-    const savedColorTheme = localStorage.getItem('color-theme');
-    if (savedColorTheme) {
-      setColorTheme(savedColorTheme);
-    }
-  }, []);
-
-  React.useEffect(() => {
-    document.body.classList.forEach(className => {
-      if (className.startsWith('theme-')) {
-        document.body.classList.remove(className);
-      }
-    });
-    document.body.classList.add(colorTheme);
-    localStorage.setItem('color-theme', colorTheme);
-  }, [colorTheme]);
+  const { theme, setTheme, colorTheme, setColorTheme } = useTheme();
 
   return (
     <DropdownMenu>
@@ -75,7 +57,7 @@ export function ThemeSwitcher() {
                 key={t.value} 
                 variant={colorTheme === t.value ? 'secondary' : 'ghost'} 
                 size="sm" 
-                onClick={() => setColorTheme(t.value)}
+                onClick={() => setColorTheme(t.value as any)}
               >
               <Paintbrush className="mr-2 h-4 w-4" /> {t.name}
             </Button>
