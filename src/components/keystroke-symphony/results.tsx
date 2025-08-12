@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -11,6 +12,7 @@ import type { Difficulty } from "@/lib/keyboards";
 import type { PersonalizedExercisesOutput } from "@/ai/flows/personalized-typing-exercises";
 import { auth } from "@/lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { Card } from "@/components/ui/card";
 
 
 interface ResultsProps {
@@ -47,6 +49,13 @@ const Results = ({ stats, isOpen, onClose, onRestart, difficulty }: ResultsProps
       });
     }
   }, [isOpen, user, stats, difficulty]);
+
+  useEffect(() => {
+    // Reset AI exercises when the dialog is opened for new results
+    if (isOpen) {
+      setAiExercises(null);
+    }
+  }, [isOpen]);
 
 
   const handleGetAIExercises = async () => {
