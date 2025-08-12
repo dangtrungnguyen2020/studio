@@ -20,6 +20,7 @@ import { KEYBOARD_LAYOUTS } from "@/lib/keyboards";
 import type { KeyboardLayout, Difficulty, KeyboardTheme } from "@/lib/keyboards";
 import Link from "next/link";
 import { useTheme } from "@/components/theme-provider";
+import { cn } from "@/lib/utils";
 
 
 type TestStats = {
@@ -207,45 +208,13 @@ export default function Home() {
                   </TooltipContent>
                 </Tooltip>
               </div>
-
-              <div className="relative p-4 rounded-lg bg-muted/30">
-                <div 
-                  className="text-2xl tracking-wider leading-relaxed font-mono select-none"
-                  style={{
-                    height: '7.5rem', // 3 lines * 2.5rem line-height
-                    overflowY: 'hidden',
-                  }}
-                >
-                  <div
-                    className="transition-transform duration-200 ease-in-out"
-                    style={{
-                      transform: `translateY(-${Math.floor(currentCharIndex / 50) * 2.5}rem)`
-                    }}
-                  >
-                    {text.split('').map((char, index) => {
-                      let charState: 'correct' | 'incorrect' | 'current' | 'pending' = 'pending';
-
-                      if (index < currentCharIndex) {
-                        charState = text[index] === char ? 'correct' : 'incorrect';
-                      } else if (index === currentCharIndex) {
-                        charState = 'current';
-                      }
-                      
-                      return (
-                        <span key={index} className={cn('whitespace-pre-wrap', {
-                          'text-primary': charState === 'correct',
-                          'text-destructive': charState === 'incorrect',
-                          'text-muted-foreground': charState === 'pending',
-                          'relative': charState === 'current',
-                        })}>
-                          {charState === 'current' && <span className="absolute bottom-0 left-0 w-full h-0.5 bg-accent animate-pulse" />}
-                          {char}
-                        </span>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
+              <TypingTest
+                key={testId}
+                text={testText}
+                onComplete={handleTestComplete}
+                onKeyPress={setLastPressedKey}
+                onCharIndexChange={setCurrentCharIndex}
+              />
             </CardContent>
           </Card>
 
@@ -253,7 +222,7 @@ export default function Home() {
             layout={layout}
             theme={keyboardTheme}
             lastPressedKey={lastPressedKey}
-            text={text}
+            text={testText}
             currentCharIndex={currentCharIndex}
           />
         </main>
