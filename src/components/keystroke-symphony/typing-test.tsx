@@ -16,7 +16,6 @@ const TypingTest = ({ text, onComplete, onKeyPress, onCharIndexChange }: TypingT
   const [startTime, setStartTime] = useState<number | null>(null);
   const [wpm, setWpm] = useState(0);
   const [accuracy, setAccuracy] = useState(100);
-  const [errors, setErrors] = useState(0);
   const [errorsMap, setErrorsMap] = useState<Map<string, number>>(new Map());
   const inputRef = useRef<HTMLInputElement>(null);
   const currentIndex = userInput.length;
@@ -26,7 +25,6 @@ const TypingTest = ({ text, onComplete, onKeyPress, onCharIndexChange }: TypingT
     setStartTime(null);
     setWpm(0);
     setAccuracy(100);
-    setErrors(0);
     setErrorsMap(new Map());
     onCharIndexChange(0);
     onKeyPress(null);
@@ -45,12 +43,12 @@ const TypingTest = ({ text, onComplete, onKeyPress, onCharIndexChange }: TypingT
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     onKeyPress(e.key);
     
-    if (e.key === "Escape") {
+    if (e.key === "Escape" || currentIndex >= text.length) {
       e.preventDefault();
       return;
     }
 
-    if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey && currentIndex < text.length) {
+    if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
       e.preventDefault();
       if (!startTime) {
         setStartTime(Date.now());
@@ -58,7 +56,6 @@ const TypingTest = ({ text, onComplete, onKeyPress, onCharIndexChange }: TypingT
       
       const char = e.key;
       if (char !== text[currentIndex]) {
-        setErrors(prev => prev + 1);
         const originalChar = text[currentIndex];
         setErrorsMap(prev => {
           const newMap = new Map(prev);
@@ -67,22 +64,21 @@ const TypingTest = ({ text, onComplete, onKeyPress, onCharIndexChange }: TypingT
         });
       }
 
-      setUserInput(prev => prev + char);
-      onCharIndexChange(currentIndex + 1);
+      const newUserInput = userInput + char;
+      setUserInput(newUserInput);
+      onCharIndexChange(newUserInput.length);
+
     } else if (e.key === 'Backspace') {
       e.preventDefault();
       if (currentIndex > 0) {
-        // We need to check if the character being removed was an error or not.
-        // This is a simplification; a more accurate approach might store error indices.
-        // For now, let's assume accuracy recalculation handles this implicitly.
-        setUserInput(prev => prev.slice(0, -1));
-        onCharIndexChange(currentIndex - 1);
+        const newUserInput = userInput.slice(0, -1);
+        setUserInput(newUserInput);
+        onCharIndexChange(newUserInput.length);
       }
     }
   };
 
   useEffect(() => {
-    onCharIndexChange(userInput.length);
     if (startTime) {
       const elapsedTime = (Date.now() - startTime) / 1000 / 60; // in minutes
       if (elapsedTime > 0) {
@@ -90,24 +86,25 @@ const TypingTest = ({ text, onComplete, onKeyPress, onCharIndexChange }: TypingT
         const calculatedWpm = Math.round(wordsTyped / elapsedTime);
         setWpm(calculatedWpm);
         
-        // Recalculate errors based on current userInput
         let currentErrors = 0;
         for (let i = 0; i < userInput.length; i++) {
           if (userInput[i] !== text[i]) {
             currentErrors++;
           }
         }
-        setErrors(currentErrors);
 
         const calculatedAccuracy = Math.max(0, Math.round(((userInput.length - currentErrors) / userInput.length) * 100));
         setAccuracy(userInput.length > 0 ? calculatedAccuracy : 100);
       }
     }
     
-    if (userInput.length === text.length && text.length > 0) {
-      onComplete({ wpm, accuracy, errors: errorsMap });
+    if (userInput.length === text.length && text.length > 0 && startTime) {
+        const finalWpm = wpm;
+        const finalAccuracy = accuracy;
+      onComplete({ wpm: finalWpm, accuracy: finalAccuracy, errors: errorsMap });
+      setStartTime(null); // Stop the test
     }
-  }, [userInput, text, startTime, onComplete, wpm, accuracy, errorsMap, onCharIndexChange]);
+  }, [userInput, text, startTime, wpm, accuracy, errorsMap, onComplete]);
   
   return (
     <div onClick={() => inputRef.current?.focus()}>
@@ -135,7 +132,7 @@ const TypingTest = ({ text, onComplete, onKeyPress, onCharIndexChange }: TypingT
                   'relative': charState === 'current',
                 })}>
                   {charState === 'current' && <span className="absolute bottom-0 left-0 w-full h-0.5 bg-accent animate-pulse" />}
-                  {char}
+                  {char === ' ' ? '\u00A0' : char}
                 </span>
               );
             })}
@@ -147,7 +144,8 @@ const TypingTest = ({ text, onComplete, onKeyPress, onCharIndexChange }: TypingT
             onKeyDown={handleKeyDown}
             value={userInput}
             onChange={() => {}} // React requires onChange for controlled components
-            onBlur={() => inputRef.current?.focus()}
+            onBlur={() => {if(startTime) inputRef.current?.focus()}}
+            autoFocus
           />
         </CardContent>
       </Card>
