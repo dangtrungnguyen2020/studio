@@ -68,23 +68,11 @@ body {
     --accent: 217.2 91.2% 59.8%;
     --accent-foreground: 210 40% 98%;
   }
-  .dark .theme-blue {
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 210 40% 98%;
-    --accent: 217.2 91.2% 59.8%;
-    --accent-foreground: 210 40% 98%;
-  }
   
   .theme-green {
     --primary: 142.1 76.2% 36.3%;
     --primary-foreground: 144.9 80.4% 97.3%;
     --accent: 142.1 76.2% 36.3%;
-    --accent-foreground: 144.9 80.4% 97.3%;
-  }
-  .dark .theme-green {
-    --primary: 142.1 70.6% 45.3%;
-    --primary-foreground: 144.9 80.4% 97.3%;
-    --accent: 142.1 70.6% 45.3%;
     --accent-foreground: 144.9 80.4% 97.3%;
   }
 
@@ -94,20 +82,8 @@ body {
     --accent: 24.6 95% 53.1%;
     --accent-foreground: 20 14.3% 97.3%;
   }
-  .dark .theme-orange {
-    --primary: 20.5 90.2% 48.2%;
-    --primary-foreground: 20 14.3% 97.3%;
-    --accent: 20.5 90.2% 48.2%;
-    --accent-foreground: 20 14.3% 97.3%;
-  }
 
   .theme-rose {
-    --primary: 346.8 77.2% 49.8%;
-    --primary-foreground: 355.7 100% 97.3%;
-    --accent: 346.8 77.2% 49.8%;
-    --accent-foreground: 355.7 100% 97.3%;
-  }
-  .dark .theme-rose {
     --primary: 346.8 77.2% 49.8%;
     --primary-foreground: 355.7 100% 97.3%;
     --accent: 346.8 77.2% 49.8%;
@@ -120,12 +96,6 @@ body {
     --accent: 38.8 92.3% 50%;
     --accent-foreground: 48 9.1% 97.8%;
   }
-  .dark .theme-citron {
-    --primary: 43.8 91.5% 50.2%;
-    --primary-foreground: 48 9.1% 97.8%;
-    --accent: 43.8 91.5% 50.2%;
-    --accent-foreground: 48 9.1% 97.8%;
-  }
 
   .theme-silver {
     --primary: 220 15% 50%;
@@ -133,7 +103,43 @@ body {
     --accent: 220 20% 65%;
     --accent-foreground: 220 20% 10%;
   }
-  .dark .theme-silver {
+
+  .dark.theme-blue {
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 210 40% 98%;
+    --accent: 217.2 91.2% 59.8%;
+    --accent-foreground: 210 40% 98%;
+  }
+
+  .dark.theme-green {
+    --primary: 142.1 70.6% 45.3%;
+    --primary-foreground: 144.9 80.4% 97.3%;
+    --accent: 142.1 70.6% 45.3%;
+    --accent-foreground: 144.9 80.4% 97.3%;
+  }
+
+  .dark.theme-orange {
+    --primary: 20.5 90.2% 48.2%;
+    --primary-foreground: 20 14.3% 97.3%;
+    --accent: 20.5 90.2% 48.2%;
+    --accent-foreground: 20 14.3% 97.3%;
+  }
+
+  .dark.theme-rose {
+    --primary: 346.8 77.2% 49.8%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --accent: 346.8 77.2% 49.8%;
+    --accent-foreground: 355.7 100% 97.3%;
+  }
+
+  .dark.theme-citron {
+    --primary: 43.8 91.5% 50.2%;
+    --primary-foreground: 48 9.1% 97.8%;
+    --accent: 43.8 91.5% 50.2%;
+    --accent-foreground: 48 9.1% 97.8%;
+  }
+
+  .dark.theme-silver {
     --primary: 220 15% 50%;
     --primary-foreground: 220 15% 98%;
     --accent: 220 20% 65%;
