@@ -66,14 +66,15 @@ const TypingTest = ({ text, onComplete, onKeyPress, onCharIndexChange }: TypingT
           return newMap;
         });
       }
- else {
- onCharIndexChange(currentIndex + 1);
- }
 
       setUserInput(prev => prev + char);
+      onCharIndexChange(currentIndex + 1);
     } else if (e.key === 'Backspace') {
       e.preventDefault();
       if (currentIndex > 0) {
+        // We need to check if the character being removed was an error or not.
+        // This is a simplification; a more accurate approach might store error indices.
+        // For now, let's assume accuracy recalculation handles this implicitly.
         setUserInput(prev => prev.slice(0, -1));
         onCharIndexChange(currentIndex - 1);
       }
@@ -81,22 +82,32 @@ const TypingTest = ({ text, onComplete, onKeyPress, onCharIndexChange }: TypingT
   };
 
   useEffect(() => {
+    onCharIndexChange(userInput.length);
     if (startTime) {
       const elapsedTime = (Date.now() - startTime) / 1000 / 60; // in minutes
       if (elapsedTime > 0) {
         const wordsTyped = userInput.length / 5;
         const calculatedWpm = Math.round(wordsTyped / elapsedTime);
         setWpm(calculatedWpm);
+        
+        // Recalculate errors based on current userInput
+        let currentErrors = 0;
+        for (let i = 0; i < userInput.length; i++) {
+          if (userInput[i] !== text[i]) {
+            currentErrors++;
+          }
+        }
+        setErrors(currentErrors);
 
-        const calculatedAccuracy = Math.max(0, Math.round(((userInput.length - errors) / userInput.length) * 100));
-        setAccuracy(calculatedAccuracy || 100);
+        const calculatedAccuracy = Math.max(0, Math.round(((userInput.length - currentErrors) / userInput.length) * 100));
+        setAccuracy(userInput.length > 0 ? calculatedAccuracy : 100);
       }
     }
     
-    if (userInput.length === text.length) {
+    if (userInput.length === text.length && text.length > 0) {
       onComplete({ wpm, accuracy, errors: errorsMap });
     }
-  }, [userInput, startTime, errors, text.length, onComplete, wpm, accuracy, errorsMap]);
+  }, [userInput, text, startTime, onComplete, wpm, accuracy, errorsMap, onCharIndexChange]);
   
   return (
     <div onClick={() => inputRef.current?.focus()}>
