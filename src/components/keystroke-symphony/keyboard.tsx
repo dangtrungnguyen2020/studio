@@ -37,7 +37,13 @@ const Keyboard = ({ layout, theme, lastPressedKey, text, currentCharIndex }: Key
   
   const getKeyClass = (key: string) => {
     const targetChar = text && text.length > 0 && currentCharIndex < text.length ? text[currentCharIndex] : null;
-    const isTargetKey = key.toLowerCase() === (targetChar && targetChar.toLowerCase()) || (key === 'Space' && targetChar === ' ');
+    let isTargetKey = false;
+    if (targetChar) {
+      isTargetKey = 
+        key.toLowerCase() === targetChar.toLowerCase() ||
+        (key === 'Space' && targetChar === ' ') ||
+        (key === 'Shift' && targetChar.toUpperCase() === targetChar && targetChar.match(/[a-z]/i));
+    }
 
     let widthClass = 'w-12';
 
