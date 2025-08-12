@@ -18,7 +18,7 @@ import { generate, generateCustom } from "@/lib/words";
 import { KEYBOARD_LAYOUTS } from "@/lib/keyboards";
 import type { KeyboardLayout, Difficulty, KeyboardTheme } from "@/lib/keyboards";
 import Link from "next/link";
-import { useTheme } from "@/components/theme-provider";
+import { useTheme } from "next-themes";
 
 
 type TestStats = {

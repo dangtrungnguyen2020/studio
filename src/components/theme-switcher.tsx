@@ -10,10 +10,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuSub,
-  DropdownMenuSubTrigger,
-  DropdownMenuSubContent,
-  DropdownMenuPortal,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuLabel,
@@ -30,7 +26,7 @@ const themes = [
 ];
 
 export function ThemeSwitcher() {
-  const { theme, setTheme, mode, setMode } = useTheme()
+  const { colorTheme, setColorTheme, theme, setTheme } = useTheme()
 
   return (
     <DropdownMenu>
@@ -41,28 +37,33 @@ export function ThemeSwitcher() {
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" className="w-64">
         <DropdownMenuLabel>Appearance</DropdownMenuLabel>
-        <DropdownMenuRadioGroup value={mode} onValueChange={setMode}>
-          <DropdownMenuRadioItem value="light">
-            <Sun className="mr-2" /> Light
-          </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="dark">
-            <Moon className="mr-2" /> Dark
-          </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="system">
-            <Monitor className="mr-2" /> System
-          </DropdownMenuRadioItem>
-        </DropdownMenuRadioGroup>
+        <div className="grid grid-cols-3 gap-2 px-2 py-1">
+          <Button variant={theme === 'light' ? 'secondary' : 'ghost'} size="sm" onClick={() => setTheme('light')}>
+            <Sun className="mr-2 h-4 w-4" /> Light
+          </Button>
+          <Button variant={theme === 'dark' ? 'secondary' : 'ghost'} size="sm" onClick={() => setTheme('dark')}>
+            <Moon className="mr-2 h-4 w-4" /> Dark
+          </Button>
+          <Button variant={theme === 'system' ? 'secondary' : 'ghost'} size="sm" onClick={() => setTheme('system')}>
+            <Monitor className="mr-2 h-4 w-4" /> System
+          </Button>
+        </div>
         <DropdownMenuSeparator />
         <DropdownMenuLabel>Color</DropdownMenuLabel>
-         <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
+        <div className="grid grid-cols-3 gap-2 px-2 py-1">
           {themes.map((t) => (
-            <DropdownMenuRadioItem key={t.value} value={t.value}>
-              <Paintbrush className="mr-2" /> {t.name}
-            </DropdownMenuRadioItem>
+             <Button 
+                key={t.value} 
+                variant={colorTheme === t.value ? 'secondary' : 'ghost'} 
+                size="sm" 
+                onClick={() => setColorTheme(t.value)}
+              >
+              <Paintbrush className="mr-2 h-4 w-4" /> {t.name}
+            </Button>
           ))}
-        </DropdownMenuRadioGroup>
+        </div>
       </DropdownMenuContent>
     </DropdownMenu>
   )
