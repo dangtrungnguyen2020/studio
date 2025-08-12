@@ -1,20 +1,20 @@
 "use client"
 
-import { useTheme as useNextTheme } from "next-themes"
+import { ThemeProvider as NextThemesProvider, useTheme as useNextTheme } from "next-themes"
 import * as React from "react"
 
-const THEME_KEY = "color-theme"
+const COLOR_THEME_KEY = "color-theme"
 
-type Theme = "theme-blue" | "theme-green" | "theme-orange" | "theme-rose" | "theme-citron" | "theme-silver"
+type ColorTheme = "theme-blue" | "theme-green" | "theme-orange" | "theme-rose" | "theme-citron" | "theme-silver"
 
-type ThemeProviderState = {
-  theme: string
+type CustomThemeProviderState = {
+  colorTheme: ColorTheme
+  setColorTheme: (theme: ColorTheme) => void
+  theme?: string
   setTheme: (theme: string) => void
-  colorTheme: Theme
-  setColorTheme: (theme: Theme) => void
 }
 
-const ThemeProviderContext = React.createContext<ThemeProviderState | undefined>(undefined)
+const CustomThemeContext = React.createContext<CustomThemeProviderState | undefined>(undefined)
 
 export function ThemeProvider({
   children,
@@ -22,36 +22,56 @@ export function ThemeProvider({
 }: {
   children: React.ReactNode
 }) {
-  const { theme, setTheme } = useNextTheme()
-  const [colorTheme, setColorTheme] = React.useState<Theme>(() => {
-    if (typeof window === "undefined") return "theme-silver"
-    return (localStorage.getItem(THEME_KEY) as Theme) || "theme-silver"
+  const [colorTheme, setColorTheme] = React.useState<ColorTheme>(() => {
+    if (typeof window === "undefined") return "theme-blue"
+    return (localStorage.getItem(COLOR_THEME_KEY) as ColorTheme) || "theme-blue"
   })
-
+  
   React.useEffect(() => {
-    localStorage.setItem(THEME_KEY, colorTheme)
-    document.body.className = ""
-    document.body.classList.add(colorTheme)
-    if(theme) document.documentElement.classList.toggle("dark", theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches))
-
-  }, [colorTheme, theme])
-
-  const value = {
-    theme: theme || "system",
-    setTheme,
-    colorTheme,
-    setColorTheme,
-  }
+    localStorage.setItem(COLOR_THEME_KEY, colorTheme)
+    const body = document.body
+    body.classList.forEach(c => {
+      if (c.startsWith('theme-')) {
+        body.classList.remove(c)
+      }
+    });
+    body.classList.add(colorTheme)
+  }, [colorTheme])
 
   return (
-    <ThemeProviderContext.Provider value={value} {...props}>
-      {children}
-    </ThemeProviderContext.Provider>
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <InnerThemeProvider setColorThemeOuter={setColorTheme} colorThemeOuter={colorTheme}>
+        {children}
+      </InnerThemeProvider>
+    </NextThemesProvider>
   )
 }
 
+function InnerThemeProvider({ children, setColorThemeOuter, colorThemeOuter}: { children: React.ReactNode, setColorThemeOuter: (theme: ColorTheme) => void, colorThemeOuter: ColorTheme }) {
+  const { theme, setTheme } = useNextTheme()
+  
+  const value = {
+    theme: theme,
+    setTheme,
+    colorTheme: colorThemeOuter,
+    setColorTheme: setColorThemeOuter,
+  }
+
+  return (
+    <CustomThemeContext.Provider value={value}>
+      {children}
+    </CustomThemeContext.Provider>
+  )
+}
+
+
 export const useTheme = () => {
-  const context = React.useContext(ThemeProviderContext)
+  const context = React.useContext(CustomThemeContext)
 
   if (context === undefined)
     throw new Error("useTheme must be used within a ThemeProvider")

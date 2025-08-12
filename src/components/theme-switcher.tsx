@@ -3,7 +3,6 @@
 import * as React from "react"
 import { Moon, Sun, Monitor, Paintbrush } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
-import { cn } from "@/lib/utils"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -36,9 +35,9 @@ export function ThemeSwitcher() {
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-64">
+      <DropdownMenuContent align="end">
         <DropdownMenuLabel>Appearance</DropdownMenuLabel>
-        <div className="grid grid-cols-3 gap-2 px-2 py-1">
+        <div className="flex items-center gap-2 px-2 py-1">
           <Button variant={theme === 'light' ? 'secondary' : 'ghost'} size="sm" onClick={() => setTheme('light')}>
             <Sun className="mr-2 h-4 w-4" /> Light
           </Button>
@@ -58,8 +57,10 @@ export function ThemeSwitcher() {
                 variant={colorTheme === t.value ? 'secondary' : 'ghost'} 
                 size="sm" 
                 onClick={() => setColorTheme(t.value as any)}
+                className="justify-start"
               >
-              <Paintbrush className="mr-2 h-4 w-4" /> {t.name}
+              <div className="w-4 h-4 rounded-full mr-2" style={{ backgroundColor: `hsl(var(--${t.value.replace('theme-','')}-primary))`}}></div>
+              {t.name}
             </Button>
           ))}
         </div>
