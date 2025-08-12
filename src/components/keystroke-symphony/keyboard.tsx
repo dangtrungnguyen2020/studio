@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { KEYBOARD_LAYOUTS } from '@/lib/keyboards';
 import type { KeyboardLayout } from '@/lib/keyboards';
+import { ArrowLeft, ArrowRight, ArrowUp, ArrowDown, Command } from 'lucide-react';
 
 interface KeyboardProps {
   layout: KeyboardLayout;
@@ -15,6 +16,15 @@ interface KeyboardProps {
 const Keyboard = ({ layout, lastPressedKey, text, currentCharIndex }: KeyboardProps) => {
   const keyboardLayout = KEYBOARD_LAYOUTS[layout];
   const [pressedKey, setPressedKey] = useState<string | null>(null);
+  
+  const keyIcons: {[key: string]: React.ReactNode} = {
+    'ArrowLeft': <ArrowLeft size={16}/>,
+    'ArrowRight': <ArrowRight size={16}/>,
+    'ArrowUp': <ArrowUp size={16}/>,
+    'ArrowDown': <ArrowDown size={16}/>,
+    'Alt': <Command size={16}/>,
+  }
+
   useEffect(() => {
     if (lastPressedKey) {
       const key = lastPressedKey.toLowerCase();
@@ -30,16 +40,18 @@ const Keyboard = ({ layout, lastPressedKey, text, currentCharIndex }: KeyboardPr
 
     let widthClass = 'w-12';
 
-    if (key.length > 1) {
-      if (key === 'Backspace' || key === 'Enter' || key === 'CapsLock') {
+    if (key.length > 1 && key !== 'Space') {
+      if (['Backspace', 'Enter', 'CapsLock', 'Shift'].includes(key)) {
         widthClass = 'flex-grow';
-      } else if (key === 'Shift') {
-        widthClass = 'w-28';
       } else if (key === 'Tab') {
         widthClass = 'w-20';
-      } else if (key === 'Space') {
-        widthClass = 'w-1/2';
+      } else if (['Ctrl', 'Alt', 'Fn'].includes(key)) {
+        widthClass = 'w-16';
+      } else if (key.startsWith('Arrow')) {
+        widthClass = 'w-12';
       }
+    } else if (key === 'Space') {
+      widthClass = 'flex-grow';
     }
     
     const isPressed = pressedKey === key.toLowerCase() || (pressedKey === ' ' && key === 'Space');
@@ -62,7 +74,7 @@ const Keyboard = ({ layout, lastPressedKey, text, currentCharIndex }: KeyboardPr
           {row.map((key, keyIndex) => (
             key === ' ' ? <div key={keyIndex} className="w-12"></div> :
             <div key={keyIndex} className={getKeyClass(key)}>
-              {key}
+              {keyIcons[key] || key}
             </div>
           ))}
         </div>
