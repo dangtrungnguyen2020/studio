@@ -94,6 +94,94 @@ body {
     --key-target-ring: 33 100% 54%;
   }
 
+  .theme-dark-blue-sky {
+    --background: 210 40% 10%;
+    --foreground: 210 40% 95%;
+    --card: 210 40% 15%;
+    --card-foreground: 210 40% 95%;
+    --popover: 210 40% 10%;
+    --popover-foreground: 210 40% 95%;
+    --primary: 210 100% 60%;
+    --primary-foreground: 210 40% 10%;
+    --secondary: 210 40% 20%;
+    --secondary-foreground: 210 40% 95%;
+    --muted: 210 40% 20%;
+    --muted-foreground: 210 40% 60%;
+    --accent: 200 100% 50%;
+    --accent-foreground: 200 40% 10%;
+    --destructive: 0 80% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 40% 25%;
+    --input: 210 40% 25%;
+    --ring: 210 100% 60%;
+  }
+
+  .theme-green-nature {
+    --background: 120 25% 98%;
+    --foreground: 120 25% 10%;
+    --card: 120 25% 100%;
+    --card-foreground: 120 25% 10%;
+    --popover: 120 25% 98%;
+    --popover-foreground: 120 25% 10%;
+    --primary: 130 60% 40%;
+    --primary-foreground: 130 60% 98%;
+    --secondary: 130 20% 94%;
+    --secondary-foreground: 130 20% 10%;
+    --muted: 130 20% 94%;
+    --muted-foreground: 130 20% 40%;
+    --accent: 140 70% 60%;
+    --accent-foreground: 140 70% 10%;
+    --destructive: 0 80% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 130 20% 90%;
+    --input: 130 20% 90%;
+    --ring: 130 60% 40%;
+  }
+
+  .theme-pink-cute {
+    --background: 340 100% 98%;
+    --foreground: 340 60% 30%;
+    --card: 340 100% 100%;
+    --card-foreground: 340 60% 30%;
+    --popover: 340 100% 98%;
+    --popover-foreground: 340 60% 30%;
+    --primary: 330 90% 65%;
+    --primary-foreground: 330 90% 10%;
+    --secondary: 340 80% 95%;
+    --secondary-foreground: 340 60% 30%;
+    --muted: 340 80% 95%;
+    --muted-foreground: 340 50% 60%;
+    --accent: 320 100% 70%;
+    --accent-foreground: 320 100% 10%;
+    --destructive: 0 80% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 340 80% 90%;
+    --input: 340 80% 90%;
+    --ring: 330 90% 65%;
+  }
+
+  .theme-silver-metal {
+    --background: 220 10% 95%;
+    --foreground: 220 10% 20%;
+    --card: 220 10% 100%;
+    --card-foreground: 220 10% 20%;
+    --popover: 220 10% 95%;
+    --popover-foreground: 220 10% 20%;
+    --primary: 220 15% 50%;
+    --primary-foreground: 220 15% 98%;
+    --secondary: 220 12% 90%;
+    --secondary-foreground: 220 10% 20%;
+    --muted: 220 12% 90%;
+    --muted-foreground: 220 10% 45%;
+    --accent: 220 20% 65%;
+    --accent-foreground: 220 20% 10%;
+    --destructive: 0 80% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 10% 85%;
+    --input: 220 10% 85%;
+    --ring: 220 15% 50%;
+  }
+
   .theme-retro {
     --key-bg: 220 13% 91%;
     --key-text: 220 13% 20%;

@@ -31,6 +31,18 @@ export function ThemeSwitcher() {
         <DropdownMenuItem onClick={() => setTheme("dark")}>
           Dark
         </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("theme-dark-blue-sky")}>
+          Dark Blue Sky
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("theme-green-nature")}>
+          Green Nature
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("theme-pink-cute")}>
+          Pink Cute
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("theme-silver-metal")}>
+          Silver Metal
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")}>
           System
         </DropdownMenuItem>
