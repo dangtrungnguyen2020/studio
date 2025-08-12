@@ -45,6 +45,7 @@ export default function Home() {
 
   const [results, setResults] = useState<TestStats | null>(null);
   const [showResults, setShowResults] = useState(false);
+  const [showKeyboard, setShowKeyboard] = useState(true);
   
   const [isClient, setIsClient] = useState(false)
 
@@ -196,17 +197,30 @@ export default function Home() {
                   </div>
                 </div>
 
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button onClick={handleRestart} variant="outline" size="sm">
-                      <RefreshCw className="mr-2 h-4 w-4" />
-                      Restart Test
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Press <kbd className="bg-muted-foreground/20 px-1.5 py-0.5 rounded">Esc</kbd> to restart</p>
-                  </TooltipContent>
-                </Tooltip>
+                <div className="flex items-center gap-2">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button onClick={() => setShowKeyboard(!showKeyboard)} variant="outline" size="icon">
+                        <KeyboardIcon className={cn("h-4 w-4", !showKeyboard && "text-muted-foreground/50")} />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Show/Hide Keyboard</p>
+                    </TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button onClick={handleRestart} variant="outline" size="sm">
+                        <RefreshCw className="mr-2 h-4 w-4" />
+                        Restart Test
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Press <kbd className="bg-muted-foreground/20 px-1.5 py-0.5 rounded">Esc</kbd> to restart</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
               </div>
               <TypingTest
                 key={testId}
@@ -218,13 +232,15 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <Keyboard
-            layout={layout}
-            theme={keyboardTheme}
-            lastPressedKey={lastPressedKey}
-            text={testText}
-            currentCharIndex={currentCharIndex}
-          />
+          {showKeyboard && (
+            <Keyboard
+              layout={layout}
+              theme={keyboardTheme}
+              lastPressedKey={lastPressedKey}
+              text={testText}
+              currentCharIndex={currentCharIndex}
+            />
+          )}
         </main>
         
         {results && (
