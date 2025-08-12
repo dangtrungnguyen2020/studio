@@ -33,6 +33,7 @@ export default function Home() {
   const [testId, setTestId] = useState(0);
 
   const [lastPressedKey, setLastPressedKey] = useState<string | null>(null);
+  const [currentCharIndex, setCurrentCharIndex] = useState(0);
 
   const [results, setResults] = useState<TestStats | null>(null);
   const [showResults, setShowResults] = useState(false);
@@ -40,6 +41,7 @@ export default function Home() {
   const handleRestart = useCallback(() => {
     setShowResults(false);
     setResults(null);
+    setCurrentCharIndex(0);
     if (mode === "practice") {
       setTestText(generate(difficulty));
     } else {
@@ -144,11 +146,17 @@ export default function Home() {
                 text={testText}
                 onComplete={handleTestComplete}
                 onKeyPress={setLastPressedKey}
+                onCharIndexChange={setCurrentCharIndex}
               />
             </CardContent>
           </Card>
 
-          <Keyboard layout={layout} lastPressedKey={lastPressedKey} />
+          <Keyboard
+            layout={layout}
+            lastPressedKey={lastPressedKey}
+            text={testText}
+            currentCharIndex={currentCharIndex}
+          />
         </main>
         
         {results && (

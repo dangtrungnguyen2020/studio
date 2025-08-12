@@ -8,9 +8,10 @@ interface TypingTestProps {
   text: string;
   onComplete: (stats: { wpm: number; accuracy: number; errors: Map<string, number> }) => void;
   onKeyPress: (key: string | null) => void;
+  onCharIndexChange: (index: number) => void;
 }
 
-const TypingTest = ({ text, onComplete, onKeyPress }: TypingTestProps) => {
+const TypingTest = ({ text, onComplete, onKeyPress, onCharIndexChange }: TypingTestProps) => {
   const [userInput, setUserInput] = useState('');
   const [startTime, setStartTime] = useState<number | null>(null);
   const [wpm, setWpm] = useState(0);
@@ -27,8 +28,9 @@ const TypingTest = ({ text, onComplete, onKeyPress }: TypingTestProps) => {
     setAccuracy(100);
     setErrors(0);
     setErrorsMap(new Map());
+    onCharIndexChange(0);
     onKeyPress(null);
-  }, [onKeyPress]);
+  }, [onKeyPress, onCharIndexChange]);
 
   useEffect(() => {
     reset();
@@ -64,12 +66,16 @@ const TypingTest = ({ text, onComplete, onKeyPress }: TypingTestProps) => {
           return newMap;
         });
       }
+ else {
+ onCharIndexChange(currentIndex + 1);
+ }
 
       setUserInput(prev => prev + char);
     } else if (e.key === 'Backspace') {
       e.preventDefault();
       if (currentIndex > 0) {
         setUserInput(prev => prev.slice(0, -1));
+        onCharIndexChange(currentIndex - 1);
       }
     }
   };

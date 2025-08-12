@@ -8,6 +8,7 @@
 - AI-Powered Training: An AI tool analyzes user's typing patterns and provides personalized exercises to improve weak areas.
 - Difficulty Levels: Offer typing tests of varying difficulty levels.
 - Accuracy Feedback: Provide real-time visual feedback on typing accuracy.
+- Finger-to-Key Mapping Visualization: During typing tests, visually highlight the key to be pressed and indicate the recommended finger based on standard typing technique.
 - Custom Text Input: Allow users to import custom text for practice.
 
 ## Style Guidelines:

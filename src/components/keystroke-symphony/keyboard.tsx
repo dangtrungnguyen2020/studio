@@ -8,12 +8,13 @@ import type { KeyboardLayout } from '@/lib/keyboards';
 interface KeyboardProps {
   layout: KeyboardLayout;
   lastPressedKey: string | null;
+  text: string;
+  currentCharIndex: number;
 }
 
-const Keyboard = ({ layout, lastPressedKey }: KeyboardProps) => {
+const Keyboard = ({ layout, lastPressedKey, text, currentCharIndex }: KeyboardProps) => {
   const keyboardLayout = KEYBOARD_LAYOUTS[layout];
   const [pressedKey, setPressedKey] = useState<string | null>(null);
-
   useEffect(() => {
     if (lastPressedKey) {
       const key = lastPressedKey.toLowerCase();
@@ -24,7 +25,11 @@ const Keyboard = ({ layout, lastPressedKey }: KeyboardProps) => {
   }, [lastPressedKey]);
   
   const getKeyClass = (key: string) => {
+    const targetChar = text && currentCharIndex < text.length ? text[currentCharIndex] : null;
+    const isTargetKey = key.toLowerCase() === (targetChar && targetChar.toLowerCase()) || (key === 'Space' && targetChar === ' ');
+
     let widthClass = 'w-12';
+
     if (key.length > 1) {
       if (key === 'Backspace' || key === 'Enter' || key === 'CapsLock') {
         widthClass = 'flex-grow';
@@ -38,6 +43,7 @@ const Keyboard = ({ layout, lastPressedKey }: KeyboardProps) => {
     }
     
     const isPressed = pressedKey === key.toLowerCase() || (pressedKey === ' ' && key === 'Space');
+
     
     return cn(
       'h-12 rounded-md flex items-center justify-center p-2 text-sm font-medium transition-all duration-100 ease-in-out',
@@ -45,6 +51,7 @@ const Keyboard = ({ layout, lastPressedKey }: KeyboardProps) => {
       'hover:bg-muted',
       isPressed ? 'bg-primary text-primary-foreground scale-95' : 'bg-muted/40',
       widthClass,
+      isTargetKey && 'bg-yellow-300 ring-2 ring-yellow-500' // Highlight the target key
     );
   };
   
