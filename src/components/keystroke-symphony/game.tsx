@@ -4,8 +4,11 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { generateWords } from '@/lib/words';
+import { generate } from '@/lib/words';
 import { Card, CardContent } from '../ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import type { Difficulty } from "@/lib/keyboards";
+
 
 type Word = {
   id: number;
@@ -25,21 +28,25 @@ const Game = () => {
   const [level, setLevel] = useState(1);
   const [streak, setStreak] = useState(0);
   const [multiplier, setMultiplier] = useState(1);
+  const [difficulty, setDifficulty] = useState<Difficulty>("easy");
   
   const inputRef = useRef<HTMLInputElement>(null);
   const gameLoopRef = useRef<NodeJS.Timeout>();
   const wordIdCounter = useRef(0);
 
   const getWord = useCallback(() => {
-      let difficulty: 'easy' | 'medium' | 'hard' = 'easy';
-      if (level > 5) difficulty = 'medium';
-      if (level > 10) difficulty = 'hard';
-      const wordList = generateWords(1, difficulty).split(' ');
+      let currentDifficulty: Difficulty = difficulty;
+      if (level > 5 && difficulty === 'easy') currentDifficulty = 'medium';
+      if (level > 5 && difficulty === 'very-easy') currentDifficulty = 'easy';
+      if (level > 10 && difficulty === 'medium') currentDifficulty = 'hard';
+      if (level > 15 && difficulty === 'hard') currentDifficulty = 'expert';
+      
+      const wordList = generate(currentDifficulty).split(' ');
       return wordList[Math.floor(Math.random() * wordList.length)];
-  }, [level]);
+  }, [level, difficulty]);
 
 
-  const resetGame = useCallback(() => {
+  const startGame = useCallback(() => {
     setStatus('playing');
     setHealth(100);
     setWords([]);
@@ -57,7 +64,16 @@ const Game = () => {
     if (status === 'playing') {
       inputRef.current?.focus();
       
-      const wordFallSpeed = 100 - (level * 2);
+      const baseSpeed = {
+        'very-easy': 120,
+        'easy': 100,
+        'medium': 90,
+        'hard': 80,
+        'expert': 70,
+        'custom': 100,
+      }
+      
+      const wordFallSpeed = baseSpeed[difficulty] - (level * 2);
       const wordFrequency = 0.1 + (level * 0.01);
 
       gameLoopRef.current = setInterval(() => {
@@ -93,7 +109,7 @@ const Game = () => {
         clearInterval(gameLoopRef.current);
       }
     };
-  }, [status, level, getWord]);
+  }, [status, level, getWord, difficulty]);
 
   // Check for game over
   useEffect(() => {
@@ -142,7 +158,21 @@ const Game = () => {
       <div className="flex flex-col items-center justify-center h-full text-center p-4">
         <h2 className="text-2xl font-bold mb-4">Falling Words</h2>
         <p className="mb-6 max-w-md">Type the words before they reach the bottom. Build up a streak to get a score multiplier! The game gets harder as you score more points.</p>
-        <Button onClick={resetGame}>Start Game</Button>
+        <div className="flex flex-col gap-4 w-full max-w-xs">
+          <Select value={difficulty} onValueChange={(value) => setDifficulty(value as Difficulty)}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select difficulty" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="very-easy">Very Easy</SelectItem>
+              <SelectItem value="easy">Easy</SelectItem>
+              <SelectItem value="medium">Medium</SelectItem>
+              <SelectItem value="hard">Hard</SelectItem>
+              <SelectItem value="expert">Expert</SelectItem>
+            </SelectContent>
+          </Select>
+          <Button onClick={startGame}>Start Game</Button>
+        </div>
       </div>
     );
   }
@@ -153,7 +183,7 @@ const Game = () => {
         <h2 className="text-3xl font-bold mb-4">Game Over</h2>
         <p className="text-xl mb-2">Final Score: {score}</p>
         <p className="mb-6">The words have overwhelmed you.</p>
-        <Button onClick={resetGame}>Play Again</Button>
+        <Button onClick={() => setStatus('waiting')}>Play Again</Button>
       </div>
     );
   }
