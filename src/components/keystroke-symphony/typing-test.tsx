@@ -4,6 +4,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
+import { useTranslations } from 'next-intl';
 
 interface TypingTestProps {
   text: string;
@@ -13,6 +14,7 @@ interface TypingTestProps {
 }
 
 const TypingTest = ({ text, onComplete, onKeyPress, onCharIndexChange }: TypingTestProps) => {
+  const t = useTranslations('TypingTest');
   const [userInput, setUserInput] = useState('');
   const [startTime, setStartTime] = useState<number | null>(null);
   const [errors, setErrors] = useState(0);
@@ -113,8 +115,8 @@ const TypingTest = ({ text, onComplete, onKeyPress, onCharIndexChange }: TypingT
   return (
     <div onClick={() => inputRef.current?.focus()}>
       <div className="flex justify-between items-center mb-4 px-2">
-        <div className="text-2xl font-mono text-primary">{wpm} WPM</div>
-        <div className="text-2xl font-mono text-primary">{accuracy}% ACC</div>
+        <div className="text-2xl font-mono text-primary">{wpm} {t('wpm')}</div>
+        <div className="text-2xl font-mono text-primary">{accuracy}% {t('acc')}</div>
       </div>
        <Card className="relative bg-muted/30">
         <CardContent className="p-4 sm:p-6">

@@ -40,9 +40,9 @@ export const generate = (difficulty: Difficulty): string => {
   }
 };
 
-export const generateCustom = (text: string) => {
+export const generateCustom = (text: string, t: any) => {
     if (!text || text.trim().length === 0) {
-        return "Please enter some custom text to begin the test.";
+        return t('Words.customTextPlaceholder');
     }
     return text.trim().replace(/\s+/g, ' ');
 }

@@ -8,7 +8,7 @@ import { generate } from '@/lib/words';
 import { Card, CardContent } from '../ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import type { Difficulty } from "@/lib/keyboards";
-
+import { useTranslations } from 'next-intl';
 
 type Word = {
   id: number;
@@ -20,6 +20,7 @@ type Word = {
 type GameStatus = 'waiting' | 'playing' | 'lost';
 
 const Game = () => {
+  const t = useTranslations('Game');
   const [status, setStatus] = useState<GameStatus>('waiting');
   const [health, setHealth] = useState(100);
   const [words, setWords] = useState<Word[]>([]);
@@ -156,22 +157,22 @@ const Game = () => {
   if (status === 'waiting') {
     return (
       <div className="flex flex-col items-center justify-center h-full text-center p-4">
-        <h2 className="text-2xl font-bold mb-4">Falling Words</h2>
-        <p className="mb-6 max-w-md">Type the words before they reach the bottom. Build up a streak to get a score multiplier! The game gets harder as you score more points.</p>
+        <h2 className="text-2xl font-bold mb-4">{t('title')}</h2>
+        <p className="mb-6 max-w-md">{t('description')}</p>
         <div className="flex flex-col gap-4 w-full max-w-xs">
           <Select value={difficulty} onValueChange={(value) => setDifficulty(value as Difficulty)}>
             <SelectTrigger>
-              <SelectValue placeholder="Select difficulty" />
+              <SelectValue placeholder={t('selectDifficulty')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="very-easy">Very Easy</SelectItem>
-              <SelectItem value="easy">Easy</SelectItem>
-              <SelectItem value="medium">Medium</SelectItem>
-              <SelectItem value="hard">Hard</SelectItem>
-              <SelectItem value="expert">Expert</SelectItem>
+              <SelectItem value="very-easy">{t('veryEasy')}</SelectItem>
+              <SelectItem value="easy">{t('easy')}</SelectItem>
+              <SelectItem value="medium">{t('medium')}</SelectItem>
+              <SelectItem value="hard">{t('hard')}</SelectItem>
+              <SelectItem value="expert">{t('expert')}</SelectItem>
             </SelectContent>
           </Select>
-          <Button onClick={startGame}>Start Game</Button>
+          <Button onClick={startGame}>{t('startGame')}</Button>
         </div>
       </div>
     );
@@ -180,10 +181,10 @@ const Game = () => {
   if (status === 'lost') {
     return (
       <div className="flex flex-col items-center justify-center h-full text-center p-4">
-        <h2 className="text-3xl font-bold mb-4">Game Over</h2>
-        <p className="text-xl mb-2">Final Score: {score}</p>
-        <p className="mb-6">The words have overwhelmed you.</p>
-        <Button onClick={() => setStatus('waiting')}>Play Again</Button>
+        <h2 className="text-3xl font-bold mb-4">{t('gameOver')}</h2>
+        <p className="text-xl mb-2">{t('finalScore', {score})}</p>
+        <p className="mb-6">{t('gameOverDesc')}</p>
+        <Button onClick={() => setStatus('waiting')}>{t('playAgain')}</Button>
       </div>
     );
   }
@@ -193,15 +194,15 @@ const Game = () => {
       {/* Health Bar, Score, etc. */}
       <div className="flex justify-between items-center mb-4 gap-4">
         <div>
-          <label className="text-sm font-semibold">Health</label>
+          <label className="text-sm font-semibold">{t('health')}</label>
           <Progress value={health} className="w-32 sm:w-48" />
         </div>
         <div className="text-center">
             <div className="text-2xl font-bold text-primary">{score}</div>
-            <div className="text-xs text-muted-foreground">Level {level}</div>
+            <div className="text-xs text-muted-foreground">{t('level', {level})}</div>
         </div>
         <div className="text-right">
-           <label className="text-sm font-semibold">Streak: {streak}</label>
+           <label className="text-sm font-semibold">{t('streak', {streak})}</label>
            <div className="text-lg font-bold text-primary">{multiplier}x</div>
         </div>
       </div>
@@ -232,7 +233,7 @@ const Game = () => {
           value={inputValue}
           onChange={handleInputChange}
           className="w-full p-2 text-center text-lg font-mono rounded-md border bg-background"
-          placeholder="Type words here and press space..."
+          placeholder={t('placeholder')}
           autoFocus
           disabled={status !== 'playing'}
         />

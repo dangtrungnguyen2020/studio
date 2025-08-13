@@ -13,6 +13,7 @@ import type { PersonalizedExercisesOutput } from "@/ai/flows/personalized-typing
 import { auth } from "@/lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Card } from "@/components/ui/card";
+import { useTranslations } from "next-intl";
 
 
 interface ResultsProps {
@@ -28,6 +29,7 @@ interface ResultsProps {
 }
 
 const Results = ({ stats, isOpen, onClose, onRestart, difficulty }: ResultsProps) => {
+  const t = useTranslations('Results');
   const { toast } = useToast();
   const [user] = useAuthState(auth);
   const [isLoadingAI, setIsLoadingAI] = useState(false);
@@ -83,8 +85,8 @@ const Results = ({ stats, isOpen, onClose, onRestart, difficulty }: ResultsProps
       console.error("AI generation failed:", error);
       toast({
         variant: "destructive",
-        title: "AI Error",
-        description: "Failed to generate personalized exercises. Please try again.",
+        title: t('aiError'),
+        description: t('aiErrorDesc'),
       });
     } finally {
       setIsLoadingAI(false);
@@ -95,17 +97,17 @@ const Results = ({ stats, isOpen, onClose, onRestart, difficulty }: ResultsProps
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-headline text-center text-primary">Test Complete!</DialogTitle>
-          <DialogDescription className="text-center">Here are your results.</DialogDescription>
+          <DialogTitle className="text-2xl font-headline text-center text-primary">{t('title')}</DialogTitle>
+          <DialogDescription className="text-center">{t('description')}</DialogDescription>
         </DialogHeader>
         
         <div className="flex justify-around text-center my-4">
           <div>
-            <p className="text-sm text-muted-foreground">WPM</p>
+            <p className="text-sm text-muted-foreground">{t('wpm')}</p>
             <p className="text-4xl font-bold text-primary">{stats.wpm}</p>
           </div>
           <div>
-            <p className="text-sm text-muted-foreground">Accuracy</p>
+            <p className="text-sm text-muted-foreground">{t('accuracy')}</p>
             <p className="text-4xl font-bold text-primary">{stats.accuracy}%</p>
           </div>
         </div>
@@ -117,11 +119,11 @@ const Results = ({ stats, isOpen, onClose, onRestart, difficulty }: ResultsProps
             ) : (
               <Bot className="mr-2 h-4 w-4" />
             )}
-            Get AI-Powered Exercises
+            {t('getAIExercises')}
           </Button>
         </div>
 
-        {isLoadingAI && <div className="text-center text-muted-foreground">Generating your personalized plan...</div>}
+        {isLoadingAI && <div className="text-center text-muted-foreground">{t('generatingPlan')}</div>}
 
         {aiExercises && (
           <Card className="mt-4 bg-muted/30">
@@ -139,7 +141,7 @@ const Results = ({ stats, isOpen, onClose, onRestart, difficulty }: ResultsProps
         <DialogFooter className="sm:justify-center mt-6">
           <Button onClick={onRestart}>
             <RefreshCw className="mr-2 h-4 w-4" />
-            Try Again
+            {t('tryAgain')}
           </Button>
         </DialogFooter>
       </DialogContent>

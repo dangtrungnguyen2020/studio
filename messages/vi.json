@@ -1,0 +1,122 @@
+{
+  "HomePage": {
+    "title": "Keystroke Symphony",
+    "gameMode": "Chế độ chơi",
+    "login": "Đăng nhập",
+    "selectDifficulty": "Chọn độ khó",
+    "veryEasy": "Rất dễ",
+    "easy": "Dễ",
+    "medium": "Trung bình",
+    "hard": "Khó",
+    "expert": "Chuyên gia",
+    "customText": "Văn bản tùy chỉnh",
+    "restartTest": "Làm lại bài kiểm tra",
+    "restartTooltip": "Nhấn <kbd>Esc</kbd> để bắt đầu lại",
+    "customTextPlaceholder": "Dán văn bản tùy chỉnh của bạn vào đây...",
+    "layout": "Bố cục:",
+    "theme": "Chủ đề:",
+    "defaultTheme": "Mặc định",
+    "retroTheme": "Cổ điển",
+    "kidTheme": "Thập niên 80",
+    "carbonTheme": "Carbon",
+    "toggleKeyboard": "Hiện/Ẩn Bàn phím",
+    "unsupportedDeviceTitle": "Thiết bị không được hỗ trợ",
+    "unsupportedDeviceMessage": "Keystroke Symphony được thiết kế cho trình duyệt máy tính để bàn. Vui lòng truy cập trên máy tính để có trải nghiệm đầy đủ."
+  },
+  "GamePage": {
+    "title": "Keystroke Symphony",
+    "subtitle": "/ Trò chơi",
+    "practiceMode": "Chế độ luyện tập",
+    "login": "Đăng nhập",
+    "unsupportedDeviceTitle": "Thiết bị không được hỗ trợ",
+    "unsupportedDeviceMessage": "Keystroke Symphony được thiết kế cho trình duyệt máy tính để bàn. Vui lòng truy cập trên máy tính để có trải nghiệm đầy đủ."
+  },
+  "InfoPage": {
+    "title": "Về Keystroke Symphony",
+    "description": "Một công cụ luyện gõ nâng cao được thiết kế để nâng cao kỹ năng bàn phím của bạn thông qua luyện tập và giải trí.",
+    "featuresTitle": "Tính năng",
+    "features": [
+      "Luyện tập với các bố cục bàn phím khác nhau: QWERTY, DVORAK và AZERTY.",
+      "Tạo các bài kiểm tra gõ độc đáo mỗi lần với việc tạo văn bản ngẫu nhiên.",
+      "Theo dõi số từ mỗi phút (WPM) và độ chính xác của bạn.",
+      "Nhận các bài tập tùy chỉnh dựa trên hiệu suất của bạn với Luyện tập được Cá nhân hóa bằng AI.",
+      "Điều chỉnh thử thách để phù hợp với trình độ kỹ năng của bạn với các cấp độ khó khác nhau.",
+      "Xem bạn đã mắc lỗi ở đâu với phản hồi độ chính xác theo thời gian thực.",
+      "Học cách đặt ngón tay đúng cách với hình ảnh hóa sơ đồ ngón tay-phím.",
+      "Luyện tập với văn bản của riêng bạn bằng tính năng nhập văn bản tùy chỉnh.",
+      "Chơi một trò chơi 'Chữ rơi' hấp dẫn để làm cho việc luyện tập trở nên thú vị."
+    ],
+    "gettingStartedTitle": "Bắt đầu",
+    "gettingStarted": "Điều hướng đến trang <practiceLink>Luyện tập</practiceLink> để bắt đầu một bài kiểm tra gõ tiêu chuẩn, hoặc thử chế độ <gameLink>Trò chơi</gameLink> để có trải nghiệm tương tác hơn.",
+    "goBack": "Quay lại"
+  },
+  "LoginPage": {
+    "title": "Đăng nhập",
+    "description": "Chọn phương thức đăng nhập ưa thích của bạn",
+    "google": "Đăng nhập với Google",
+    "facebook": "Đăng nhập với Facebook",
+    "twitter": "Đăng nhập với X",
+    "linkedin": "Đăng nhập với LinkedIn",
+    "apple": "Đăng nhập với Apple",
+    "goBack": "Quay lại trang gõ phím",
+    "signInSuccess": "Đăng nhập thành công",
+    "signInSuccessDesc": "Chào mừng trở lại!",
+    "signInFailed": "Đăng nhập thất bại"
+  },
+  "Results": {
+    "title": "Hoàn thành bài kiểm tra!",
+    "description": "Đây là kết quả của bạn.",
+    "wpm": "WPM",
+    "accuracy": "Độ chính xác",
+    "getAIExercises": "Nhận bài tập được hỗ trợ bởi AI",
+    "generatingPlan": "Đang tạo kế hoạch cá nhân hóa của bạn...",
+    "aiError": "Lỗi AI",
+    "aiErrorDesc": "Không thể tạo bài tập cá nhân hóa. Vui lòng thử lại.",
+    "tryAgain": "Thử lại"
+  },
+  "TypingTest": {
+    "wpm": "WPM",
+    "acc": "ĐCX"
+  },
+  "Game": {
+    "title": "Chữ Rơi",
+    "description": "Gõ các từ trước khi chúng chạm đáy. Xây dựng chuỗi để nhận hệ số nhân điểm! Trò chơi sẽ khó hơn khi bạn ghi được nhiều điểm hơn.",
+    "selectDifficulty": "Chọn độ khó",
+    "veryEasy": "Rất dễ",
+    "easy": "Dễ",
+    "medium": "Trung bình",
+    "hard": "Khó",
+    "expert": "Chuyên gia",
+    "startGame": "Bắt đầu trò chơi",
+    "gameOver": "Trò chơi kết thúc",
+    "finalScore": "Điểm cuối cùng: {score}",
+    "gameOverDesc": "Các từ đã áp đảo bạn.",
+    "playAgain": "Chơi lại",
+    "health": "Máu",
+    "level": "Cấp {level}",
+    "streak": "Chuỗi: {streak}",
+    "placeholder": "Gõ từ vào đây và nhấn phím cách..."
+  },
+  "Words": {
+    "customTextPlaceholder": "Vui lòng nhập một số văn bản tùy chỉnh để bắt đầu bài kiểm tra."
+  },
+  "ThemeSwitcher": {
+    "appearance": "Giao diện",
+    "light": "Sáng",
+    "dark": "Tối",
+    "system": "Hệ thống",
+    "color": "Màu sắc",
+    "blue": "Xanh dương",
+    "green": "Xanh lá",
+    "orange": "Cam",
+    "rose": "Hồng",
+    "citron": "Vàng chanh",
+    "silver": "Bạc",
+    "toggleTheme": "Chuyển đổi chủ đề"
+  },
+  "LanguageSwitcher": {
+    "language": "Ngôn ngữ",
+    "english": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt"
+  }
+}

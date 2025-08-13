@@ -1,0 +1,122 @@
+{
+  "HomePage": {
+    "title": "Keystroke Symphony",
+    "gameMode": "Game Mode",
+    "login": "Login",
+    "selectDifficulty": "Select difficulty",
+    "veryEasy": "Very Easy",
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard",
+    "expert": "Expert",
+    "customText": "Custom Text",
+    "restartTest": "Restart Test",
+    "restartTooltip": "Press <kbd>Esc</kbd> to restart",
+    "customTextPlaceholder": "Paste your custom text here...",
+    "layout": "Layout:",
+    "theme": "Theme:",
+    "defaultTheme": "Default",
+    "retroTheme": "Retro",
+    "kidTheme": "80s Kid",
+    "carbonTheme": "Carbon",
+    "toggleKeyboard": "Show/Hide Keyboard",
+    "unsupportedDeviceTitle": "Unsupported Device",
+    "unsupportedDeviceMessage": "Keystroke Symphony is designed for desktop browsers. Please visit on a computer for the full experience."
+  },
+  "GamePage": {
+    "title": "Keystroke Symphony",
+    "subtitle": "/ Game",
+    "practiceMode": "Practice Mode",
+    "login": "Login",
+    "unsupportedDeviceTitle": "Unsupported Device",
+    "unsupportedDeviceMessage": "Keystroke Symphony is designed for desktop browsers. Please visit on a computer for the full experience."
+  },
+  "InfoPage": {
+    "title": "About Keystroke Symphony",
+    "description": "An advanced typing trainer designed to elevate your keyboard skills through practice and play.",
+    "featuresTitle": "Features",
+    "features": [
+      "Practice with different keyboard layouts: QWERTY, DVORAK, and AZERTY.",
+      "Generate unique typing tests every time with random text generation.",
+      "Track your Words Per Minute (WPM) and accuracy.",
+      "Get customized exercises based on your performance with AI-Powered Personalized Training.",
+      "Adjust the challenge to match your skill level with various difficulty levels.",
+      "See where you made mistakes with real-time accuracy feedback.",
+      "Learn proper finger placement with finger-to-key mapping visualization.",
+      "Practice with your own text using the custom text input feature.",
+      "Play an engaging 'Falling Words' game to make practice fun."
+    ],
+    "gettingStartedTitle": "Getting Started",
+    "gettingStarted": "Navigate to the <practiceLink>Practice</practiceLink> page to start a standard typing test, or try the <gameLink>Game</gameLink> mode for a more interactive experience.",
+    "goBack": "Go Back"
+  },
+  "LoginPage": {
+    "title": "Sign In",
+    "description": "Choose your preferred sign-in method",
+    "google": "Sign in with Google",
+    "facebook": "Sign in with Facebook",
+    "twitter": "Sign in with X",
+    "linkedin": "Sign in with LinkedIn",
+    "apple": "Sign in with Apple",
+    "goBack": "Go back to typing",
+    "signInSuccess": "Sign in successful",
+    "signInSuccessDesc": "Welcome back!",
+    "signInFailed": "Sign in failed"
+  },
+  "Results": {
+    "title": "Test Complete!",
+    "description": "Here are your results.",
+    "wpm": "WPM",
+    "accuracy": "Accuracy",
+    "getAIExercises": "Get AI-Powered Exercises",
+    "generatingPlan": "Generating your personalized plan...",
+    "aiError": "AI Error",
+    "aiErrorDesc": "Failed to generate personalized exercises. Please try again.",
+    "tryAgain": "Try Again"
+  },
+  "TypingTest": {
+    "wpm": "WPM",
+    "acc": "ACC"
+  },
+  "Game": {
+    "title": "Falling Words",
+    "description": "Type the words before they reach the bottom. Build up a streak to get a score multiplier! The game gets harder as you score more points.",
+    "selectDifficulty": "Select difficulty",
+    "veryEasy": "Very Easy",
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard",
+    "expert": "Expert",
+    "startGame": "Start Game",
+    "gameOver": "Game Over",
+    "finalScore": "Final Score: {score}",
+    "gameOverDesc": "The words have overwhelmed you.",
+    "playAgain": "Play Again",
+    "health": "Health",
+    "level": "Level {level}",
+    "streak": "Streak: {streak}",
+    "placeholder": "Type words here and press space..."
+  },
+  "Words": {
+    "customTextPlaceholder": "Please enter some custom text to begin the test."
+  },
+  "ThemeSwitcher": {
+    "appearance": "Appearance",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "color": "Color",
+    "blue": "Blue",
+    "green": "Green",
+    "orange": "Orange",
+    "rose": "Rose",
+    "citron": "Citron",
+    "silver": "Silver",
+    "toggleTheme": "Toggle theme"
+  },
+  "LanguageSwitcher": {
+    "language": "Language",
+    "english": "English",
+    "vietnamese": "Vietnamese"
+  }
+}
