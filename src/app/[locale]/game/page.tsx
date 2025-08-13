@@ -9,6 +9,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import LanguageSwitcher from "@/components/language-switcher";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 import Game from "@/components/keystroke-symphony/game";
 import AdBanner from "@/components/keystroke-symphony/ad-banner";
@@ -21,6 +28,7 @@ import { useTranslations } from "next-intl";
 
 export default function GamePage() {
   const t = useTranslations('GamePage');
+  const tSettings = useTranslations('ThemeSwitcher');
   const { colorTheme, setColorTheme } = useTheme();
   const isMobile = useIsMobile();
 
@@ -60,13 +68,30 @@ export default function GamePage() {
             <Link href="/login">
               <Button variant="outline">{t('login')}</Button>
             </Link>
-            <LanguageSwitcher />
-            <ThemeSwitcher />
-             <Link href="/info">
-              <Button variant="ghost" size="icon">
-                  <Info className="h-5 w-5" />
-              </Button>
-            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="icon">
+                  <Settings className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>{tSettings('appearance')}</DropdownMenuLabel>
+                 <div className="px-2">
+                  <ThemeSwitcher />
+                </div>
+                <DropdownMenuSeparator />
+                 <DropdownMenuLabel>
+                  <LanguageSwitcher />
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <Link href="/info">
+                  <Button variant="ghost" className="w-full justify-start">
+                      <Info className="h-4 w-4 mr-2" />
+                      About
+                  </Button>
+                </Link>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </header>
 
@@ -82,3 +107,5 @@ export default function GamePage() {
     </TooltipProvider>
   );
 }
+
+    

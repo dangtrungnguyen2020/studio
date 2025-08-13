@@ -3,13 +3,20 @@
 "use client";
 
 import { useState, useMemo, useCallback, useEffect } from "react";
-import { Keyboard as KeyboardIcon, RefreshCw, Bot, Settings, ChevronDown, Palette, Gamepad2, Info } from "lucide-react";
+import { Keyboard as KeyboardIcon, RefreshCw, Bot, Settings, ChevronDown, Palette, Gamepad2, Info, Languages } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 import Keyboard from "@/components/keystroke-symphony/keyboard";
 import TypingTest from "@/components/keystroke-symphony/typing-test";
@@ -34,6 +41,8 @@ type TestStats = {
 
 export default function Home() {
   const t = useTranslations("HomePage");
+  const tSettings = useTranslations('ThemeSwitcher');
+
   const [layout, setLayout] = useState<KeyboardLayout>("QWERTY");
   const { theme, colorTheme, setColorTheme, setTheme } = useTheme();
   const [keyboardTheme, setKeyboardTheme] = useState<KeyboardTheme>('default');
@@ -148,13 +157,30 @@ export default function Home() {
             <Link href="/login">
               <Button variant="outline">{t('login')}</Button>
             </Link>
-            <LanguageSwitcher />
-            <ThemeSwitcher />
-            <Link href="/info">
-              <Button variant="ghost" size="icon">
-                  <Info className="h-5 w-5" />
-              </Button>
-            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="icon">
+                  <Settings className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>{tSettings('appearance')}</DropdownMenuLabel>
+                <div className="px-2">
+                  <ThemeSwitcher />
+                </div>
+                <DropdownMenuSeparator />
+                <DropdownMenuLabel>
+                  <LanguageSwitcher />
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <Link href="/info">
+                  <Button variant="ghost" className="w-full justify-start">
+                      <Info className="h-4 w-4 mr-2" />
+                      About
+                  </Button>
+                </Link>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </header>
 
@@ -280,3 +306,5 @@ export default function Home() {
     </TooltipProvider>
   );
 }
+
+    
