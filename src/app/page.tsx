@@ -3,18 +3,16 @@
 "use client";
 
 import { useState, useMemo, useCallback, useEffect } from "react";
-import { Keyboard as KeyboardIcon, RefreshCw, Bot, Settings, ChevronDown, Palette } from "lucide-react";
+import { Keyboard as KeyboardIcon, RefreshCw, Bot, Settings, ChevronDown, Palette, Gamepad2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 
 import Keyboard from "@/components/keystroke-symphony/keyboard";
 import TypingTest from "@/components/keystroke-symphony/typing-test";
-import Game from "@/components/keystroke-symphony/game";
 import Results from "@/components/keystroke-symphony/results";
 import AdBanner from "@/components/keystroke-symphony/ad-banner";
 
@@ -38,7 +36,6 @@ export default function Home() {
   const [keyboardTheme, setKeyboardTheme] = useState<KeyboardTheme>('default');
   const [difficulty, setDifficulty] = useState<Difficulty>("medium");
   const [customText, setCustomText] = useState("");
-  const [mode, setMode] = useState<"practice" | "game">("practice");
   
   const [testText, setTestText] = useState("");
   const [testId, setTestId] = useState(0);
@@ -95,15 +92,13 @@ export default function Home() {
     setShowResults(false);
     setResults(null);
     setCurrentCharIndex(0);
-    if (mode === "practice") {
-      if (difficulty === 'custom') {
-        setTestText(generateCustom(customText));
-      } else {
-        setTestText(generate(difficulty));
-      }
+    if (difficulty === 'custom') {
+      setTestText(generateCustom(customText));
+    } else {
+      setTestText(generate(difficulty));
     }
     setTestId(prev => prev + 1);
-  }, [mode, difficulty, customText]);
+  }, [difficulty, customText]);
   
   const handleTestComplete = (stats: TestStats) => {
     setResults(stats);
@@ -113,22 +108,28 @@ export default function Home() {
   // Effect to handle Escape key to restart test
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && (mode === 'practice')) {
+      if (e.key === "Escape") {
         handleRestart();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handleRestart, mode]);
+  }, [handleRestart]);
 
   return (
     <TooltipProvider>
-      <div className={cn("min-h-screen bg-background text-foreground flex flex-col p-4 sm:p-6 md:p-8", mode === 'game' ? 'justify-center items-center' : 'items-center justify-center')}>
+      <div className="min-h-screen bg-background text-foreground flex flex-col p-4 sm:p-6 md:p-8 items-center justify-center">
         <header className="w-full max-w-5xl mx-auto flex justify-between items-center mb-6">
           <div className="flex items-center gap-2">
             <h1 className="text-2xl sm:text-3xl font-bold text-primary">Keystroke Symphony</h1>
           </div>
           <div className="flex items-center gap-2">
+            <Link href="/game">
+              <Button variant="outline">
+                <Gamepad2 className="mr-2 h-4 w-4" />
+                Game Mode
+              </Button>
+            </Link>
             <Link href="/login">
               <Button variant="outline">Login</Button>
             </Link>
@@ -141,71 +142,57 @@ export default function Home() {
           </div>
         </header>
 
-        <main className={cn("w-full max-w-5xl mx-auto flex flex-col gap-8", mode === 'game' && 'flex-1')}>
-          <Card className={cn("shadow-lg border-primary/20", mode === 'game' && 'h-full flex flex-col')}>
-            <CardContent className={cn("p-4 sm:p-6", mode === 'game' && 'flex-1 flex flex-col')}>
-               <Tabs value={mode} onValueChange={(v) => setMode(v as "practice" | "game")} className={cn(mode === 'game' && 'flex-1 flex flex-col')}>
-                  <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="practice">Practice</TabsTrigger>
-                    <TabsTrigger value="game">Game</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="practice" className="mt-4">
-                    <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4 mb-6">
-                       <Select value={difficulty} onValueChange={(v) => setDifficulty(v as Difficulty)}>
-                        <SelectTrigger className="w-full sm:w-[200px]">
-                          <SelectValue placeholder="Select difficulty" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="very-easy">Very Easy</SelectItem>
-                          <SelectItem value="easy">Easy</SelectItem>
-                          <SelectItem value="medium">Medium</SelectItem>
-                          <SelectItem value="hard">Hard</SelectItem>
-                          <SelectItem value="expert">Expert</SelectItem>
-                          <SelectItem value="custom">Custom Text</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Button onClick={handleRestart} variant="outline" size="sm" className="w-full sm:w-auto">
-                            <RefreshCw className="mr-2 h-4 w-4" />
-                            Restart Test
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Press <kbd className="bg-muted-foreground/20 px-1.5 py-0.5 rounded">Esc</kbd> to restart</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </div>
+        <main className="w-full max-w-5xl mx-auto flex flex-col gap-8">
+          <Card className="shadow-lg border-primary/20">
+            <CardContent className="p-4 sm:p-6">
+              <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4 mb-6">
+                 <Select value={difficulty} onValueChange={(v) => setDifficulty(v as Difficulty)}>
+                  <SelectTrigger className="w-full sm:w-[200px]">
+                    <SelectValue placeholder="Select difficulty" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="very-easy">Very Easy</SelectItem>
+                    <SelectItem value="easy">Easy</SelectItem>
+                    <SelectItem value="medium">Medium</SelectItem>
+                    <SelectItem value="hard">Hard</SelectItem>
+                    <SelectItem value="expert">Expert</SelectItem>
+                    <SelectItem value="custom">Custom Text</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button onClick={handleRestart} variant="outline" size="sm" className="w-full sm:w-auto">
+                      <RefreshCw className="mr-2 h-4 w-4" />
+                      Restart Test
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Press <kbd className="bg-muted-foreground/20 px-1.5 py-0.5 rounded">Esc</kbd> to restart</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
 
-                    {difficulty === 'custom' && (
-                       <Textarea
-                          placeholder="Paste your custom text here..."
-                          value={customText}
-                          onChange={(e) => setCustomText(e.target.value)}
-                          className="min-h-[50px] mb-4"
-                        />
-                    )}
-                  </TabsContent>
-                   <TabsContent value="game" className={cn("mt-4", mode === 'game' && 'flex-1')}>
-                    <Game />
-                  </TabsContent>
-                </Tabs>
-
-              { mode !== 'game' && (
-                  <TypingTest
-                    key={testId}
-                    text={testText}
-                    onComplete={handleTestComplete}
-                    onKeyPress={setLastPressedKey}
-                    onCharIndexChange={setCurrentCharIndex}
+              {difficulty === 'custom' && (
+                 <Textarea
+                    placeholder="Paste your custom text here..."
+                    value={customText}
+                    onChange={(e) => setCustomText(e.target.value)}
+                    className="min-h-[50px] mb-4"
                   />
               )}
+              <TypingTest
+                key={testId}
+                text={testText}
+                onComplete={handleTestComplete}
+                onKeyPress={setLastPressedKey}
+                onCharIndexChange={setCurrentCharIndex}
+              />
             </CardContent>
           </Card>
 
           <AdBanner />
 
-          {showKeyboard && mode !== 'game' && (
+          {showKeyboard && (
             <div className="flex flex-col gap-4">
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-2 rounded-lg bg-muted/30">
                   <div className="flex items-center gap-4">
