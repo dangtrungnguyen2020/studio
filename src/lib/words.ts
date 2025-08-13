@@ -1,39 +1,43 @@
 import type { Difficulty } from './keyboards';
 
+const veryEasyChars = "abcdefghijklmnopqrstuvwxyz1234567890";
 const easyWords = "the of to and a in is it you that he was for on are with as I his they be at one have this from or had by hot but some what there we can out other were all your when up use word how said an each she".split(" ");
-const mediumWords = "people my than first water been call who oil its now find long down day did get come made may part time if about many then them write would like so these her look two more has see could no way been that was for on are".split(" ");
-const hardWords = "government think said point next end world system city case area general high number part place small group different fact night public really company service important form development".split(" ");
+const hardArticle = "In the heart of the digital age, where information flows ceaselessly, the ability to type quickly and accurately has become an indispensable skill. It is the bridge between thought and digital expression, a fundamental component of modern communication and productivity. Whether you are a student drafting an essay, a developer writing code, or a professional composing an email, your typing proficiency directly impacts your efficiency and the clarity of your message. This is not merely about speed; it is about precision, reducing errors, and ensuring that your ideas are conveyed as intended without the frustrating interruption of constant corrections.";
+const expertParagraph = "The burgeoning field of quantum computing, with its complex algorithms like Shor's and Grover's, promises to revolutionize cryptography by rendering current standards (e.g., RSA-2048) obsolete. Researchers are exploring post-quantum cryptography (PQC) solutions, such as lattice-based (e.g., Kyber) and hash-based (e.g., SPHINCS+) schemes, to safeguard data integrity for the future. The transition will require a significant infrastructural overhaul, costing an estimated $1.2 billion over the next 5-7 years, impacting systems from secure boot (UEFI) to network protocols (TLS 1.3).";
 
-export const generateWords = (count: number, difficulty: Difficulty): string => {
-  let words;
-  switch (difficulty) {
-    case 'easy':
-      words = easyWords;
-      break;
-    case 'medium':
-      words = mediumWords;
-      break;
-    case 'hard':
-      words = hardWords;
-      break;
-    default:
-      words = mediumWords;
-  }
-  
+const generatePhoneNumber = (): string => {
+  const areaCode = Math.floor(Math.random() * 899) + 100;
+  const firstPart = Math.floor(Math.random() * 899) + 100;
+  const secondPart = Math.floor(Math.random() * 9000) + 1000;
+  return `${areaCode}-${firstPart}-${secondPart}`;
+}
+
+export const generateWords = (count: number): string => {
   let result = [];
   for (let i = 0; i < count; i++) {
-    const randomIndex = Math.floor(Math.random() * words.length);
-    result.push(words[randomIndex]);
+    const randomIndex = Math.floor(Math.random() * easyWords.length);
+    result.push(easyWords[randomIndex]);
   }
   return result.join(" ");
 };
 
-export const generate = (difficulty: Difficulty) => {
-  let wordCount = 30;
-  if (difficulty === 'easy') wordCount = 20;
-  if (difficulty === 'hard') wordCount = 40;
-  
-  return generateWords(wordCount, difficulty);
+export const generate = (difficulty: Difficulty): string => {
+  switch (difficulty) {
+    case 'very-easy':
+      return Array(50).fill(0).map(() => veryEasyChars[Math.floor(Math.random() * veryEasyChars.length)]).join(" ");
+    case 'easy':
+      return generateWords(20);
+    case 'medium':
+        return Array(5).fill(0).map(generatePhoneNumber).join(" ");
+    case 'hard':
+        return hardArticle;
+    case 'expert':
+        return expertParagraph;
+    case 'custom':
+        return "Please enter some custom text to begin the test.";
+    default:
+      return generateWords(30);
+  }
 };
 
 export const generateCustom = (text: string) => {

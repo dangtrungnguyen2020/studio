@@ -36,7 +36,7 @@ export default function Home() {
   const [keyboardTheme, setKeyboardTheme] = useState<KeyboardTheme>('default');
   const [difficulty, setDifficulty] = useState<Difficulty>("medium");
   const [customText, setCustomText] = useState("");
-  const [mode, setMode] = useState<"practice" | "custom" | "game">("practice");
+  const [mode, setMode] = useState<"practice" | "game">("practice");
   
   const [testText, setTestText] = useState("");
   const [testId, setTestId] = useState(0);
@@ -56,9 +56,13 @@ export default function Home() {
   
   useEffect(() => {
     if (isClient) {
-      setTestText(generate(difficulty));
+      if (difficulty === 'custom') {
+        setTestText(generateCustom(customText));
+      } else {
+        setTestText(generate(difficulty));
+      }
     }
-  }, [difficulty, isClient]);
+  }, [difficulty, customText, isClient]);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('keystroke-symphony-theme') as KeyboardTheme | null;
@@ -90,9 +94,11 @@ export default function Home() {
     setResults(null);
     setCurrentCharIndex(0);
     if (mode === "practice") {
-      setTestText(generate(difficulty));
-    } else if (mode === "custom") {
-      setTestText(generateCustom(customText));
+      if (difficulty === 'custom') {
+        setTestText(generateCustom(customText));
+      } else {
+        setTestText(generate(difficulty));
+      }
     }
     setTestId(prev => prev + 1);
   }, [mode, difficulty, customText]);
@@ -105,7 +111,7 @@ export default function Home() {
   // Effect to handle Escape key to restart test
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && (mode === 'practice' || mode === 'custom')) {
+      if (e.key === "Escape" && (mode === 'practice')) {
         handleRestart();
       }
     };
@@ -136,10 +142,9 @@ export default function Home() {
         <main className="w-full max-w-5xl mx-auto flex flex-col gap-8">
           <Card className="shadow-lg border-primary/20">
             <CardContent className="p-4 sm:p-6">
-               <Tabs value={mode} onValueChange={(v) => setMode(v as "practice" | "custom" | "game")} className="md:col-span-3">
-                  <TabsList className="grid w-full grid-cols-3">
+               <Tabs value={mode} onValueChange={(v) => setMode(v as "practice" | "game")} className="md:col-span-3">
+                  <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="practice">Practice</TabsTrigger>
-                    <TabsTrigger value="custom">Custom Text</TabsTrigger>
                     <TabsTrigger value="game">Game</TabsTrigger>
                   </TabsList>
                   <TabsContent value="practice" className="mt-4">
@@ -149,20 +154,23 @@ export default function Home() {
                           <SelectValue placeholder="Select difficulty" />
                         </SelectTrigger>
                         <SelectContent>
+                          <SelectItem value="very-easy">Very Easy</SelectItem>
                           <SelectItem value="easy">Easy</SelectItem>
                           <SelectItem value="medium">Medium</SelectItem>
                           <SelectItem value="hard">Hard</SelectItem>
+                          <SelectItem value="expert">Expert</SelectItem>
+                          <SelectItem value="custom">Custom Text</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
-                  </TabsContent>
-                  <TabsContent value="custom" className="mt-4">
-                     <Textarea
-                        placeholder="Paste your custom text here..."
-                        value={customText}
-                        onChange={(e) => setCustomText(e.target.value)}
-                        className="min-h-[50px]"
-                      />
+                    {difficulty === 'custom' && (
+                       <Textarea
+                          placeholder="Paste your custom text here..."
+                          value={customText}
+                          onChange={(e) => setCustomText(e.target.value)}
+                          className="min-h-[50px] mb-4"
+                        />
+                    )}
                   </TabsContent>
                    <TabsContent value="game" className="mt-4">
                     <Game />
