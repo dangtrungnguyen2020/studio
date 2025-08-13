@@ -1,3 +1,4 @@
+
 {
   "HomePage": {
     "title": "Keystroke Symphony",
@@ -117,6 +118,15 @@
   "LanguageSwitcher": {
     "language": "Ngôn ngữ",
     "english": "Tiếng Anh",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+    "spanish": "Tiếng Tây Ban Nha",
+    "french": "Tiếng Pháp",
+    "german": "Tiếng Đức",
+    "chinese": "Tiếng Trung",
+    "hindi": "Tiếng Hindi",
+    "arabic": "Tiếng Ả Rập",
+    "portuguese": "Tiếng Bồ Đào Nha",
+    "russian": "Tiếng Nga",
+    "japanese": "Tiếng Nhật"
   }
 }

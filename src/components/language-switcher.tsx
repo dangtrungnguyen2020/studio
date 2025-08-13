@@ -11,6 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { ScrollArea } from './ui/scroll-area';
 
 export default function LanguageSwitcher() {
   const t = useTranslations('LanguageSwitcher');
@@ -21,6 +22,20 @@ export default function LanguageSwitcher() {
   const switchLocale = (nextLocale: string) => {
     router.replace(pathname, {locale: nextLocale});
   };
+  
+  const languageNames: Record<string, string> = {
+    en: t('english'),
+    vi: t('vietnamese'),
+    es: t('spanish'),
+    fr: t('french'),
+    de: t('german'),
+    zh: t('chinese'),
+    hi: t('hindi'),
+    ar: t('arabic'),
+    pt: t('portuguese'),
+    ru: t('russian'),
+    ja: t('japanese'),
+  }
 
   return (
     <DropdownMenu>
@@ -31,18 +46,17 @@ export default function LanguageSwitcher() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem
-          onClick={() => switchLocale('en')}
-          disabled={locale === 'en'}
-        >
-          {t('english')}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => switchLocale('vi')}
-          disabled={locale === 'vi'}
-        >
-          {t('vietnamese')}
-        </DropdownMenuItem>
+        <ScrollArea className="h-64">
+          {locales.map((l) => (
+            <DropdownMenuItem
+              key={l}
+              onClick={() => switchLocale(l)}
+              disabled={locale === l}
+            >
+              {languageNames[l]}
+            </DropdownMenuItem>
+          ))}
+        </ScrollArea>
       </DropdownMenuContent>
     </DropdownMenu>
   );

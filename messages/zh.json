@@ -1,0 +1,132 @@
+
+{
+  "HomePage": {
+    "title": "击键交响曲",
+    "gameMode": "游戏模式",
+    "login": "登录",
+    "selectDifficulty": "选择难度",
+    "veryEasy": "非常简单",
+    "easy": "简单",
+    "medium": "中等",
+    "hard": "困难",
+    "expert": "专家",
+    "customText": "自定义文本",
+    "restartTest": "重新开始测试",
+    "restartTooltip": "按 <kbd>Esc</kbd> 重新开始",
+    "customTextPlaceholder": "在此处粘贴您的自定义文本...",
+    "layout": "布局：",
+    "theme": "主题：",
+    "defaultTheme": "默认",
+    "retroTheme": "复古",
+    "kidTheme": "80后",
+    "carbonTheme": "碳",
+    "toggleKeyboard": "显示/隐藏键盘",
+    "unsupportedDeviceTitle": "不支持的设备",
+    "unsupportedDeviceMessage": "击键交响曲专为桌面浏览器设计。请在计算机上访问以获得完整体验。"
+  },
+  "GamePage": {
+    "title": "击键交响曲",
+    "subtitle": "/ 游戏",
+    "practiceMode": "练习模式",
+    "login": "登录",
+    "unsupportedDeviceTitle": "不支持的设备",
+    "unsupportedDeviceMessage": "击键交响曲专为桌面浏览器设计。请在计算机上访问以获得完整体验。"
+  },
+  "InfoPage": {
+    "title": "关于击键交响曲",
+    "description": "一款先进的打字训练器，旨在通过练习和游戏提升您的键盘技能。",
+    "featuresTitle": "功能",
+    "features": [
+      "使用不同的键盘布局进行练习：QWERTY、DVORAK 和 AZERTY。",
+      "每次都通过随机文本生成生成独特的打字测试。",
+      "跟踪您的每分钟字数 (WPM) 和准确性。",
+      "通过人工智能个性化培训，根据您的表现获得定制练习。",
+      "通过各种难度级别调整挑战以匹配您的技能水平。",
+      "通过实时准确性反馈查看您在哪里犯了错误。",
+      "通过手指到按键映射可视化学习正确的手指放置。",
+      "使用自定义文本输入功能练习您自己的文本。",
+      "玩一个引人入胜的“掉落的单词”游戏，让练习变得有趣。"
+    ],
+    "gettingStartedTitle": "入门",
+    "gettingStarted": "导航到<practiceLink>练习</practiceLink>页面开始标准打字测试，或尝试<gameLink>游戏</gameLink>模式以获得更具互动性的体验。",
+    "goBack": "返回"
+  },
+  "LoginPage": {
+    "title": "登录",
+    "description": "选择您喜欢的登录方式",
+    "google": "使用 Google 登录",
+    "facebook": "使用 Facebook 登录",
+    "twitter": "使用 X 登录",
+    "linkedin": "使用 LinkedIn 登录",
+    "apple": "使用 Apple 登录",
+    "goBack": "返回打字",
+    "signInSuccess": "登录成功",
+    "signInSuccessDesc": "欢迎回来！",
+    "signInFailed": "登录失败"
+  },
+  "Results": {
+    "title": "测试完成！",
+    "description": "这是您的结果。",
+    "wpm": "WPM",
+    "accuracy": "准确性",
+    "getAIExercises": "获取人工智能驱动的练习",
+    "generatingPlan": "正在生成您的个性化计划...",
+    "aiError": "人工智能错误",
+    "aiErrorDesc": "无法生成个性化练习。请重试。",
+    "tryAgain": "再试一次"
+  },
+  "TypingTest": {
+    "wpm": "WPM",
+    "acc": "准确率"
+  },
+  "Game": {
+    "title": "掉落的单词",
+    "description": "在单词到达底部之前输入它们。建立连击以获得分数乘数！随着您得分的增加，游戏会变得越来越难。",
+    "selectDifficulty": "选择难度",
+    "veryEasy": "非常简单",
+    "easy": "简单",
+    "medium": "中等",
+    "hard": "困难",
+    "expert": "专家",
+    "startGame": "开始游戏",
+    "gameOver": "游戏结束",
+    "finalScore": "最终得分：{score}",
+    "gameOverDesc": "单词让你不知所措。",
+    "playAgain": "再玩一次",
+    "health": "生命值",
+    "level": "等级 {level}",
+    "streak": "连击：{streak}",
+    "placeholder": "在此处输入单词并按空格键..."
+  },
+  "Words": {
+    "customTextPlaceholder": "请输入一些自定义文本以开始测试。"
+  },
+  "ThemeSwitcher": {
+    "appearance": "外观",
+    "light": "浅色",
+    "dark": "深色",
+    "system": "系统",
+    "color": "颜色",
+    "blue": "蓝色",
+    "green": "绿色",
+    "orange": "橙色",
+    "rose": "玫瑰色",
+    "citron": "香橼色",
+    "silver": "银色",
+    "toggleTheme": "切换主题"
+  },
+  "LanguageSwitcher": {
+    "language": "语言",
+    "english": "英语",
+    "vietnamese": "越南语",
+    "spanish": "西班牙语",
+    "french": "法语",
+    "german": "德语",
+    "chinese": "中文",
+    "hindi": "印地语",
+    "arabic": "阿拉伯语",
+    "portuguese": "葡萄牙语",
+    "russian": "俄语",
+    "japanese": "日语"
+  }
+}

@@ -1,0 +1,132 @@
+
+{
+  "HomePage": {
+    "title": "Sinfonia de Teclas",
+    "gameMode": "Modo de Jogo",
+    "login": "Entrar",
+    "selectDifficulty": "Selecione a dificuldade",
+    "veryEasy": "Muito Fácil",
+    "easy": "Fácil",
+    "medium": "Médio",
+    "hard": "Difícil",
+    "expert": "Perito",
+    "customText": "Texto Personalizado",
+    "restartTest": "Reiniciar Teste",
+    "restartTooltip": "Pressione <kbd>Esc</kbd> para reiniciar",
+    "customTextPlaceholder": "Cole seu texto personalizado aqui...",
+    "layout": "Layout:",
+    "theme": "Tema:",
+    "defaultTheme": "Padrão",
+    "retroTheme": "Retrô",
+    "kidTheme": "Criança dos anos 80",
+    "carbonTheme": "Carbono",
+    "toggleKeyboard": "Mostrar/Ocultar Teclado",
+    "unsupportedDeviceTitle": "Dispositivo não suportado",
+    "unsupportedDeviceMessage": "A Sinfonia de Teclas foi projetada para navegadores de desktop. Visite em um computador para a experiência completa."
+  },
+  "GamePage": {
+    "title": "Sinfonia de Teclas",
+    "subtitle": "/ Jogo",
+    "practiceMode": "Modo de Prática",
+    "login": "Entrar",
+    "unsupportedDeviceTitle": "Dispositivo não suportado",
+    "unsupportedDeviceMessage": "A Sinfonia de Teclas foi projetada para navegadores de desktop. Visite em um computador para a experiência completa."
+  },
+  "InfoPage": {
+    "title": "Sobre a Sinfonia de Teclas",
+    "description": "Um treinador de digitação avançado projetado para elevar suas habilidades no teclado através da prática e do jogo.",
+    "featuresTitle": "Recursos",
+    "features": [
+      "Pratique com diferentes layouts de teclado: QWERTY, DVORAK e AZERTY.",
+      "Gere testes de digitação únicos a cada vez com a geração de texto aleatório.",
+      "Acompanhe suas Palavras Por Minuto (PPM) e precisão.",
+      "Receba exercícios personalizados com base no seu desempenho com o Treinamento Personalizado com IA.",
+      "Ajuste o desafio para corresponder ao seu nível de habilidade com vários níveis de dificuldade.",
+      "Veja onde você cometeu erros com feedback de precisão em tempo real.",
+      "Aprenda o posicionamento correto dos dedos com a visualização do mapeamento dedo-tecla.",
+      "Pratique com seu próprio texto usando o recurso de entrada de texto personalizado.",
+      "Jogue um envolvente jogo de 'Palavras que Caem' para tornar a prática divertida."
+    ],
+    "gettingStartedTitle": "Começando",
+    "gettingStarted": "Navegue para a página <practiceLink>Prática</practiceLink> para iniciar um teste de digitação padrão ou experimente o modo <gameLink>Jogo</gameLink> para uma experiência mais interativa.",
+    "goBack": "Voltar"
+  },
+  "LoginPage": {
+    "title": "Entrar",
+    "description": "Escolha seu método de login preferido",
+    "google": "Entrar com o Google",
+    "facebook": "Entrar com o Facebook",
+    "twitter": "Entrar com o X",
+    "linkedin": "Entrar com o LinkedIn",
+    "apple": "Entrar com a Apple",
+    "goBack": "Voltar para a digitação",
+    "signInSuccess": "Login bem-sucedido",
+    "signInSuccessDesc": "Bem-vindo de volta!",
+    "signInFailed": "Falha no login"
+  },
+  "Results": {
+    "title": "Teste Concluído!",
+    "description": "Aqui estão seus resultados.",
+    "wpm": "PPM",
+    "accuracy": "Precisão",
+    "getAIExercises": "Obter Exercícios com IA",
+    "generatingPlan": "Gerando seu plano personalizado...",
+    "aiError": "Erro de IA",
+    "aiErrorDesc": "Falha ao gerar exercícios personalizados. Tente novamente.",
+    "tryAgain": "Tentar Novamente"
+  },
+  "TypingTest": {
+    "wpm": "PPM",
+    "acc": "PRE"
+  },
+  "Game": {
+    "title": "Palavras que Caem",
+    "description": "Digite as palavras antes que elas cheguem ao fundo. Acumule uma sequência para obter um multiplicador de pontuação! O jogo fica mais difícil à medida que você marca mais pontos.",
+    "selectDifficulty": "Selecione a dificuldade",
+    "veryEasy": "Muito Fácil",
+    "easy": "Fácil",
+    "medium": "Médio",
+    "hard": "Difícil",
+    "expert": "Perito",
+    "startGame": "Começar Jogo",
+    "gameOver": "Fim de Jogo",
+    "finalScore": "Pontuação Final: {score}",
+    "gameOverDesc": "As palavras sobrecarregaram você.",
+    "playAgain": "Jogar Novamente",
+    "health": "Saúde",
+    "level": "Nível {level}",
+    "streak": "Sequência: {streak}",
+    "placeholder": "Digite as palavras aqui e pressione espaço..."
+  },
+  "Words": {
+    "customTextPlaceholder": "Por favor, insira algum texto personalizado para iniciar o teste."
+  },
+  "ThemeSwitcher": {
+    "appearance": "Aparência",
+    "light": "Claro",
+    "dark": "Escuro",
+    "system": "Sistema",
+    "color": "Cor",
+    "blue": "Azul",
+    "green": "Verde",
+    "orange": "Laranja",
+    "rose": "Rosa",
+    "citron": "Citrino",
+    "silver": "Prata",
+    "toggleTheme": "Alternar tema"
+  },
+  "LanguageSwitcher": {
+    "language": "Idioma",
+    "english": "Inglês",
+    "vietnamese": "Vietnamita",
+    "spanish": "Espanhol",
+    "french": "Francês",
+    "german": "Alemão",
+    "chinese": "Chinês",
+    "hindi": "Hindi",
+    "arabic": "Árabe",
+    "portuguese": "Português",
+    "russian": "Russo",
+    "japanese": "Japonês"
+  }
+}

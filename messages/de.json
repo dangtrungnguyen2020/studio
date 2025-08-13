@@ -1,0 +1,132 @@
+
+{
+  "HomePage": {
+    "title": "Keystroke Symphony",
+    "gameMode": "Spielmodus",
+    "login": "Anmelden",
+    "selectDifficulty": "Schwierigkeitsgrad wählen",
+    "veryEasy": "Sehr einfach",
+    "easy": "Einfach",
+    "medium": "Mittel",
+    "hard": "Schwer",
+    "expert": "Experte",
+    "customText": "Benutzerdefinierter Text",
+    "restartTest": "Test neu starten",
+    "restartTooltip": "Drücken Sie <kbd>Esc</kbd>, um neu zu starten",
+    "customTextPlaceholder": "Fügen Sie hier Ihren benutzerdefinierten Text ein...",
+    "layout": "Layout:",
+    "theme": "Thema:",
+    "defaultTheme": "Standard",
+    "retroTheme": "Retro",
+    "kidTheme": "80er-Jahre-Kind",
+    "carbonTheme": "Carbon",
+    "toggleKeyboard": "Tastatur ein-/ausblenden",
+    "unsupportedDeviceTitle": "Nicht unterstütztes Gerät",
+    "unsupportedDeviceMessage": "Keystroke Symphony ist für Desktop-Browser konzipiert. Bitte besuchen Sie uns auf einem Computer, um das volle Erlebnis zu genießen."
+  },
+  "GamePage": {
+    "title": "Keystroke Symphony",
+    "subtitle": "/ Spiel",
+    "practiceMode": "Übungsmodus",
+    "login": "Anmelden",
+    "unsupportedDeviceTitle": "Nicht unterstütztes Gerät",
+    "unsupportedDeviceMessage": "Keystroke Symphony ist für Desktop-Browser konzipiert. Bitte besuchen Sie uns auf einem Computer, um das volle Erlebnis zu genießen."
+  },
+  "InfoPage": {
+    "title": "Über Keystroke Symphony",
+    "description": "Ein fortschrittlicher Tipptrainer, der entwickelt wurde, um Ihre Tastaturfähigkeiten durch Übung und Spiel zu verbessern.",
+    "featuresTitle": "Funktionen",
+    "features": [
+      "Üben Sie mit verschiedenen Tastaturlayouts: QWERTY, DVORAK und AZERTY.",
+      "Erstellen Sie jedes Mal einzigartige Tipptests mit zufälliger Textgenerierung.",
+      "Verfolgen Sie Ihre Wörter pro Minute (WPM) und Ihre Genauigkeit.",
+      "Erhalten Sie maßgeschneiderte Übungen basierend auf Ihrer Leistung mit KI-gestütztem personalisiertem Training.",
+      "Passen Sie die Herausforderung mit verschiedenen Schwierigkeitsgraden an Ihr Können an.",
+      "Sehen Sie, wo Sie Fehler gemacht haben, mit Echtzeit-Genauigkeits-Feedback.",
+      "Lernen Sie die richtige Fingerplatzierung mit der Visualisierung der Finger-zu-Tasten-Zuordnung.",
+      "Üben Sie mit Ihrem eigenen Text mit der benutzerdefinierten Texteingabefunktion.",
+      "Spielen Sie ein fesselndes 'Falling Words'-Spiel, um das Üben unterhaltsam zu gestalten."
+    ],
+    "gettingStartedTitle": "Erste Schritte",
+    "gettingStarted": "Navigieren Sie zur Seite <practiceLink>Üben</practiceLink>, um einen Standard-Tipptest zu starten, oder probieren Sie den <gameLink>Spiel</gameLink>-Modus für ein interaktiveres Erlebnis.",
+    "goBack": "Zurück"
+  },
+  "LoginPage": {
+    "title": "Anmelden",
+    "description": "Wählen Sie Ihre bevorzugte Anmeldemethode",
+    "google": "Mit Google anmelden",
+    "facebook": "Mit Facebook anmelden",
+    "twitter": "Mit X anmelden",
+    "linkedin": "Mit LinkedIn anmelden",
+    "apple": "Mit Apple anmelden",
+    "goBack": "Zurück zum Tippen",
+    "signInSuccess": "Anmeldung erfolgreich",
+    "signInSuccessDesc": "Willkommen zurück!",
+    "signInFailed": "Anmeldung fehlgeschlagen"
+  },
+  "Results": {
+    "title": "Test abgeschlossen!",
+    "description": "Hier sind Ihre Ergebnisse.",
+    "wpm": "WPM",
+    "accuracy": "Genauigkeit",
+    "getAIExercises": "KI-gestützte Übungen erhalten",
+    "generatingPlan": "Ihr personalisierter Plan wird erstellt...",
+    "aiError": "KI-Fehler",
+    "aiErrorDesc": "Personalisierte Übungen konnten nicht generiert werden. Bitte versuchen Sie es erneut.",
+    "tryAgain": "Erneut versuchen"
+  },
+  "TypingTest": {
+    "wpm": "WPM",
+    "acc": "GEN"
+  },
+  "Game": {
+    "title": "Herabfallende Wörter",
+    "description": "Tippen Sie die Wörter, bevor sie den Boden erreichen. Bauen Sie eine Serie auf, um einen Punktemultiplikator zu erhalten! Das Spiel wird schwieriger, je mehr Punkte Sie erzielen.",
+    "selectDifficulty": "Schwierigkeitsgrad wählen",
+    "veryEasy": "Sehr einfach",
+    "easy": "Einfach",
+    "medium": "Mittel",
+    "hard": "Schwer",
+    "expert": "Experte",
+    "startGame": "Spiel starten",
+    "gameOver": "Spiel vorbei",
+    "finalScore": "Endstand: {score}",
+    "gameOverDesc": "Die Wörter haben dich überwältigt.",
+    "playAgain": "Nochmal spielen",
+    "health": "Gesundheit",
+    "level": "Level {level}",
+    "streak": "Serie: {streak}",
+    "placeholder": "Tippen Sie hier Wörter und drücken Sie die Leertaste..."
+  },
+  "Words": {
+    "customTextPlaceholder": "Bitte geben Sie einen benutzerdefinierten Text ein, um den Test zu beginnen."
+  },
+  "ThemeSwitcher": {
+    "appearance": "Erscheinungsbild",
+    "light": "Hell",
+    "dark": "Dunkel",
+    "system": "System",
+    "color": "Farbe",
+    "blue": "Blau",
+    "green": "Grün",
+    "orange": "Orange",
+    "rose": "Rose",
+    "citron": "Zitronengelb",
+    "silver": "Silber",
+    "toggleTheme": "Thema wechseln"
+  },
+  "LanguageSwitcher": {
+    "language": "Sprache",
+    "english": "Englisch",
+    "vietnamese": "Vietnamesisch",
+    "spanish": "Spanisch",
+    "french": "Französisch",
+    "german": "Deutsch",
+    "chinese": "Chinesisch",
+    "hindi": "Hindi",
+    "arabic": "Arabisch",
+    "portuguese": "Portugiesisch",
+    "russian": "Russisch",
+    "japanese": "Japanisch"
+  }
+}

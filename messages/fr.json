@@ -1,0 +1,132 @@
+
+{
+  "HomePage": {
+    "title": "Keystroke Symphony",
+    "gameMode": "Mode de jeu",
+    "login": "Connexion",
+    "selectDifficulty": "Sélectionnez la difficulté",
+    "veryEasy": "Très facile",
+    "easy": "Facile",
+    "medium": "Moyen",
+    "hard": "Difficile",
+    "expert": "Expert",
+    "customText": "Texte personnalisé",
+    "restartTest": "Recommencer le test",
+    "restartTooltip": "Appuyez sur <kbd>Échap</kbd> pour recommencer",
+    "customTextPlaceholder": "Collez votre texte personnalisé ici...",
+    "layout": "Disposition :",
+    "theme": "Thème :",
+    "defaultTheme": "Défaut",
+    "retroTheme": "Rétro",
+    "kidTheme": "Enfant des années 80",
+    "carbonTheme": "Carbone",
+    "toggleKeyboard": "Afficher/Masquer le clavier",
+    "unsupportedDeviceTitle": "Appareil non pris en charge",
+    "unsupportedDeviceMessage": "Keystroke Symphony est conçu pour les navigateurs de bureau. Veuillez visiter sur un ordinateur pour une expérience complète."
+  },
+  "GamePage": {
+    "title": "Keystroke Symphony",
+    "subtitle": "/ Jeu",
+    "practiceMode": "Mode entraînement",
+    "login": "Connexion",
+    "unsupportedDeviceTitle": "Appareil non pris en charge",
+    "unsupportedDeviceMessage": "Keystroke Symphony est conçu pour les navigateurs de bureau. Veuillez visiter sur un ordinateur pour une expérience complète."
+  },
+  "InfoPage": {
+    "title": "À propos de Keystroke Symphony",
+    "description": "Un entraîneur de frappe avancé conçu pour améliorer vos compétences au clavier par la pratique et le jeu.",
+    "featuresTitle": "Fonctionnalités",
+    "features": [
+      "Entraînez-vous avec différentes dispositions de clavier : QWERTY, DVORAK et AZERTY.",
+      "Générez des tests de frappe uniques à chaque fois avec la génération de texte aléatoire.",
+      "Suivez vos mots par minute (MPM) et votre précision.",
+      "Obtenez des exercices personnalisés en fonction de vos performances avec l'entraînement personnalisé optimisé par l'IA.",
+      "Ajustez le défi en fonction de votre niveau de compétence avec différents niveaux de difficulté.",
+      "Voyez où vous avez fait des erreurs avec une rétroaction de précision en temps réel.",
+      "Apprenez le placement correct des doigts avec la visualisation de la correspondance doigt-touche.",
+      "Entraînez-vous avec votre propre texte en utilisant la fonction de saisie de texte personnalisé.",
+      "Jouez à un jeu captivant de « Mots qui tombent » pour rendre la pratique amusante."
+    ],
+    "gettingStartedTitle": "Pour commencer",
+    "gettingStarted": "Accédez à la page <practiceLink>Entraînement</practiceLink> pour commencer un test de frappe standard, ou essayez le mode <gameLink>Jeu</gameLink> pour une expérience plus interactive.",
+    "goBack": "Retour"
+  },
+  "LoginPage": {
+    "title": "Se connecter",
+    "description": "Choisissez votre méthode de connexion préférée",
+    "google": "Se connecter avec Google",
+    "facebook": "Se connecter avec Facebook",
+    "twitter": "Se connecter avec X",
+    "linkedin": "Se connecter avec LinkedIn",
+    "apple": "Se connecter avec Apple",
+    "goBack": "Retour à la frappe",
+    "signInSuccess": "Connexion réussie",
+    "signInSuccessDesc": "Bon retour !",
+    "signInFailed": "La connexion a échoué"
+  },
+  "Results": {
+    "title": "Test terminé !",
+    "description": "Voici vos résultats.",
+    "wpm": "MPM",
+    "accuracy": "Précision",
+    "getAIExercises": "Obtenir des exercices optimisés par l'IA",
+    "generatingPlan": "Génération de votre plan personnalisé...",
+    "aiError": "Erreur de l'IA",
+    "aiErrorDesc": "Échec de la génération d'exercices personnalisés. Veuillez réessayer.",
+    "tryAgain": "Réessayer"
+  },
+  "TypingTest": {
+    "wpm": "MPM",
+    "acc": "PRÉ"
+  },
+  "Game": {
+    "title": "Mots qui tombent",
+    "description": "Tapez les mots avant qu'ils n'atteignent le bas. Créez une série pour obtenir un multiplicateur de score ! Le jeu devient plus difficile à mesure que vous marquez plus de points.",
+    "selectDifficulty": "Sélectionnez la difficulté",
+    "veryEasy": "Très facile",
+    "easy": "Facile",
+    "medium": "Moyen",
+    "hard": "Difficile",
+    "expert": "Expert",
+    "startGame": "Commencer le jeu",
+    "gameOver": "Partie terminée",
+    "finalScore": "Score final : {score}",
+    "gameOverDesc": "Les mots vous ont submergé.",
+    "playAgain": "Rejouer",
+    "health": "Santé",
+    "level": "Niveau {level}",
+    "streak": "Série : {streak}",
+    "placeholder": "Tapez des mots ici et appuyez sur espace..."
+  },
+  "Words": {
+    "customTextPlaceholder": "Veuillez saisir un texte personnalisé pour commencer le test."
+  },
+  "ThemeSwitcher": {
+    "appearance": "Apparence",
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système",
+    "color": "Couleur",
+    "blue": "Bleu",
+    "green": "Vert",
+    "orange": "Orange",
+    "rose": "Rose",
+    "citron": "Citron",
+    "silver": "Argent",
+    "toggleTheme": "Changer de thème"
+  },
+  "LanguageSwitcher": {
+    "language": "Langue",
+    "english": "Anglais",
+    "vietnamese": "Vietnamien",
+    "spanish": "Espagnol",
+    "french": "Français",
+    "german": "Allemand",
+    "chinese": "Chinois",
+    "hindi": "Hindi",
+    "arabic": "Arabe",
+    "portuguese": "Portugais",
+    "russian": "Russe",
+    "japanese": "Japonais"
+  }
+}

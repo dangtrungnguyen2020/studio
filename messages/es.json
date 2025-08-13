@@ -1,0 +1,132 @@
+
+{
+  "HomePage": {
+    "title": "Keystroke Symphony",
+    "gameMode": "Modo de juego",
+    "login": "Iniciar sesión",
+    "selectDifficulty": "Seleccionar dificultad",
+    "veryEasy": "Muy fácil",
+    "easy": "Fácil",
+    "medium": "Medio",
+    "hard": "Difícil",
+    "expert": "Experto",
+    "customText": "Texto personalizado",
+    "restartTest": "Reiniciar prueba",
+    "restartTooltip": "Presiona <kbd>Esc</kbd> para reiniciar",
+    "customTextPlaceholder": "Pega tu texto personalizado aquí...",
+    "layout": "Diseño:",
+    "theme": "Tema:",
+    "defaultTheme": "Predeterminado",
+    "retroTheme": "Retro",
+    "kidTheme": "Niño de los 80",
+    "carbonTheme": "Carbón",
+    "toggleKeyboard": "Mostrar/Ocultar teclado",
+    "unsupportedDeviceTitle": "Dispositivo no compatible",
+    "unsupportedDeviceMessage": "Keystroke Symphony está diseñado para navegadores de escritorio. Visítanos en una computadora para disfrutar de la experiencia completa."
+  },
+  "GamePage": {
+    "title": "Keystroke Symphony",
+    "subtitle": "/ Juego",
+    "practiceMode": "Modo de práctica",
+    "login": "Iniciar sesión",
+    "unsupportedDeviceTitle": "Dispositivo no compatible",
+    "unsupportedDeviceMessage": "Keystroke Symphony está diseñado para navegadores de escritorio. Visítanos en una computadora para disfrutar de la experiencia completa."
+  },
+  "InfoPage": {
+    "title": "Acerca de Keystroke Symphony",
+    "description": "Un entrenador de mecanografía avanzado diseñado para elevar tus habilidades con el teclado a través de la práctica y el juego.",
+    "featuresTitle": "Características",
+    "features": [
+      "Practica con diferentes distribuciones de teclado: QWERTY, DVORAK y AZERTY.",
+      "Genera pruebas de mecanografía únicas cada vez con la generación de texto aleatorio.",
+      "Realiza un seguimiento de tus palabras por minuto (WPM) y tu precisión.",
+      "Obtén ejercicios personalizados basados en tu rendimiento con el entrenamiento personalizado impulsado por IA.",
+      "Ajusta el desafío para que coincida con tu nivel de habilidad con varios niveles de dificultad.",
+      "Ve dónde cometiste errores con la retroalimentación de precisión en tiempo real.",
+      "Aprende la colocación adecuada de los dedos con la visualización del mapeo de dedo a tecla.",
+      "Practica con tu propio texto usando la función de entrada de texto personalizado.",
+      "Juega un atractivo juego de 'Palabras que caen' para que la práctica sea divertida."
+    ],
+    "gettingStartedTitle": "Empezando",
+    "gettingStarted": "Navega a la página de <practiceLink>Práctica</practiceLink> para comenzar una prueba de mecanografía estándar, o prueba el modo <gameLink>Juego</gameLink> para una experiencia más interactiva.",
+    "goBack": "Regresar"
+  },
+  "LoginPage": {
+    "title": "Iniciar sesión",
+    "description": "Elige tu método de inicio de sesión preferido",
+    "google": "Iniciar sesión con Google",
+    "facebook": "Iniciar sesión con Facebook",
+    "twitter": "Iniciar sesión con X",
+    "linkedin": "Iniciar sesión con LinkedIn",
+    "apple": "Iniciar sesión con Apple",
+    "goBack": "Volver a la mecanografía",
+    "signInSuccess": "Inicio de sesión exitoso",
+    "signInSuccessDesc": "¡Bienvenido de nuevo!",
+    "signInFailed": "Error al iniciar sesión"
+  },
+  "Results": {
+    "title": "¡Prueba completada!",
+    "description": "Aquí están tus resultados.",
+    "wpm": "PPM",
+    "accuracy": "Precisión",
+    "getAIExercises": "Obtener ejercicios con tecnología de IA",
+    "generatingPlan": "Generando tu plan personalizado...",
+    "aiError": "Error de IA",
+    "aiErrorDesc": "No se pudieron generar ejercicios personalizados. Inténtalo de nuevo.",
+    "tryAgain": "Intentar de nuevo"
+  },
+  "TypingTest": {
+    "wpm": "PPM",
+    "acc": "PRE"
+  },
+  "Game": {
+    "title": "Palabras que caen",
+    "description": "Escribe las palabras antes de que lleguen al final. ¡Acumula una racha para obtener un multiplicador de puntuación! El juego se vuelve más difícil a medida que obtienes más puntos.",
+    "selectDifficulty": "Seleccionar dificultad",
+    "veryEasy": "Muy fácil",
+    "easy": "Fácil",
+    "medium": "Medio",
+    "hard": "Difícil",
+    "expert": "Experto",
+    "startGame": "Empezar juego",
+    "gameOver": "Juego terminado",
+    "finalScore": "Puntuación final: {score}",
+    "gameOverDesc": "Las palabras te han abrumado.",
+    "playAgain": "Jugar de nuevo",
+    "health": "Salud",
+    "level": "Nivel {level}",
+    "streak": "Racha: {streak}",
+    "placeholder": "Escribe palabras aquí y presiona espacio..."
+  },
+  "Words": {
+    "customTextPlaceholder": "Ingresa un texto personalizado para comenzar la prueba."
+  },
+  "ThemeSwitcher": {
+    "appearance": "Apariencia",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema",
+    "color": "Color",
+    "blue": "Azul",
+    "green": "Verde",
+    "orange": "Naranja",
+    "rose": "Rosa",
+    "citron": "Citrón",
+    "silver": "Plata",
+    "toggleTheme": "Alternar tema"
+  },
+  "LanguageSwitcher": {
+    "language": "Idioma",
+    "english": "Inglés",
+    "vietnamese": "Vietnamita",
+    "spanish": "Español",
+    "french": "Francés",
+    "german": "Alemán",
+    "chinese": "Chino",
+    "hindi": "Hindi",
+    "arabic": "Árabe",
+    "portuguese": "Portugués",
+    "russian": "Ruso",
+    "japanese": "Japonés"
+  }
+}

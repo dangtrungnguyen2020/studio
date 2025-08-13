@@ -1,0 +1,132 @@
+
+{
+  "HomePage": {
+    "title": "キーストロークシンフォニー",
+    "gameMode": "ゲームモード",
+    "login": "ログイン",
+    "selectDifficulty": "難易度を選択",
+    "veryEasy": "非常に簡単",
+    "easy": "簡単",
+    "medium": "普通",
+    "hard": "難しい",
+    "expert": "エキスパート",
+    "customText": "カスタムテキスト",
+    "restartTest": "テストを再開",
+    "restartTooltip": "<kbd>Esc</kbd>を押して再開",
+    "customTextPlaceholder": "ここにカスタムテキストを貼り付けてください...",
+    "layout": "レイアウト：",
+    "theme": "テーマ：",
+    "defaultTheme": "デフォルト",
+    "retroTheme": "レトロ",
+    "kidTheme": "80年代の子",
+    "carbonTheme": "カーボン",
+    "toggleKeyboard": "キーボードの表示/非表示",
+    "unsupportedDeviceTitle": "サポートされていないデバイス",
+    "unsupportedDeviceMessage": "キーストロークシンフォニーはデスクトップブラウザ向けに設計されています。完全な体験のためにコンピュータでアクセスしてください。"
+  },
+  "GamePage": {
+    "title": "キーストロークシンフォニー",
+    "subtitle": "/ ゲーム",
+    "practiceMode": "練習モード",
+    "login": "ログイン",
+    "unsupportedDeviceTitle": "サポートされていないデバイス",
+    "unsupportedDeviceMessage": "キーストロークシンフォニーはデスクトップブラウザ向けに設計されています。完全な体験のためにコンピュータでアクセスしてください。"
+  },
+  "InfoPage": {
+    "title": "キーストロークシンフォニーについて",
+    "description": "練習と遊びを通してキーボードスキルを向上させるために設計された高度なタイピングトレーナー。",
+    "featuresTitle": "特徴",
+    "features": [
+      "異なるキーボードレイアウトで練習：QWERTY、DVORAK、AZERTY。",
+      "ランダムなテキスト生成で毎回ユニークなタイピングテストを生成します。",
+      "1分あたりの単語数（WPM）と正確性を追跡します。",
+      "AIを活用したパーソナライズされたトレーニングで、あなたのパフォーマンスに基づいたカスタマイズされた演習を取得します。",
+      "さまざまな難易度レベルであなたのスキルレベルに合わせて挑戦を調整します。",
+      "リアルタイムの正確性フィードバックでどこで間違えたかを確認します。",
+      "指とキーのマッピングの視覚化で適切な指の配置を学びます。",
+      "カスタムテキスト入力機能を使用して独自のテキストで練習します。",
+      "魅力的な「フォーリングワーズ」ゲームをプレイして練習を楽しくします。"
+    ],
+    "gettingStartedTitle": "はじめに",
+    "gettingStarted": "標準的なタイピングテストを開始するには<practiceLink>練習</practiceLink>ページに移動するか、よりインタラクティブな体験のために<gameLink>ゲーム</gameLink>モードをお試しください。",
+    "goBack": "戻る"
+  },
+  "LoginPage": {
+    "title": "サインイン",
+    "description": "ご希望のサインイン方法を選択してください",
+    "google": "Googleでサインイン",
+    "facebook": "Facebookでサインイン",
+    "twitter": "Xでサインイン",
+    "linkedin": "LinkedInでサインイン",
+    "apple": "Appleでサインイン",
+    "goBack": "タイピングに戻る",
+    "signInSuccess": "サインインに成功しました",
+    "signInSuccessDesc": "おかえりなさい！",
+    "signInFailed": "サインインに失敗しました"
+  },
+  "Results": {
+    "title": "テスト完了！",
+    "description": "こちらがあなたの結果です。",
+    "wpm": "WPM",
+    "accuracy": "正確性",
+    "getAIExercises": "AI搭載の演習を取得する",
+    "generatingPlan": "あなたのパーソナライズされたプランを生成中...",
+    "aiError": "AIエラー",
+    "aiErrorDesc": "パーソナライズされた演習を生成できませんでした。もう一度お試しください。",
+    "tryAgain": "再試行"
+  },
+  "TypingTest": {
+    "wpm": "WPM",
+    "acc": "正確性"
+  },
+  "Game": {
+    "title": "フォーリングワーズ",
+    "description": "単語が一番下に到達する前に入力してください。連続して成功するとスコア乗数が得られます！ポイントを獲得するにつれてゲームは難しくなります。",
+    "selectDifficulty": "難易度を選択",
+    "veryEasy": "非常に簡単",
+    "easy": "簡単",
+    "medium": "普通",
+    "hard": "難しい",
+    "expert": "エキスパート",
+    "startGame": "ゲームを開始",
+    "gameOver": "ゲームオーバー",
+    "finalScore": "最終スコア：{score}",
+    "gameOverDesc": "単語に圧倒されました。",
+    "playAgain": "もう一度プレイ",
+    "health": "体力",
+    "level": "レベル{level}",
+    "streak": "連続：{streak}",
+    "placeholder": "ここに単語を入力してスペースキーを押してください..."
+  },
+  "Words": {
+    "customTextPlaceholder": "テストを開始するには、カスタムテキストを入力してください。"
+  },
+  "ThemeSwitcher": {
+    "appearance": "外観",
+    "light": "ライト",
+    "dark": "ダーク",
+    "system": "システム",
+    "color": "色",
+    "blue": "青",
+    "green": "緑",
+    "orange": "オレンジ",
+    "rose": "ローズ",
+    "citron": "シトロン",
+    "silver": "シルバー",
+    "toggleTheme": "テーマを切り替える"
+  },
+  "LanguageSwitcher": {
+    "language": "言語",
+    "english": "英語",
+    "vietnamese": "ベトナム語",
+    "spanish": "スペイン語",
+    "french": "フランス語",
+    "german": "ドイツ語",
+    "chinese": "中国語",
+    "hindi": "ヒンディー語",
+    "arabic": "アラビア語",
+    "portuguese": "ポルトガル語",
+    "russian": "ロシア語",
+    "japanese": "日本語"
+  }
+}
