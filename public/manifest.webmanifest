@@ -1,0 +1,21 @@
+{
+  "name": "Keystroke Symphony",
+  "short_name": "Keystroke",
+  "description": "A modern typing trainer to elevate your keyboard skills.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080A0A",
+  "theme_color": "#7DF9FF",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
