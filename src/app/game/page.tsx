@@ -15,9 +15,11 @@ import AdBanner from "@/components/keystroke-symphony/ad-banner";
 import Link from "next/link";
 import { useTheme } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function GamePage() {
   const { colorTheme, setColorTheme } = useTheme();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const savedColorTheme = localStorage.getItem('color-theme') as any;
@@ -26,6 +28,17 @@ export default function GamePage() {
     }
   }, []);
 
+  if (isMobile) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-background text-center p-4">
+        <h1 className="text-2xl font-bold mb-4">Unsupported Device</h1>
+        <p className="max-w-md">
+          Keystroke Symphony is designed for desktop browsers. Please visit on a computer for the full experience.
+        </p>
+      </div>
+    );
+  }
+  
   return (
     <TooltipProvider>
       <div className="min-h-screen bg-background text-foreground flex flex-col p-4 sm:p-6 md:p-8 justify-center items-center">

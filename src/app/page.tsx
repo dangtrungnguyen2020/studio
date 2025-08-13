@@ -22,6 +22,7 @@ import type { KeyboardLayout, Difficulty, KeyboardTheme } from "@/lib/keyboards"
 import Link from "next/link";
 import { useTheme } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 
 type TestStats = {
@@ -48,6 +49,7 @@ export default function Home() {
   const [showKeyboard, setShowKeyboard] = useState(true);
   
   const [isClient, setIsClient] = useState(false)
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     setIsClient(true)
@@ -115,6 +117,17 @@ export default function Home() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleRestart]);
+
+  if (isMobile) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-background text-center p-4">
+        <h1 className="text-2xl font-bold mb-4">Unsupported Device</h1>
+        <p className="max-w-md">
+          Keystroke Symphony is designed for desktop browsers. Please visit on a computer for the full experience.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <TooltipProvider>
