@@ -144,7 +144,7 @@ export default function Home() {
                   </TabsList>
                   <TabsContent value="practice" className="mt-4">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                      <Select value={difficulty} onValueChange={(v) => setDifficulty(v as Difficulty)}>
+                      <Select value={difficulty} onValueChange={(value) => setDifficulty(value as Difficulty)}>
                         <SelectTrigger className="w-full">
                           <SelectValue placeholder="Select difficulty" />
                         </SelectTrigger>
@@ -176,7 +176,7 @@ export default function Home() {
                       <div className="flex items-center gap-2 text-sm text-muted-foreground">
                         <KeyboardIcon className="h-4 w-4" />
                         <span>Layout:</span>
-                        <Select value={layout} onValueChange={(v) => setLayout(v as KeyboardLayout)}>
+                        <Select value={layout} onValueChange={(value) => setLayout(value as KeyboardLayout)}>
                           <SelectTrigger className="w-[120px]">
                             <SelectValue />
                           </SelectTrigger>
@@ -190,7 +190,7 @@ export default function Home() {
                       <div className="flex items-center gap-2 text-sm text-muted-foreground">
                         <Palette className="h-4 w-4" />
                         <span>Keyboard:</span>
-                        <Select value={keyboardTheme} onValueChange={(v) => handleKeyboardThemeChange(v as KeyboardTheme)}>
+                        <Select value={keyboardTheme} onValueChange={(value) => handleKeyboardThemeChange(value as KeyboardTheme)}>
                           <SelectTrigger className="w-[120px]">
                             <SelectValue />
                           </SelectTrigger>
