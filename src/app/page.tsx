@@ -142,15 +142,15 @@ export default function Home() {
         <main className={cn("w-full max-w-5xl mx-auto flex flex-col gap-8", mode === 'game' && 'flex-1')}>
           <Card className={cn("shadow-lg border-primary/20", mode === 'game' && 'h-full flex flex-col')}>
             <CardContent className={cn("p-4 sm:p-6", mode === 'game' && 'flex-1 flex flex-col')}>
-               <Tabs value={mode} onValueChange={(v) => setMode(v as "practice" | "game")} className={cn("md:col-span-3", mode === 'game' && 'flex-1 flex flex-col')}>
+               <Tabs value={mode} onValueChange={(v) => setMode(v as "practice" | "game")} className={cn(mode === 'game' && 'flex-1 flex flex-col')}>
                   <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="practice">Practice</TabsTrigger>
                     <TabsTrigger value="game">Game</TabsTrigger>
                   </TabsList>
                   <TabsContent value="practice" className="mt-4">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                      <Select value={difficulty} onValueChange={(value) => setDifficulty(value as Difficulty)}>
-                        <SelectTrigger className="w-full">
+                    <div className="flex flex-col sm:flex-row items-center gap-4 mb-6">
+                       <Select value={difficulty} onValueChange={(v) => setDifficulty(v as Difficulty)}>
+                        <SelectTrigger className="w-full sm:w-[200px]">
                           <SelectValue placeholder="Select difficulty" />
                         </SelectTrigger>
                         <SelectContent>
@@ -162,7 +162,19 @@ export default function Home() {
                           <SelectItem value="custom">Custom Text</SelectItem>
                         </SelectContent>
                       </Select>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button onClick={handleRestart} variant="outline" size="sm" className="w-full sm:w-auto">
+                            <RefreshCw className="mr-2 h-4 w-4" />
+                            Restart Test
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Press <kbd className="bg-muted-foreground/20 px-1.5 py-0.5 rounded">Esc</kbd> to restart</p>
+                        </TooltipContent>
+                      </Tooltip>
                     </div>
+
                     {difficulty === 'custom' && (
                        <Textarea
                           placeholder="Paste your custom text here..."
@@ -178,65 +190,6 @@ export default function Home() {
                 </Tabs>
 
               { mode !== 'game' && (
-                <>
-                  <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
-                    <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <KeyboardIcon className="h-4 w-4" />
-                        <span>Layout:</span>
-                        <Select value={layout} onValueChange={(value) => setLayout(value as KeyboardLayout)}>
-                          <SelectTrigger className="w-[120px]">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {Object.keys(KEYBOARD_LAYOUTS).map(l => (
-                              <SelectItem key={l} value={l}>{l}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Palette className="h-4 w-4" />
-                        <span>Keyboard:</span>
-                        <Select value={keyboardTheme} onValueChange={(value) => handleKeyboardThemeChange(value as KeyboardTheme)}>
-                          <SelectTrigger className="w-[120px]">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="default">Default</SelectItem>
-                            <SelectItem value="retro">Retro</SelectItem>
-                            <SelectItem value="80s-kid">80s Kid</SelectItem>
-                            <SelectItem value="carbon">Carbon</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Button onClick={() => setShowKeyboard(!showKeyboard)} variant="outline" size="icon">
-                            <KeyboardIcon className={cn("h-4 w-4", !showKeyboard && "text-muted-foreground/50")} />
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Show/Hide Keyboard</p>
-                        </TooltipContent>
-                      </Tooltip>
-
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Button onClick={handleRestart} variant="outline" size="sm">
-                            <RefreshCw className="mr-2 h-4 w-4" />
-                            Restart Test
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Press <kbd className="bg-muted-foreground/20 px-1.5 py-0.5 rounded">Esc</kbd> to restart</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </div>
-                  </div>
                   <TypingTest
                     key={testId}
                     text={testText}
@@ -244,19 +197,66 @@ export default function Home() {
                     onKeyPress={setLastPressedKey}
                     onCharIndexChange={setCurrentCharIndex}
                   />
-                </>
               )}
             </CardContent>
           </Card>
 
           {showKeyboard && mode !== 'game' && (
-            <Keyboard
-              layout={layout}
-              theme={keyboardTheme}
-              lastPressedKey={lastPressedKey}
-              text={testText}
-              currentCharIndex={currentCharIndex}
-            />
+            <div className="flex flex-col gap-4">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-2 rounded-lg bg-muted/30">
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <KeyboardIcon className="h-4 w-4" />
+                      <span>Layout:</span>
+                      <Select value={layout} onValueChange={(v) => setLayout(v as KeyboardLayout)}>
+                        <SelectTrigger className="w-[120px]">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Object.keys(KEYBOARD_LAYOUTS).map(l => (
+                            <SelectItem key={l} value={l}>{l}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Palette className="h-4 w-4" />
+                      <span>Theme:</span>
+                      <Select value={keyboardTheme} onValueChange={(v) => handleKeyboardThemeChange(v as KeyboardTheme)}>
+                        <SelectTrigger className="w-[120px]">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="default">Default</SelectItem>
+                          <SelectItem value="retro">Retro</SelectItem>
+                          <SelectItem value="80s-kid">80s Kid</SelectItem>
+                          <SelectItem value="carbon">Carbon</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button onClick={() => setShowKeyboard(!showKeyboard)} variant="outline" size="icon">
+                          <KeyboardIcon className={cn("h-4 w-4", !showKeyboard && "text-muted-foreground/50")} />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Show/Hide Keyboard</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </div>
+                </div>
+                <Keyboard
+                  layout={layout}
+                  theme={keyboardTheme}
+                  lastPressedKey={lastPressedKey}
+                  text={testText}
+                  currentCharIndex={currentCharIndex}
+                />
+            </div>
           )}
         </main>
         
