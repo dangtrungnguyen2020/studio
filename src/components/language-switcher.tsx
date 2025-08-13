@@ -3,7 +3,8 @@
 
 import {Languages} from 'lucide-react';
 import {useLocale, useTranslations} from 'next-intl';
-import {useRouter, usePathname, locales} from '@/navigation';
+import {locales} from '@/navigation';
+import {useRouter} from 'next/navigation';
 
 import {Button} from '@/components/ui/button';
 import {
@@ -18,10 +19,10 @@ export default function LanguageSwitcher() {
   const t = useTranslations('LanguageSwitcher');
   const locale = useLocale();
   const router = useRouter();
-  const pathname = usePathname();
 
   const switchLocale = (nextLocale: string) => {
-    router.replace(pathname, {locale: nextLocale});
+    document.cookie = `NEXT_LOCALE=${nextLocale}; path=/; max-age=31536000; SameSite=Lax`;
+    router.refresh();
   };
   
   const languageNames: Record<string, string> = {
@@ -62,5 +63,3 @@ export default function LanguageSwitcher() {
     </DropdownMenu>
   );
 }
-
-    

@@ -8,16 +8,27 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import LanguageSwitcher from "@/components/language-switcher";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 import Game from "@/components/keystroke-symphony/game";
 import AdBanner from "@/components/keystroke-symphony/ad-banner";
 
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { useTheme } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useTranslations } from "next-intl";
 
 export default function GamePage() {
+  const t = useTranslations('GamePage');
+  const tSettings = useTranslations('ThemeSwitcher');
   const { colorTheme, setColorTheme } = useTheme();
   const isMobile = useIsMobile();
 
@@ -31,9 +42,9 @@ export default function GamePage() {
   if (isMobile) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-background text-center p-4">
-        <h1 className="text-2xl font-bold mb-4">Unsupported Device</h1>
+        <h1 className="text-2xl font-bold mb-4">{t('unsupportedDeviceTitle')}</h1>
         <p className="max-w-md">
-          Keystroke Symphony is designed for desktop browsers. Please visit on a computer for the full experience.
+          {t('unsupportedDeviceMessage')}
         </p>
       </div>
     );
@@ -44,30 +55,43 @@ export default function GamePage() {
       <div className="min-h-screen bg-background text-foreground flex flex-col p-4 sm:p-6 md:p-8 justify-center items-center">
         <header className="w-full max-w-5xl mx-auto flex justify-between items-center mb-6">
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl sm:text-3xl font-bold text-primary">Keystroke Symphony</h1>
-            <span className="text-xl sm:text-2xl font-semibold text-muted-foreground">/ Game</span>
+            <h1 className="text-2xl sm:text-3xl font-bold text-primary">{t('title')}</h1>
+            <span className="text-xl sm:text-2xl font-semibold text-muted-foreground">{t('subtitle')}</span>
           </div>
           <div className="flex items-center gap-2">
             <Link href="/">
               <Button variant="outline">
                 <BookOpen className="mr-2 h-4 w-4" />
-                Practice Mode
+                {t('practiceMode')}
               </Button>
             </Link>
             <Link href="/login">
-              <Button variant="outline">Login</Button>
+              <Button variant="outline">{t('login')}</Button>
             </Link>
-            <ThemeSwitcher />
-             <Link href="/info">
-              <Button variant="ghost" size="icon">
-                  <Info className="h-5 w-5" />
-              </Button>
-            </Link>
-            <a href="https://github.com/firebase/genkit/tree/main/studio/samples/keystroke-symphony" target="_blank" rel="noopener noreferrer">
-              <Button variant="ghost" size="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-              </Button>
-            </a>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="icon">
+                  <Settings className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>{tSettings('appearance')}</DropdownMenuLabel>
+                 <div className="px-2">
+                  <ThemeSwitcher />
+                </div>
+                <DropdownMenuSeparator />
+                 <DropdownMenuLabel>
+                  <LanguageSwitcher />
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <Link href="/info">
+                  <Button variant="ghost" className="w-full justify-start">
+                      <Info className="h-4 w-4 mr-2" />
+                      About
+                  </Button>
+                </Link>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </header>
 

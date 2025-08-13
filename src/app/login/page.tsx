@@ -16,11 +16,12 @@ import { FaGoogle, FaFacebook, FaLinkedin, FaApple } from 'react-icons/fa';
 import { FaXTwitter } from "react-icons/fa6";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
 import { useToast } from "@/hooks/use-toast";
-
+import { useTranslations } from "next-intl";
 
 const SignInPage = () => {
+  const t = useTranslations("LoginPage");
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const { toast } = useToast();
@@ -30,15 +31,15 @@ const SignInPage = () => {
     try {
       await signInWithPopup(auth, provider);
       toast({
-        title: "Sign in successful",
-        description: "Welcome back!",
+        title: t('signInSuccess'),
+        description: t('signInSuccessDesc'),
       });
       router.push('/');
     } catch (error: any) {
       setError(error.message);
       toast({
         variant: "destructive",
-        title: "Sign in failed",
+        title: t('signInFailed'),
         description: error.message,
       });
     }
@@ -54,30 +55,30 @@ const SignInPage = () => {
     <div className="flex items-center justify-center min-h-screen bg-background">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Sign In</CardTitle>
-          <CardDescription>Choose your preferred sign-in method</CardDescription>
+          <CardTitle className="text-2xl">{t('title')}</CardTitle>
+          <CardDescription>{t('description')}</CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
           <Button onClick={() => handleSignIn(googleProvider)} variant="outline">
-            <FaGoogle className="mr-2 h-4 w-4" /> Sign in with Google
+            <FaGoogle className="mr-2 h-4 w-4" /> {t('google')}
           </Button>
           <Button onClick={() => handleSignIn(facebookProvider)} variant="outline">
-            <FaFacebook className="mr-2 h-4 w-4" /> Sign in with Facebook
+            <FaFacebook className="mr-2 h-4 w-4" /> {t('facebook')}
           </Button>
            <Button onClick={() => handleSignIn(twitterProvider)} variant="outline">
-            <FaXTwitter className="mr-2 h-4 w-4" /> Sign in with X
+            <FaXTwitter className="mr-2 h-4 w-4" /> {t('twitter')}
           </Button>
           <Button onClick={() => handleSignIn(linkedinProvider)} variant="outline">
-            <FaLinkedin className="mr-2 h-4 w-4" /> Sign in with LinkedIn
+            <FaLinkedin className="mr-2 h-4 w-4" /> {t('linkedin')}
           </Button>
           <Button onClick={() => handleSignIn(appleProvider)} variant="outline">
-            <FaApple className="mr-2 h-4 w-4" /> Sign in with Apple
+            <FaApple className="mr-2 h-4 w-4" /> {t('apple')}
           </Button>
           {error && <p className="text-destructive text-center text-sm">{error}</p>}
         </CardContent>
         <CardFooter className="flex justify-center">
             <Button variant="link" onClick={() => router.push('/')}>
-              <ArrowLeft className="mr-2 h-4 w-4" /> Go back to typing
+              <ArrowLeft className="mr-2 h-4 w-4" /> {t('goBack')}
             </Button>
         </CardFooter>
       </Card>
