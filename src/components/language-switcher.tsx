@@ -24,17 +24,17 @@ export default function LanguageSwitcher() {
   };
   
   const languageNames: Record<string, string> = {
-    en: t('english'),
-    vi: t('vietnamese'),
-    es: t('spanish'),
-    fr: t('french'),
-    de: t('german'),
-    zh: t('chinese'),
-    hi: t('hindi'),
-    ar: t('arabic'),
-    pt: t('portuguese'),
-    ru: t('russian'),
-    ja: t('japanese'),
+    en: 'English',
+    vi: 'Tiếng Việt',
+    es: 'Español',
+    fr: 'Français',
+    de: 'Deutsch',
+    zh: '中文',
+    hi: 'हिन्दी',
+    ar: 'العربية',
+    pt: 'Português',
+    ru: 'Русский',
+    ja: '日本語',
   }
 
   return (
