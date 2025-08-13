@@ -148,7 +148,7 @@ export default function Home() {
                     <TabsTrigger value="game">Game</TabsTrigger>
                   </TabsList>
                   <TabsContent value="practice" className="mt-4">
-                    <div className="flex flex-col sm:flex-row items-center gap-4 mb-6">
+                    <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4 mb-6">
                        <Select value={difficulty} onValueChange={(v) => setDifficulty(v as Difficulty)}>
                         <SelectTrigger className="w-full sm:w-[200px]">
                           <SelectValue placeholder="Select difficulty" />
