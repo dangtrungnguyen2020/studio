@@ -189,7 +189,7 @@ const Game = () => {
   }
 
   return (
-    <Card className="w-full h-[500px] flex flex-col p-4" onClick={() => inputRef.current?.focus()}>
+    <Card className="w-full h-full flex flex-col p-4" onClick={() => inputRef.current?.focus()}>
       {/* Health Bar, Score, etc. */}
       <div className="flex justify-between items-center mb-4 gap-4">
         <div>

@@ -121,7 +121,7 @@ export default function Home() {
 
   return (
     <TooltipProvider>
-      <div className={`min-h-screen bg-background text-foreground flex flex-col items-center justify-center p-4 sm:p-6 md:p-8`}>
+      <div className={cn("min-h-screen bg-background text-foreground flex flex-col p-4 sm:p-6 md:p-8", mode === 'game' ? 'justify-center items-center' : 'items-center justify-center')}>
         <header className="w-full max-w-5xl mx-auto flex justify-between items-center mb-6">
           <div className="flex items-center gap-2">
             <h1 className="text-2xl sm:text-3xl font-bold text-primary">Keystroke Symphony</h1>
@@ -139,10 +139,10 @@ export default function Home() {
           </div>
         </header>
 
-        <main className="w-full max-w-5xl mx-auto flex flex-col gap-8">
-          <Card className="shadow-lg border-primary/20">
-            <CardContent className="p-4 sm:p-6">
-               <Tabs value={mode} onValueChange={(v) => setMode(v as "practice" | "game")} className="md:col-span-3">
+        <main className={cn("w-full max-w-5xl mx-auto flex flex-col gap-8", mode === 'game' && 'flex-1')}>
+          <Card className={cn("shadow-lg border-primary/20", mode === 'game' && 'h-full flex flex-col')}>
+            <CardContent className={cn("p-4 sm:p-6", mode === 'game' && 'flex-1 flex flex-col')}>
+               <Tabs value={mode} onValueChange={(v) => setMode(v as "practice" | "game")} className={cn("md:col-span-3", mode === 'game' && 'flex-1 flex flex-col')}>
                   <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="practice">Practice</TabsTrigger>
                     <TabsTrigger value="game">Game</TabsTrigger>
@@ -172,7 +172,7 @@ export default function Home() {
                         />
                     )}
                   </TabsContent>
-                   <TabsContent value="game" className="mt-4">
+                   <TabsContent value="game" className={cn("mt-4", mode === 'game' && 'flex-1')}>
                     <Game />
                   </TabsContent>
                 </Tabs>
