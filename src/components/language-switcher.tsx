@@ -3,7 +3,7 @@
 
 import {Languages} from 'lucide-react';
 import {useLocale, useTranslations} from 'next-intl';
-import {locales} from '@/navigation';
+import {locales} from '@/i18n';
 import {useRouter} from 'next/navigation';
 
 import {Button} from '@/components/ui/button';

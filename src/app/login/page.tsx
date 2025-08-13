@@ -16,7 +16,7 @@ import { FaGoogle, FaFacebook, FaLinkedin, FaApple } from 'react-icons/fa';
 import { FaXTwitter } from "react-icons/fa6";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
-import { useRouter } from '@/navigation';
+import { useRouter } from 'next/navigation';
 import { useToast } from "@/hooks/use-toast";
 import { useTranslations } from "next-intl";
 

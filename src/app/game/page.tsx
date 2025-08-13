@@ -20,7 +20,7 @@ import {
 import Game from "@/components/keystroke-symphony/game";
 import AdBanner from "@/components/keystroke-symphony/ad-banner";
 
-import { Link } from "@/navigation";
+import Link from "next/link";
 import { useTheme } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
