@@ -11,11 +11,15 @@ declare global {
 
 const AdBanner = () => {
   useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (err) {
-      console.error(err);
-    }
+    const timeout = setTimeout(() => {
+        try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (err) {
+        console.error(err);
+        }
+    }, 100);
+    
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
