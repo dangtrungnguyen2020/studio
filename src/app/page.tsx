@@ -1,3 +1,4 @@
+
 // src/app/page.tsx
 "use client";
 
@@ -15,6 +16,7 @@ import Keyboard from "@/components/keystroke-symphony/keyboard";
 import TypingTest from "@/components/keystroke-symphony/typing-test";
 import Game from "@/components/keystroke-symphony/game";
 import Results from "@/components/keystroke-symphony/results";
+import AdBanner from "@/components/keystroke-symphony/ad-banner";
 
 import { generate, generateCustom } from "@/lib/words";
 import { KEYBOARD_LAYOUTS } from "@/lib/keyboards";
@@ -76,16 +78,16 @@ export default function Home() {
     }
   }, []);
   
-  const handleKeyboardThemeChange = (theme: KeyboardTheme) => {
+  const handleKeyboardThemeChange = (newTheme: KeyboardTheme) => {
     // remove old theme
     document.body.classList.forEach(className => {
       if (className.startsWith('theme-')) {
         document.body.classList.remove(className);
       }
     });
-    setKeyboardTheme(theme);
-    document.body.classList.add(`theme-${theme}`);
-    localStorage.setItem('keystroke-symphony-theme', theme);
+    setKeyboardTheme(newTheme);
+    document.body.classList.add(`theme-${newTheme}`);
+    localStorage.setItem('keystroke-symphony-theme', newTheme);
   };
 
 
@@ -200,6 +202,8 @@ export default function Home() {
               )}
             </CardContent>
           </Card>
+
+          <AdBanner />
 
           {showKeyboard && mode !== 'game' && (
             <div className="flex flex-col gap-4">
