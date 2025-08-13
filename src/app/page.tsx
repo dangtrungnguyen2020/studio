@@ -205,54 +205,54 @@ export default function Home() {
 
           <AdBanner />
 
-          {showKeyboard && (
-            <div className="flex flex-col gap-4">
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-2 rounded-lg bg-muted/30">
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <KeyboardIcon className="h-4 w-4" />
-                      <span>Layout:</span>
-                      <Select value={layout} onValueChange={(v) => setLayout(v as KeyboardLayout)}>
-                        <SelectTrigger className="w-[120px]">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {Object.keys(KEYBOARD_LAYOUTS).map(l => (
-                            <SelectItem key={l} value={l}>{l}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Palette className="h-4 w-4" />
-                      <span>Theme:</span>
-                      <Select value={keyboardTheme} onValueChange={(v) => handleKeyboardThemeChange(v as KeyboardTheme)}>
-                        <SelectTrigger className="w-[120px]">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="default">Default</SelectItem>
-                          <SelectItem value="retro">Retro</SelectItem>
-                          <SelectItem value="80s-kid">80s Kid</SelectItem>
-                          <SelectItem value="carbon">Carbon</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
+          <div className="flex flex-col gap-4">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-2 rounded-lg bg-muted/30">
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <KeyboardIcon className="h-4 w-4" />
+                    <span>Layout:</span>
+                    <Select value={layout} onValueChange={(v) => setLayout(v as KeyboardLayout)}>
+                      <SelectTrigger className="w-[120px]">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.keys(KEYBOARD_LAYOUTS).map(l => (
+                          <SelectItem key={l} value={l}>{l}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
-
-                  <div className="flex items-center gap-2">
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button onClick={() => setShowKeyboard(!showKeyboard)} variant="outline" size="icon">
-                          <KeyboardIcon className={cn("h-4 w-4", !showKeyboard && "text-muted-foreground/50")} />
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Show/Hide Keyboard</p>
-                      </TooltipContent>
-                    </Tooltip>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Palette className="h-4 w-4" />
+                    <span>Theme:</span>
+                    <Select value={keyboardTheme} onValueChange={(v) => handleKeyboardThemeChange(v as KeyboardTheme)}>
+                      <SelectTrigger className="w-[120px]">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="default">Default</SelectItem>
+                        <SelectItem value="retro">Retro</SelectItem>
+                        <SelectItem value="80s-kid">80s Kid</SelectItem>
+                        <SelectItem value="carbon">Carbon</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
+
+                <div className="flex items-center gap-2">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button onClick={() => setShowKeyboard(!showKeyboard)} variant="outline" size="icon">
+                        <KeyboardIcon className={cn("h-4 w-4", !showKeyboard && "text-muted-foreground/50")} />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Show/Hide Keyboard</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
+              </div>
+              {showKeyboard && (
                 <Keyboard
                   layout={layout}
                   theme={keyboardTheme}
@@ -260,8 +260,8 @@ export default function Home() {
                   text={testText}
                   currentCharIndex={currentCharIndex}
                 />
-            </div>
-          )}
+              )}
+          </div>
         </main>
         
         {results && (
