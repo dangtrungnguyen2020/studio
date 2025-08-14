@@ -4,7 +4,7 @@
 import {Languages} from 'lucide-react';
 import {useLocale, useTranslations} from 'next-intl';
 import {locales} from '@/i18n';
-import {useRouter} from 'next/navigation';
+import {useRouter, usePathname} from 'next/navigation';
 
 import {Button} from '@/components/ui/button';
 import {
@@ -19,10 +19,11 @@ export default function LanguageSwitcher() {
   const t = useTranslations('LanguageSwitcher');
   const locale = useLocale();
   const router = useRouter();
+  const pathname = usePathname();
 
   const switchLocale = (nextLocale: string) => {
-    document.cookie = `NEXT_LOCALE=${nextLocale}; path=/; max-age=31536000; SameSite=Lax`;
-    router.refresh();
+    const newPath = pathname.replace(`/${locale}`, `/${nextLocale}`);
+    router.replace(newPath);
   };
   
   const languageNames: Record<string, string> = {
