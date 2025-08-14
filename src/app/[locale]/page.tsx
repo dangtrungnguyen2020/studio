@@ -232,7 +232,7 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <AdBanner />
+          {/* <AdBanner /> */}
 
           <div className="flex flex-col gap-4">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-2 rounded-lg bg-muted/30">

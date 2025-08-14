@@ -101,7 +101,7 @@ export default function GamePage() {
               <Game />
             </CardContent>
           </Card>
-          <AdBanner />
+          {/* <AdBanner /> */}
         </main>
       </div>
     </TooltipProvider>
