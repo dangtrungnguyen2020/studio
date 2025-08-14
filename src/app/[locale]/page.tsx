@@ -27,7 +27,7 @@ import LanguageSwitcher from "@/components/language-switcher";
 import { generate, generateCustom } from "@/lib/words";
 import { KEYBOARD_LAYOUTS } from "@/lib/keyboards";
 import type { KeyboardLayout, Difficulty, KeyboardTheme } from "@/lib/keyboards";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { useTheme } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";

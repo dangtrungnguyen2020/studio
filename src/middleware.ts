@@ -1,15 +1,20 @@
-import createMiddleware from 'next-intl/middleware';
-import { locales } from './i18n';
+import createMiddleware from "next-intl/middleware";
+import { routing } from "./i18n/routing";
+// import { NextRequest } from "next/server";
 
-export default createMiddleware({
-  // A list of all locales that are supported
-  locales,
- 
-  // Used when no locale matches
-  defaultLocale: 'en'
-});
- 
+// export async function middleware(request: NextRequest) {
+//   const response = handleI18nRouting(request);
+
+//   // A `response` can now be passed here
+//   return await updateSession(request, response);
+// }
+
+export default createMiddleware(routing);
+
 export const config = {
-  // Match only internationalized pathnames
-  matcher: ['/', '/(de|en|es|fr|vi|zh|hi|ar|pt|ru|ja)/:path*']
+  matcher: [
+    "/",
+    "/(vi|en|es|fr|de|zh|hi|ar|pt|ru|ja)/:path*",
+    "/((?!_next|_vercel|.*\\..*).*)",
+  ],
 };
