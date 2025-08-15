@@ -17,7 +17,13 @@
     }
   ],
   "hosting": {
-    "public": "y",
+    "public": "public",
+    "rewrites": [
+	{
+	    "source": "**",
+	    "function": "nextApp"
+	}
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",
