@@ -208,8 +208,8 @@ export default function Home() {
           </div>
         </header>
 
-        <main className="w-full max-w-5xl mx-auto flex flex-col gap-8">
-          <Card className="shadow-lg border-primary/20">
+        <main className="w-full max-w-5xl mx-auto flex flex-col flex-1 gap-8">
+          <Card className="shadow-lg border-primary/20 flex-1">
             <CardContent className="p-4 sm:p-6">
               <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4 mb-6">
                 <Select
