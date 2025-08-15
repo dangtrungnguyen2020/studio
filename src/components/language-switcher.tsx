@@ -43,7 +43,7 @@ export default function LanguageSwitcher() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="w-full justify-start">
           <Languages className="h-[1.2rem] w-[1.2rem] mr-2" />
-          <span>{t("language")}</span>
+          <span>{languageNames[locale]}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
