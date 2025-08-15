@@ -14,12 +14,11 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  params
+  params: { locale }
 }: Readonly<{
   children: React.ReactNode;
   params: { locale: string };
 }>) {
-  const locale = await getLocale();
   const messages = await getMessages();
 
   return (
@@ -29,12 +28,12 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
         <meta name="theme-color" content="#7DF9FF" />
-        {/* <Script
+        <Script
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7533423449746957"
           crossOrigin="anonymous"
           strategy="afterInteractive"
-        /> */}
+        />
       </head>
       <body className="antialiased">
         <NextIntlClientProvider locale={locale} messages={messages}>

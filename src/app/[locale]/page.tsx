@@ -53,7 +53,7 @@ import type {
   Difficulty,
   KeyboardTheme,
 } from "@/lib/keyboards";
-import { Link } from "@/navigation";
+import Link from "next/link";
 import { useTheme } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -268,7 +268,7 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          {/* <AdBanner /> */}
+          <AdBanner />
 
           <div className="flex flex-col gap-4">
             {showKeyboard && (
