@@ -1,3 +1,4 @@
+
 // src/app/page.tsx
 "use client";
 
@@ -165,7 +166,7 @@ export default function Home() {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-background text-foreground flex flex-col p-4 sm:p-6 md:p-8 items-center">
+      <div className="min-h-screen bg-background text-foreground flex flex-col p-4 sm:p-6 md:p-8 items-center pb-24">
         <header className="w-full max-w-5xl mx-auto flex justify-between items-center mb-6">
           <div className="flex items-center gap-2">
             <h1 className="text-2xl sm:text-3xl font-bold text-primary">
@@ -270,7 +271,20 @@ export default function Home() {
           {/* <AdBanner /> */}
 
           <div className="flex flex-col gap-4">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-2 rounded-lg bg-muted/30">
+            {showKeyboard && (
+              <Keyboard
+                layout={layout}
+                theme={keyboardTheme}
+                lastPressedKey={lastPressedKey}
+                text={testText}
+                currentCharIndex={currentCharIndex}
+              />
+            )}
+          </div>
+        </main>
+
+        <footer className="fixed bottom-0 left-0 right-0 bg-background/80 backdrop-blur-sm border-t p-2">
+            <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 p-2 rounded-lg">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <KeyboardIcon className="h-4 w-4" />
@@ -337,17 +351,7 @@ export default function Home() {
                 </Tooltip>
               </div>
             </div>
-            {showKeyboard && (
-              <Keyboard
-                layout={layout}
-                theme={keyboardTheme}
-                lastPressedKey={lastPressedKey}
-                text={testText}
-                currentCharIndex={currentCharIndex}
-              />
-            )}
-          </div>
-        </main>
+        </footer>
 
         {results && (
           <Results
