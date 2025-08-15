@@ -43,6 +43,7 @@ import TypingTest from "@/components/keystroke-symphony/typing-test";
 import Results from "@/components/keystroke-symphony/results";
 import AdBanner from "@/components/keystroke-symphony/ad-banner";
 import LanguageSwitcher from "@/components/language-switcher";
+import LoginDialog from "@/components/keystroke-symphony/login-dialog";
 
 import { generate, generateCustom } from "@/lib/words";
 import { KEYBOARD_LAYOUTS } from "@/lib/keyboards";
@@ -178,9 +179,7 @@ export default function Home() {
                 {t("gameMode")}
               </Button>
             </Link>
-            <Link href="/login">
-              <Button variant="outline">{t("login")}</Button>
-            </Link>
+            <LoginDialog />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon">

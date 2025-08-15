@@ -1,4 +1,3 @@
-
 // src/app/game/page.tsx
 "use client";
 
@@ -25,6 +24,7 @@ import { useTheme } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTranslations } from "next-intl";
+import LoginDialog from "@/components/keystroke-symphony/login-dialog";
 
 export default function GamePage() {
   const t = useTranslations('GamePage');
@@ -65,9 +65,7 @@ export default function GamePage() {
                 {t('practiceMode')}
               </Button>
             </Link>
-            <Link href="/login">
-              <Button variant="outline">{t('login')}</Button>
-            </Link>
+            <LoginDialog />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon">

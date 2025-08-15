@@ -1,5 +1,4 @@
-
-// src/app/login/page.tsx
+// src/components/keystroke-symphony/login-dialog.tsx
 "use client";
 
 import { auth } from "@/lib/firebase";
@@ -11,19 +10,25 @@ import {
   TwitterAuthProvider
 } from "firebase/auth";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { FaGoogle, FaFacebook, FaLinkedin, FaApple } from 'react-icons/fa';
 import { FaXTwitter } from "react-icons/fa6";
-import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
-import { useRouter } from 'next/navigation';
 import { useToast } from "@/hooks/use-toast";
 import { useTranslations } from "next-intl";
 
-const SignInPage = () => {
+const LoginDialog = () => {
   const t = useTranslations("LoginPage");
+  const tHome = useTranslations("HomePage");
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
+  const [open, setOpen] = useState(false);
   const { toast } = useToast();
 
   const handleSignIn = async (provider: GoogleAuthProvider | FacebookAuthProvider | OAuthProvider | TwitterAuthProvider) => {
@@ -34,7 +39,7 @@ const SignInPage = () => {
         title: t('signInSuccess'),
         description: t('signInSuccessDesc'),
       });
-      router.push('/');
+      setOpen(false);
     } catch (error: any) {
       setError(error.message);
       toast({
@@ -52,13 +57,16 @@ const SignInPage = () => {
   const linkedinProvider = new OAuthProvider('linkedin.com');
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-background">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl">{t('title')}</CardTitle>
-          <CardDescription>{t('description')}</CardDescription>
-        </CardHeader>
-        <CardContent className="grid gap-4">
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="outline">{tHome('login')}</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader className="text-center">
+          <DialogTitle className="text-2xl">{t('title')}</DialogTitle>
+          <DialogDescription>{t('description')}</DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
           <Button onClick={() => handleSignIn(googleProvider)} variant="outline">
             <FaGoogle className="mr-2 h-4 w-4" /> {t('google')}
           </Button>
@@ -74,16 +82,11 @@ const SignInPage = () => {
           <Button onClick={() => handleSignIn(appleProvider)} variant="outline">
             <FaApple className="mr-2 h-4 w-4" /> {t('apple')}
           </Button>
-          {error && <p className="text-destructive text-center text-sm">{error}</p>}
-        </CardContent>
-        <CardFooter className="flex justify-center">
-            <Button variant="link" onClick={() => router.push('/')}>
-              <ArrowLeft className="mr-2 h-4 w-4" /> {t('goBack')}
-            </Button>
-        </CardFooter>
-      </Card>
-    </div>
+          {error && <p className="text-destructive text-center text-sm pt-2">{error}</p>}
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 
-export default SignInPage;
+export default LoginDialog;
