@@ -27,6 +27,7 @@ import {
 
 import Game from "@/components/keystroke-symphony/game";
 import AdBanner from "@/components/keystroke-symphony/ad-banner";
+import UserMenu from "@/components/keystroke-symphony/user-menu";
 
 import Link from "next/link";
 import { useTheme } from "@/components/theme-provider";
@@ -34,12 +35,17 @@ import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTranslations } from "next-intl";
 import LoginDialog from "@/components/keystroke-symphony/login-dialog";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/lib/firebase";
+
 
 export default function GamePage() {
   const t = useTranslations("GamePage");
   const tSettings = useTranslations("ThemeSwitcher");
   const { colorTheme, setColorTheme } = useTheme();
   const isMobile = useIsMobile();
+  const [user] = useAuthState(auth);
+
 
   useEffect(() => {
     const savedColorTheme = localStorage.getItem("color-theme") as any;
@@ -78,7 +84,7 @@ export default function GamePage() {
                 {t("practiceMode")}
               </Button>
             </Link>
-            <LoginDialog />
+             {user ? <UserMenu /> : <LoginDialog />}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon">
@@ -112,7 +118,7 @@ export default function GamePage() {
               <Game />
             </CardContent>
           </Card>
-          <AdBanner />
+          {/* <AdBanner /> */}
         </main>
       </div>
     </TooltipProvider>
