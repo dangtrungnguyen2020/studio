@@ -45,6 +45,7 @@ import Results from "@/components/keystroke-symphony/results";
 import AdBanner from "@/components/keystroke-symphony/ad-banner";
 import LanguageSwitcher from "@/components/language-switcher";
 import LoginDialog from "@/components/keystroke-symphony/login-dialog";
+import UserMenu from "@/components/keystroke-symphony/user-menu";
 
 import { generate, generateCustom } from "@/lib/words";
 import { KEYBOARD_LAYOUTS } from "@/lib/keyboards";
@@ -58,6 +59,8 @@ import { useTheme } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTranslations } from "next-intl";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/lib/firebase";
 
 type TestStats = {
   wpm: number;
@@ -68,6 +71,7 @@ type TestStats = {
 export default function Home() {
   const t = useTranslations("HomePage");
   const tSettings = useTranslations("ThemeSwitcher");
+  const [user] = useAuthState(auth);
 
   const [layout, setLayout] = useState<KeyboardLayout>("QWERTY");
   const { theme, colorTheme, setColorTheme, setTheme } = useTheme();
@@ -180,7 +184,7 @@ export default function Home() {
                 {t("gameMode")}
               </Button>
             </Link>
-            <LoginDialog />
+            {user ? <UserMenu /> : <LoginDialog />}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon">
@@ -268,7 +272,7 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <AdBanner />
+          {/* <AdBanner /> */}
 
           <div className="flex flex-col gap-4">
             {showKeyboard && (
