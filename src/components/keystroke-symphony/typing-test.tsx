@@ -127,7 +127,10 @@ const TypingTest = ({
   }, [userInput, errors]);
 
   return (
-    <div className="flex flex-col" onClick={() => inputRef.current?.focus()}>
+    <div
+      className="flex flex-col overflow-hidden"
+      onClick={() => inputRef.current?.focus()}
+    >
       <div className="flex justify-between items-center mb-4 px-2">
         <div className="text-2xl font-mono text-primary">
           {wpm} {t("wpm")}
@@ -136,7 +139,7 @@ const TypingTest = ({
           {accuracy}% {t("acc")}
         </div>
       </div>
-      <Card className="flex-1 relative bg-muted/30">
+      <Card className="flex-1 overflow-auto relative bg-muted/30">
         <CardContent className="p-4 sm:p-6">
           <div className="text-xl sm:text-2xl tracking-wider leading-relaxed font-mono select-none whitespace-pre-wrap">
             {text.split("").map((char, index) => {

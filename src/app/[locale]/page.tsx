@@ -169,7 +169,7 @@ export default function Home() {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-background text-foreground flex flex-col items-center">
+      <div className="min-h-screen max-h-screen overflow-hidden bg-background text-foreground flex flex-col items-center">
         <header className="w-full max-w-5xl mx-auto flex justify-between items-center m-6">
           <div className="flex items-center gap-2">
             <h1 className="text-2xl sm:text-3xl font-bold text-primary">
@@ -211,8 +211,11 @@ export default function Home() {
           </div>
         </header>
 
-        <main className="w-full max-w-5xl mx-auto flex flex-col flex-1 gap-8">
-          <div className="flex flex-col flex-1 rounded-lg border bg-card text-card-foreground shadow-lg border-primary/20 p-4 sm:p-6">
+        <main
+          className="w-full max-w-5xl mx-auto flex flex-col flex-1 gap-8"
+          style={{ minHeight: "1px" }}
+        >
+          <div className="flex flex-col flex-1 overflow-hidden rounded-lg border bg-card text-card-foreground shadow-lg border-primary/20 p-4 sm:p-6">
             <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4 mb-6">
               <Select
                 value={difficulty}
