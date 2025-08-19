@@ -10,6 +10,8 @@
     "medium": "Medium",
     "hard": "Hard",
     "expert": "Expert",
+    "arrowTraining": "Arrow Training",
+    "numpadTraining": "Numpad Training",
     "customText": "Custom Text",
     "restartTest": "Restart Test",
     "restartTooltip": "Press <kbd>Esc</kbd> to restart",

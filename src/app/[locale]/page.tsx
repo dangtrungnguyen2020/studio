@@ -90,6 +90,20 @@ export default function Home() {
 
   const isMobile = useIsMobile();
 
+  const handleDifficultyChange = (newDifficulty: Difficulty) => {
+    setDifficulty(newDifficulty);
+    if (newDifficulty === 'arrow-training') {
+      setLayout('TKL');
+    } else if (newDifficulty === 'numpad-training') {
+      setLayout('Numpad');
+    } else {
+      // Revert to a default layout if needed, e.g., QWERTY
+      if (layout === 'TKL' || layout === 'Numpad') {
+        setLayout('QWERTY');
+      }
+    }
+  };
+
   const handleKeyboardThemeChange = (newTheme: KeyboardTheme) => {
     console.log(`### handleKeyboardThemeChange ${newTheme}`);
 
@@ -219,7 +233,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4 mb-6">
               <Select
                 value={difficulty}
-                onValueChange={(v) => setDifficulty(v as Difficulty)}
+                onValueChange={(v) => handleDifficultyChange(v as Difficulty)}
               >
                 <SelectTrigger className="w-full sm:w-[200px]">
                   <SelectValue placeholder={t("selectDifficulty")} />
@@ -230,6 +244,8 @@ export default function Home() {
                   <SelectItem value="medium">{t("medium")}</SelectItem>
                   <SelectItem value="hard">{t("hard")}</SelectItem>
                   <SelectItem value="expert">{t("expert")}</SelectItem>
+                  <SelectItem value="arrow-training">{t("arrowTraining")}</SelectItem>
+                  <SelectItem value="numpad-training">{t("numpadTraining")}</SelectItem>
                   <SelectItem value="custom">{t("customText")}</SelectItem>
                 </SelectContent>
               </Select>

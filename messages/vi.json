@@ -10,6 +10,8 @@
     "medium": "Trung bình",
     "hard": "Khó",
     "expert": "Chuyên gia",
+    "arrowTraining": "Luyện phím mũi tên",
+    "numpadTraining": "Luyện Numpad",
     "customText": "Văn bản tùy chỉnh",
     "restartTest": "Làm lại bài kiểm tra",
     "restartTooltip": "Nhấn <kbd>Esc</kbd> để bắt đầu lại",
