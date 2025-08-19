@@ -92,14 +92,14 @@ export default function Home() {
 
   const handleDifficultyChange = (newDifficulty: Difficulty) => {
     setDifficulty(newDifficulty);
-    if (newDifficulty === 'arrow-training') {
-      setLayout('TKL');
-    } else if (newDifficulty === 'numpad-training') {
-      setLayout('Numpad');
+    if (newDifficulty === "arrow-training") {
+      setLayout("TKL");
+    } else if (newDifficulty === "numpad-training") {
+      setLayout("Numpad");
     } else {
       // Revert to a default layout if needed, e.g., QWERTY
-      if (layout === 'TKL' || layout === 'Numpad') {
-        setLayout('QWERTY');
+      if (layout === "TKL" || layout === "Numpad") {
+        setLayout("QWERTY");
       }
     }
   };
@@ -183,7 +183,7 @@ export default function Home() {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen max-h-screen overflow-hidden bg-background text-foreground flex flex-col items-center">
+      <div className="min-h-screen max-h-screen h-full overflow-hidden bg-background text-foreground flex flex-col items-center">
         <header className="w-full max-w-5xl mx-auto flex justify-between items-center m-6">
           <div className="flex items-center gap-2">
             <h1 className="text-2xl sm:text-3xl font-bold text-primary">
@@ -224,85 +224,91 @@ export default function Home() {
             </DropdownMenu>
           </div>
         </header>
-
         <main
-          className="w-full max-w-5xl mx-auto flex flex-col flex-1 gap-8"
+          className="w-full flex flex-row gap-8 justify-stretch flex-1"
           style={{ minHeight: "1px" }}
         >
-          <div className="flex flex-col flex-1 overflow-hidden rounded-lg border bg-card text-card-foreground shadow-lg border-primary/20 p-4 sm:p-6">
-            <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4 mb-6">
-              <Select
-                value={difficulty}
-                onValueChange={(v) => handleDifficultyChange(v as Difficulty)}
-              >
-                <SelectTrigger className="w-full sm:w-[200px]">
-                  <SelectValue placeholder={t("selectDifficulty")} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="very-easy">{t("veryEasy")}</SelectItem>
-                  <SelectItem value="easy">{t("easy")}</SelectItem>
-                  <SelectItem value="medium">{t("medium")}</SelectItem>
-                  <SelectItem value="hard">{t("hard")}</SelectItem>
-                  <SelectItem value="expert">{t("expert")}</SelectItem>
-                  <SelectItem value="arrow-training">{t("arrowTraining")}</SelectItem>
-                  <SelectItem value="numpad-training">{t("numpadTraining")}</SelectItem>
-                  <SelectItem value="custom">{t("customText")}</SelectItem>
-                </SelectContent>
-              </Select>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    onClick={handleRestart}
-                    variant="outline"
-                    size="sm"
-                    className="w-full sm:w-auto ml-auto"
-                  >
-                    <RefreshCw className="mr-2 h-4 w-4" />
-                    {t("restartTest")}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: t.raw("restartTooltip"),
-                    }}
-                  />
-                </TooltipContent>
-              </Tooltip>
+          <AdBanner className="flex-1" />
+          <div className="max-w-5xl mx-auto flex flex-col">
+            <div className="flex flex-col flex-1 overflow-hidden rounded-lg border bg-card text-card-foreground shadow-lg border-primary/20 p-4 sm:p-6">
+              <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4 mb-6">
+                <Select
+                  value={difficulty}
+                  onValueChange={(v) => handleDifficultyChange(v as Difficulty)}
+                >
+                  <SelectTrigger className="w-full sm:w-[200px]">
+                    <SelectValue placeholder={t("selectDifficulty")} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="very-easy">{t("veryEasy")}</SelectItem>
+                    <SelectItem value="easy">{t("easy")}</SelectItem>
+                    <SelectItem value="medium">{t("medium")}</SelectItem>
+                    <SelectItem value="hard">{t("hard")}</SelectItem>
+                    <SelectItem value="expert">{t("expert")}</SelectItem>
+                    <SelectItem value="arrow-training">
+                      {t("arrowTraining")}
+                    </SelectItem>
+                    <SelectItem value="numpad-training">
+                      {t("numpadTraining")}
+                    </SelectItem>
+                    <SelectItem value="custom">{t("customText")}</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      onClick={handleRestart}
+                      variant="outline"
+                      size="sm"
+                      className="w-full sm:w-auto ml-auto"
+                    >
+                      <RefreshCw className="mr-2 h-4 w-4" />
+                      {t("restartTest")}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: t.raw("restartTooltip"),
+                      }}
+                    />
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+
+              {difficulty === "custom" && (
+                <Textarea
+                  placeholder={t("customTextPlaceholder")}
+                  value={customText}
+                  onChange={(e) => setCustomText(e.target.value)}
+                  className="min-h-[50px] mb-4"
+                />
+              )}
+              <TypingTest
+                key={testId}
+                text={testText}
+                onComplete={handleTestComplete}
+                onKeyPress={setLastPressedKey}
+                onCharIndexChange={setCurrentCharIndex}
+              />
             </div>
 
-            {difficulty === "custom" && (
-              <Textarea
-                placeholder={t("customTextPlaceholder")}
-                value={customText}
-                onChange={(e) => setCustomText(e.target.value)}
-                className="min-h-[50px] mb-4"
-              />
-            )}
-            <TypingTest
-              key={testId}
-              text={testText}
-              onComplete={handleTestComplete}
-              onKeyPress={setLastPressedKey}
-              onCharIndexChange={setCurrentCharIndex}
-            />
-          </div>
+            {/* <AdBanner /> */}
 
-          {/* <AdBanner /> */}
-
-          <div className="flex flex-col gap-4">
-            {showKeyboard && (
-              <Keyboard
-                layout={layout}
-                theme={keyboardTheme}
-                lastPressedKey={lastPressedKey}
-                text={testText}
-                currentCharIndex={currentCharIndex}
-              />
-            )}
+            <div className="flex flex-col gap-4">
+              {showKeyboard && (
+                <Keyboard
+                  layout={layout}
+                  theme={keyboardTheme}
+                  lastPressedKey={lastPressedKey}
+                  text={testText}
+                  currentCharIndex={currentCharIndex}
+                />
+              )}
+            </div>
           </div>
+          <AdBanner className="flex-1" />
         </main>
-
         <footer className="w-full flex justify-between items-center p-4 border-t">
           <div className="w-full max-w-5xl mx-auto flex flex-1 justify-between items-center gap-8">
             <div className="flex items-center gap-4">

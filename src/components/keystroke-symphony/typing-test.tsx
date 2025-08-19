@@ -135,16 +135,7 @@ const TypingTest = ({
       const accuracy = Math.round(((totalLength - errors) / totalLength) * 100);
       onComplete({ wpm, accuracy, errors: errorsMap });
     }
-  }, [
-    userInput,
-    words,
-    text,
-    isArrowTraining,
-    startTime,
-    errors,
-    errorsMap,
-    onComplete,
-  ]);
+  }, [userInput]);
 
   const wpm = useMemo(() => {
     if (!startTime || userInput.length === 0) return 0;

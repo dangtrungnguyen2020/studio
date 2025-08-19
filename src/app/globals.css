@@ -55,17 +55,34 @@
     --ring: var(--primary);
   }
 
+  html,
   body {
-    @apply bg-background text-foreground;
-    font-family: 'Space Grotesk', sans-serif;
+    height: 100vh;
   }
 
-  .theme-blue { --primary: var(--blue-primary); }
-  .theme-green { --primary: var(--green-primary); }
-  .theme-orange { --primary: var(--orange-primary); }
-  .theme-rose { --primary: var(--rose-primary); }
-  .theme-citron { --primary: var(--citron-primary); }
-  .theme-silver { --primary: var(--silver-primary); }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Space Grotesk", sans-serif;
+  }
+
+  .theme-blue {
+    --primary: var(--blue-primary);
+  }
+  .theme-green {
+    --primary: var(--green-primary);
+  }
+  .theme-orange {
+    --primary: var(--orange-primary);
+  }
+  .theme-rose {
+    --primary: var(--rose-primary);
+  }
+  .theme-citron {
+    --primary: var(--citron-primary);
+  }
+  .theme-silver {
+    --primary: var(--silver-primary);
+  }
 
   .theme-retro {
     --key-bg: 220 13% 91%;
