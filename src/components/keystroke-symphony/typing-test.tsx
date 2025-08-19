@@ -19,10 +19,10 @@ interface TypingTestProps {
 }
 
 const arrowKeyIcons: { [key: string]: React.ReactNode } = {
-  ArrowUp: <ArrowUp className="inline-block h-6 w-6" />,
-  ArrowDown: <ArrowDown className="inline-block h-6 w-6" />,
-  ArrowLeft: <ArrowLeft className="inline-block h-6 w-6" />,
-  ArrowRight: <ArrowRight className="inline-block h-6 w-6" />,
+  ArrowUp: <ArrowUp className="inline-block h-6 w-6 m-2" />,
+  ArrowDown: <ArrowDown className="inline-block h-6 w-6 m-2" />,
+  ArrowLeft: <ArrowLeft className="inline-block h-6 w-6 m-2" />,
+  ArrowRight: <ArrowRight className="inline-block h-6 w-6 m-2" />,
 };
 
 const TypingTest = ({
@@ -39,7 +39,10 @@ const TypingTest = ({
   const inputRef = useRef<HTMLInputElement>(null);
 
   const words = useMemo(() => text.split(" "), [text]);
-  const isArrowTraining = useMemo(() => words.every(word => word.startsWith("Arrow")), [words]);
+  const isArrowTraining = useMemo(
+    () => words.every((word) => word.startsWith("Arrow")),
+    [words]
+  );
 
   const currentIndex = userInput.length;
 
@@ -74,11 +77,20 @@ const TypingTest = ({
       return;
     }
 
-    if (currentIndex >= (isArrowTraining ? words.length : text.length) && e.key !== "Backspace") {
+    if (
+      currentIndex >= (isArrowTraining ? words.length : text.length) &&
+      e.key !== "Backspace"
+    ) {
       return;
     }
 
-    if (!startTime && (e.key.length === 1 || e.key.startsWith("Arrow")) && !e.ctrlKey && !e.metaKey && !e.altKey) {
+    if (
+      !startTime &&
+      (e.key.length === 1 || e.key.startsWith("Arrow")) &&
+      !e.ctrlKey &&
+      !e.metaKey &&
+      !e.altKey
+    ) {
       setStartTime(Date.now());
     }
 
@@ -94,7 +106,9 @@ const TypingTest = ({
 
     if (isTypingKey && !e.ctrlKey && !e.metaKey) {
       const char = e.key;
-      const targetChar = isArrowTraining ? words[currentIndex] : text[currentIndex];
+      const targetChar = isArrowTraining
+        ? words[currentIndex]
+        : text[currentIndex];
 
       if (char !== targetChar) {
         setErrors((prev) => prev + 1);
@@ -116,17 +130,28 @@ const TypingTest = ({
     if (userInput.length === totalLength && totalLength > 0 && startTime) {
       const endTime = Date.now();
       const durationInMinutes = (endTime - startTime) / 1000 / 60;
-      const wordsTyped = (isArrowTraining ? totalLength : text.length / 5);
+      const wordsTyped = isArrowTraining ? totalLength : text.length / 5;
       const wpm = Math.round(wordsTyped / durationInMinutes);
       const accuracy = Math.round(((totalLength - errors) / totalLength) * 100);
       onComplete({ wpm, accuracy, errors: errorsMap });
     }
-  }, [userInput, words, text, isArrowTraining, startTime, errors, errorsMap, onComplete]);
+  }, [
+    userInput,
+    words,
+    text,
+    isArrowTraining,
+    startTime,
+    errors,
+    errorsMap,
+    onComplete,
+  ]);
 
   const wpm = useMemo(() => {
     if (!startTime || userInput.length === 0) return 0;
     const durationInMinutes = (Date.now() - startTime) / 1000 / 60;
-    const wordsTyped = isArrowTraining ? userInput.length : userInput.length / 5;
+    const wordsTyped = isArrowTraining
+      ? userInput.length
+      : userInput.length / 5;
     return Math.round(wordsTyped / durationInMinutes);
   }, [startTime, userInput, isArrowTraining]);
 
@@ -134,7 +159,9 @@ const TypingTest = ({
     if (userInput.length === 0) return 100;
     const totalLength = isArrowTraining ? words.length : userInput.length;
     const currentErrors = isArrowTraining ? errors : errors;
-    return Math.round(((userInput.length - currentErrors) / userInput.length) * 100);
+    return Math.round(
+      ((userInput.length - currentErrors) / userInput.length) * 100
+    );
   }, [userInput, errors, isArrowTraining, words.length]);
 
   return (
@@ -150,42 +177,54 @@ const TypingTest = ({
           {accuracy}% {t("acc")}
         </div>
       </div>
-      <Card className="flex-1 overflow-auto relative bg-muted/30">
-        <CardContent className="p-4 sm:p-6">
-          <div className="text-xl sm:text-2xl tracking-wider leading-relaxed font-mono select-none whitespace-pre-wrap flex items-center gap-x-2">
-            {(isArrowTraining ? words : text.split("")).map((char, index) => {
-              let charState: "correct" | "incorrect" | "current" | "pending" = "pending";
+      <Card className="flex-1 flex-wrap overflow-y-auto relative bg-muted/30">
+        <CardContent className="p-4 text-xl sm:text-2xl tracking-wider leading-relaxed font-mono select-none whitespace-pre-wrap flex flex-wrap">
+          {(isArrowTraining ? words : text.split("")).map((char, index) => {
+            let charState: "correct" | "incorrect" | "current" | "pending" =
+              "pending";
 
-              if (index < userInput.length) {
-                charState = userInput[index] === char ? "correct" : "incorrect";
-              } else if (index === userInput.length) {
-                charState = "current";
-              }
+            if (index < userInput.length) {
+              charState = userInput[index] === char ? "correct" : "incorrect";
+            } else if (index === userInput.length) {
+              charState = "current";
+            }
 
-              return (
-                <span
-                  key={index}
-                  className={cn("flex items-center justify-center h-8", { // Added flex properties for alignment
-                    "text-primary": charState === "correct",
-                    "text-destructive": charState === "incorrect",
-                    "text-muted-foreground": charState === "pending",
-                    "relative": charState === "current",
-                  })}
-                >
-                  {charState === "current" && (
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-accent animate-pulse" />
-                  )}
-                  {isArrowTraining ? (
-                    arrowKeyIcons[char]
-                  ) : char === " " && charState === "incorrect" ? (
-                    <span className="bg-destructive/20 rounded-sm">&nbsp;</span>
-                  ) : (
-                    char
-                  )}
-                </span>
-              );
-            })}
-          </div>
+            return (
+              <span
+                key={index}
+                className={cn("flex items-center justify-center h-8", {
+                  // Added flex properties for alignment
+                  "text-primary": charState === "correct",
+                  "text-destructive": charState === "incorrect",
+                  "text-muted-foreground": charState === "pending",
+                  relative: charState === "current",
+                })}
+              >
+                {charState === "current" && (
+                  <span
+                    className={cn(
+                      "absolute bottom-0 left-0 w-full h-0.5 bg-accent animate-pulse"
+                    )}
+                  />
+                )}
+                {isArrowTraining ? (
+                  arrowKeyIcons[char]
+                ) : char === " " ? (
+                  <span
+                    className={
+                      charState === "incorrect"
+                        ? "bg-destructive/20 rounded-sm"
+                        : ""
+                    }
+                  >
+                    &nbsp;
+                  </span>
+                ) : (
+                  char
+                )}
+              </span>
+            );
+          })}
           <input
             ref={inputRef}
             type="text"
