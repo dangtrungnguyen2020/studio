@@ -1,3 +1,4 @@
+
 // src/app/page.tsx
 "use client";
 
@@ -12,6 +13,8 @@ import {
   Gamepad2,
   Info,
   Languages,
+  Check,
+  Edit,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -77,6 +80,7 @@ export default function Home() {
   const [keyboardTheme, setKeyboardTheme] = useState<KeyboardTheme>("default");
   const [difficulty, setDifficulty] = useState<Difficulty>("medium");
   const [customText, setCustomText] = useState("");
+  const [isEditingCustomText, setIsEditingCustomText] = useState(true);
 
   const [testText, setTestText] = useState("");
   const [testId, setTestId] = useState(0);
@@ -92,6 +96,7 @@ export default function Home() {
 
   const handleDifficultyChange = (newDifficulty: Difficulty) => {
     setDifficulty(newDifficulty);
+    setIsEditingCustomText(true); // Reset to editing when difficulty changes
     if (newDifficulty === "arrow-training") {
       setLayout("TKL");
     } else if (newDifficulty === "numpad-training") {
@@ -123,12 +128,22 @@ export default function Home() {
     setResults(null);
     setCurrentCharIndex(0);
     if (difficulty === "custom") {
+      setIsEditingCustomText(true);
       setTestText(generateCustom(customText, t));
     } else {
       setTestText(generate(difficulty));
     }
     setTestId((prev) => prev + 1);
   }, [difficulty, customText, t]);
+
+  const handleApplyCustomText = () => {
+    setIsEditingCustomText(false);
+    setTestText(generateCustom(customText, t));
+    setTestId((prev) => prev + 1);
+    setShowResults(false);
+    setResults(null);
+    setCurrentCharIndex(0);
+  };
 
   const handleTestComplete = (stats: TestStats) => {
     setResults(stats);
@@ -138,12 +153,12 @@ export default function Home() {
   useEffect(() => {
     console.log(`### setTestText (${difficulty}, ${customText})`);
 
-    if (difficulty === "custom") {
-      setTestText(generateCustom(customText, t));
-    } else {
-      setTestText(generate(difficulty));
+    if (difficulty !== "custom") {
+        setTestText(generate(difficulty));
+    } else if (isEditingCustomText) {
+        setTestText(generateCustom(customText, t));
     }
-  }, [difficulty, customText, t]);
+  }, [difficulty, customText, isEditingCustomText, t]);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem(
@@ -254,6 +269,21 @@ export default function Home() {
                     <SelectItem value="custom">{t("customText")}</SelectItem>
                   </SelectContent>
                 </Select>
+                 {difficulty === "custom" && (
+                    <div className="flex gap-2">
+                        {isEditingCustomText ? (
+                            <Button onClick={handleApplyCustomText} size="sm">
+                                <Check className="mr-2 h-4 w-4" />
+                                Apply
+                            </Button>
+                        ) : (
+                            <Button onClick={() => setIsEditingCustomText(true)} variant="outline" size="sm">
+                                <Edit className="mr-2 h-4 w-4" />
+                                Edit
+                            </Button>
+                        )}
+                    </div>
+                )}
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
@@ -275,22 +305,24 @@ export default function Home() {
                   </TooltipContent>
                 </Tooltip>
               </div>
-
-              {difficulty === "custom" && (
+              <div className="flex-1 flex flex-col">
+              {difficulty === "custom" && isEditingCustomText ? (
                 <Textarea
                   placeholder={t("customTextPlaceholder")}
                   value={customText}
                   onChange={(e) => setCustomText(e.target.value)}
-                  className="min-h-[50px] mb-4"
+                  className="flex-1 min-h-[50px] mb-4"
+                />
+              ) : (
+                <TypingTest
+                    key={testId}
+                    text={testText}
+                    onComplete={handleTestComplete}
+                    onKeyPress={setLastPressedKey}
+                    onCharIndexChange={setCurrentCharIndex}
                 />
               )}
-              <TypingTest
-                key={testId}
-                text={testText}
-                onComplete={handleTestComplete}
-                onKeyPress={setLastPressedKey}
-                onCharIndexChange={setCurrentCharIndex}
-              />
+              </div>
             </div>
 
             {/* <AdBanner /> */}
@@ -390,3 +422,4 @@ export default function Home() {
     </TooltipProvider>
   );
 }
+

@@ -57,7 +57,7 @@ export const generate = (difficulty: Difficulty): string => {
 
 export const generateCustom = (text: string, t: any) => {
     if (!text || text.trim().length === 0) {
-        return t('Words.customTextPlaceholder');
+        return t('customTextPlaceholder');
     }
     return text.trim().replace(/\s+/g, ' ');
 }
