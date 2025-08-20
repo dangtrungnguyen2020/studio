@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import "../globals.css";
 import { Toaster } from "@/components/ui/toaster";
@@ -24,6 +25,7 @@ export default async function RootLayout({
   return (
     <html lang={params.locale} suppressHydrationWarning>
       <head>
+        <meta name="google-adsense-account" content="ca-pub-7533423449746957" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
