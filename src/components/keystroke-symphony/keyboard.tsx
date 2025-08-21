@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -45,6 +46,20 @@ const Keyboard = ({
     }
   }, [lastPressedKey]);
 
+  const getKeyStyle = (key: string, layout: KeyboardLayout) => {
+    let style: React.CSSProperties = {};
+    if (layout === 'Numpad' || layout === 'TKL' || layout === 'QWERTY' || layout === 'DVORAK' || layout === 'AZERTY') {
+      // These layouts can use a more dynamic grid approach
+      if (key === 'Space') style.gridColumn = 'span 6';
+      if (key === 'Backspace') style.gridColumn = 'span 2';
+      if (key === 'Tab') style.gridColumn = 'span 2';
+      if (key === 'CapsLock') style.gridColumn = 'span 2';
+      if (key === 'Enter') style.gridColumn = 'span 2';
+      if (key === 'Shift') style.gridColumn = 'span 3';
+    }
+    return style;
+  }
+
   const getKeyClass = (key: string) => {
     const targetChar =
       text && text.length > 0 && currentCharIndex < text.length
@@ -60,22 +75,6 @@ const Keyboard = ({
           /[a-z]/i.test(targetChar));
     }
 
-    let widthClass = "w-12";
-
-    if (key.length > 1 && key !== "Space") {
-      if (["Backspace", "Enter", "CapsLock", "Tab"].includes(key)) {
-        widthClass = "w-20";
-      } else if (key === "Shift") {
-        widthClass = "w-28";
-      } else if (["Ctrl", "Alt", "Fn"].includes(key)) {
-        widthClass = "w-16";
-      } else if (key.startsWith("Arrow")) {
-        widthClass = "w-12";
-      }
-    } else if (key === "Space") {
-      widthClass = "flex-grow";
-    }
-
     const isPressed =
       pressedKey === key.toLowerCase() ||
       (pressedKey === " " && key === "Space");
@@ -85,26 +84,25 @@ const Keyboard = ({
       "shadow-sm border border-border",
       "bg-secondary/50 hover:bg-secondary",
       isPressed ? "scale-95 bg-primary text-primary-foreground" : "",
-      widthClass,
       isTargetKey && "bg-accent text-accent-foreground ring-2 ring-primary"
     );
   };
 
   return (
     <div
-      className={`flex flex-col gap-2 p-4 bg-muted/20 rounded-lg`}
+      className={`grid gap-1 p-4 bg-muted/20 rounded-lg justify-center`}
+      style={{
+        gridTemplateColumns: `repeat(${keyboardLayout[0].length}, minmax(0, 1fr))`,
+        gridAutoRows: 'auto',
+      }}
     >
-      {keyboardLayout.map((row, rowIndex) => (
-        <div key={rowIndex} className="flex justify-center gap-2">
-          {row.map((key, keyIndex) =>
-            key === " " ? (
-              <div key={keyIndex} className="w-12"></div>
-            ) : (
-              <div key={keyIndex} className={getKeyClass(key)}>
-                {keyIcons[key] || key}
-              </div>
-            )
-          )}
+      {keyboardLayout.flat().map((key, index) => (
+        <div 
+          key={index}
+          className={getKeyClass(key)}
+          style={getKeyStyle(key, layout)}
+        >
+          {keyIcons[key] || key}
         </div>
       ))}
     </div>
