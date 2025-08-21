@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { KEYBOARD_LAYOUTS } from "@/lib/keyboards";
-import type { KeyboardLayout } from "@/lib/keyboards";
+import type { KeyboardLayout, KeyDefinition } from "@/lib/keyboards";
 import {
   ArrowLeft,
   ArrowRight,
@@ -46,21 +46,18 @@ const Keyboard = ({
     }
   }, [lastPressedKey]);
 
-  const getKeyStyle = (key: string, layout: KeyboardLayout) => {
+  const getKeyStyle = (key: KeyDefinition) => {
     let style: React.CSSProperties = {};
-    if (layout === 'Numpad' || layout === 'TKL' || layout === 'QWERTY' || layout === 'DVORAK' || layout === 'AZERTY') {
-      // These layouts can use a more dynamic grid approach
-      if (key === 'Space') style.gridColumn = 'span 6';
-      if (key === 'Backspace') style.gridColumn = 'span 2';
-      if (key === 'Tab') style.gridColumn = 'span 2';
-      if (key === 'CapsLock') style.gridColumn = 'span 2';
-      if (key === 'Enter') style.gridColumn = 'span 2';
-      if (key === 'Shift') style.gridColumn = 'span 3';
+    if (key.colSpan) {
+      style.gridColumn = `span ${key.colSpan}`;
+    }
+    if (key.rowSpan) {
+      style.gridRow = `span ${key.rowSpan}`;
     }
     return style;
-  }
+  };
 
-  const getKeyClass = (key: string) => {
+  const getKeyClass = (key: KeyDefinition) => {
     const targetChar =
       text && text.length > 0 && currentCharIndex < text.length
         ? text[currentCharIndex]
@@ -68,16 +65,16 @@ const Keyboard = ({
     let isTargetKey = false;
     if (targetChar) {
       isTargetKey =
-        key.toLowerCase() === targetChar.toLowerCase() ||
-        (key === "Space" && targetChar === " ") ||
-        (key === "Shift" &&
+        key.label.toLowerCase() === targetChar.toLowerCase() ||
+        (key.label === "Space" && targetChar === " ") ||
+        (key.label === "Shift" &&
           targetChar.toUpperCase() === targetChar &&
           /[a-z]/i.test(targetChar));
     }
 
     const isPressed =
-      pressedKey === key.toLowerCase() ||
-      (pressedKey === " " && key === "Space");
+      pressedKey === key.label.toLowerCase() ||
+      (pressedKey === " " && key.label === "Space");
 
     return cn(
       "h-12 rounded-md flex items-center justify-center p-2 text-sm font-medium transition-all duration-100 ease-in-out",
@@ -88,21 +85,22 @@ const Keyboard = ({
     );
   };
 
+  const maxCols = keyboardLayout.reduce((max, row) => {
+    const rowCols = row.reduce((sum, key) => sum + (key.colSpan || 1), 0);
+    return Math.max(max, rowCols);
+  }, 0);
+
   return (
     <div
       className={`grid gap-1 p-4 bg-muted/20 rounded-lg justify-center`}
       style={{
-        gridTemplateColumns: `repeat(${keyboardLayout[0].length}, minmax(0, 1fr))`,
-        gridAutoRows: 'auto',
+        gridTemplateColumns: `repeat(${maxCols}, minmax(0, 1fr))`,
+        gridAutoRows: "auto",
       }}
     >
       {keyboardLayout.flat().map((key, index) => (
-        <div 
-          key={index}
-          className={getKeyClass(key)}
-          style={getKeyStyle(key, layout)}
-        >
-          {keyIcons[key] || key}
+        <div key={index} className={getKeyClass(key)} style={getKeyStyle(key)}>
+          {keyIcons[key.label] || key.label}
         </div>
       ))}
     </div>
