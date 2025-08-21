@@ -128,5 +128,28 @@
     "portuguese": "Portugués",
     "russian": "Ruso",
     "japanese": "Japonés"
+  },
+  "UserMenu": {
+    "profile": "Perfil",
+    "statistics": "Estadísticas",
+    "level": "Nivel",
+    "signOut": "Cerrar sesión"
+  },
+  "ProfilePage": {
+    "title": "Mi Progreso",
+    "goBack": "Regresar",
+    "summaryTitle": "Resumen de rendimiento",
+    "summaryDescription": "Un resumen de tu rendimiento de mecanografía.",
+    "averageWpm": "PPM promedio",
+    "averageAccuracy": "Precisión promedio",
+    "testsTaken": "Pruebas realizadas",
+    "progressChartTitle": "Progreso a lo largo del tiempo",
+    "historyTitle": "Historial de pruebas",
+    "date": "Fecha",
+    "wpm": "PPM",
+    "accuracy": "Precisión",
+    "difficulty": "Dificultad",
+    "notEnoughData": "No hay suficientes datos para mostrar un gráfico. ¡Completa más pruebas para ver tu progreso!",
+    "noHistory": "Aún no has completado ninguna prueba."
   }
 }

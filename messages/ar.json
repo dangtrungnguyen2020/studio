@@ -128,5 +128,28 @@
     "portuguese": "البرتغالية",
     "russian": "الروسية",
     "japanese": "اليابانية"
+  },
+    "UserMenu": {
+    "profile": "الملف الشخصي",
+    "statistics": "الإحصائيات",
+    "level": "المستوى",
+    "signOut": "تسجيل الخروج"
+  },
+  "ProfilePage": {
+    "title": "تقدمي",
+    "goBack": "العودة",
+    "summaryTitle": "ملخص الأداء",
+    "summaryDescription": "نظرة عامة على أداء الطباعة لديك.",
+    "averageWpm": "متوسط الكلمات في الدقيقة",
+    "averageAccuracy": "متوسط الدقة",
+    "testsTaken": "الاختبارات التي تم إجراؤها",
+    "progressChartTitle": "التقدم بمرور الوقت",
+    "historyTitle": "سجل الاختبارات",
+    "date": "التاريخ",
+    "wpm": "كلمة في الدقيقة",
+    "accuracy": "الدقة",
+    "difficulty": "الصعوبة",
+    "notEnoughData": "لا توجد بيانات كافية لعرض مخطط. أكمل المزيد من الاختبارات لرؤية تقدمك!",
+    "noHistory": "لم تكمل أي اختبارات بعد."
   }
 }

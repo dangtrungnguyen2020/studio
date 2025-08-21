@@ -1,3 +1,4 @@
+
 // src/components/keystroke-symphony/user-menu.tsx
 "use client";
 
@@ -14,8 +15,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOut, User, BarChart, Trophy } from "lucide-react";
+import Link from "next/link";
+import { useTranslations } from "next-intl";
+
 
 export default function UserMenu() {
+  const t = useTranslations('UserMenu');
   const [user] = useAuthState(auth);
 
   if (!user) return null;
@@ -54,22 +59,24 @@ export default function UserMenu() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <User className="mr-2 h-4 w-4" />
-          <span>Edit Profile</span>
-        </DropdownMenuItem>
+        <Link href="/profile">
+          <DropdownMenuItem>
+            <User className="mr-2 h-4 w-4" />
+            <span>{t('profile')}</span>
+          </DropdownMenuItem>
+        </Link>
         <DropdownMenuItem>
           <BarChart className="mr-2 h-4 w-4" />
-          <span>Statistics</span>
+          <span>{t('statistics')}</span>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Trophy className="mr-2 h-4 w-4" />
-          <span>Level</span>
+          <span>{t('level')}</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut}>
           <LogOut className="mr-2 h-4 w-4" />
-          <span>Sign out</span>
+          <span>{t('signOut')}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

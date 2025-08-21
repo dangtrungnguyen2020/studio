@@ -128,5 +128,28 @@
     "portuguese": "Portugais",
     "russian": "Russe",
     "japanese": "Japonais"
+  },
+    "UserMenu": {
+    "profile": "Profil",
+    "statistics": "Statistiques",
+    "level": "Niveau",
+    "signOut": "Se déconnecter"
+  },
+  "ProfilePage": {
+    "title": "Mes progrès",
+    "goBack": "Retour",
+    "summaryTitle": "Résumé des performances",
+    "summaryDescription": "Un aperçu de vos performances de frappe.",
+    "averageWpm": "MPM moyen",
+    "averageAccuracy": "Précision moyenne",
+    "testsTaken": "Tests effectués",
+    "progressChartTitle": "Progrès au fil du temps",
+    "historyTitle": "Historique des tests",
+    "date": "Date",
+    "wpm": "MPM",
+    "accuracy": "Précision",
+    "difficulty": "Difficulté",
+    "notEnoughData": "Pas assez de données pour afficher un graphique. Terminez plus de tests pour voir vos progrès !",
+    "noHistory": "Vous n'avez encore terminé aucun test."
   }
 }

@@ -128,5 +128,28 @@
     "portuguese": "पुर्तगाली",
     "russian": "रूसी",
     "japanese": "जापानी"
+  },
+  "UserMenu": {
+    "profile": "प्रोफ़ाइल",
+    "statistics": "आंकड़े",
+    "level": "स्तर",
+    "signOut": "साइन आउट करें"
+  },
+  "ProfilePage": {
+    "title": "मेरी प्रगति",
+    "goBack": "वापस जाएं",
+    "summaryTitle": "प्रदर्शन सारांश",
+    "summaryDescription": "आपके टाइपिंग प्रदर्शन का एक सिंहावलोकन।",
+    "averageWpm": "औसत WPM",
+    "averageAccuracy": "औसत सटीकता",
+    "testsTaken": "दिए गए टेस्ट",
+    "progressChartTitle": "समय के साथ प्रगति",
+    "historyTitle": "टेस्ट इतिहास",
+    "date": "दिनांक",
+    "wpm": "WPM",
+    "accuracy": "सटीकता",
+    "difficulty": "कठिनाई",
+    "notEnoughData": "चार्ट प्रदर्शित करने के लिए पर्याप्त डेटा नहीं है। अपनी प्रगति देखने के लिए और टेस्ट पूरे करें!",
+    "noHistory": "आपने अभी तक कोई टेस्ट पूरा नहीं किया है।"
   }
 }

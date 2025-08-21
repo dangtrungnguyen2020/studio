@@ -128,5 +128,28 @@
     "portuguese": "Português",
     "russian": "Russo",
     "japanese": "Japonês"
+  },
+  "UserMenu": {
+    "profile": "Perfil",
+    "statistics": "Estatísticas",
+    "level": "Nível",
+    "signOut": "Sair"
+  },
+  "ProfilePage": {
+    "title": "Meu Progresso",
+    "goBack": "Voltar",
+    "summaryTitle": "Resumo de Desempenho",
+    "summaryDescription": "Uma visão geral do seu desempenho de digitação.",
+    "averageWpm": "PPM Médio",
+    "averageAccuracy": "Precisão Média",
+    "testsTaken": "Testes Realizados",
+    "progressChartTitle": "Progresso ao Longo do Tempo",
+    "historyTitle": "Histórico de Testes",
+    "date": "Data",
+    "wpm": "PPM",
+    "accuracy": "Precisão",
+    "difficulty": "Dificuldade",
+    "notEnoughData": "Não há dados suficientes para exibir um gráfico. Conclua mais testes para ver seu progresso!",
+    "noHistory": "Você ainda não concluiu nenhum teste."
   }
 }

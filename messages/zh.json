@@ -128,5 +128,28 @@
     "portuguese": "葡萄牙语",
     "russian": "俄语",
     "japanese": "日语"
+  },
+  "UserMenu": {
+    "profile": "个人资料",
+    "statistics": "统计数据",
+    "level": "等级",
+    "signOut": "登出"
+  },
+  "ProfilePage": {
+    "title": "我的进度",
+    "goBack": "返回",
+    "summaryTitle": "表现摘要",
+    "summaryDescription": "您的打字表现概览。",
+    "averageWpm": "平均WPM",
+    "averageAccuracy": "平均准确率",
+    "testsTaken": "已完成测试",
+    "progressChartTitle": "随时间变化的进度",
+    "historyTitle": "测试历史",
+    "date": "日期",
+    "wpm": "WPM",
+    "accuracy": "准确率",
+    "difficulty": "难度",
+    "notEnoughData": "数据不足，无法显示图表。完成更多测试以查看您的进度！",
+    "noHistory": "您还没有完成任何测试。"
   }
 }

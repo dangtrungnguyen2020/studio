@@ -128,5 +128,28 @@
     "portuguese": "Portugiesisch",
     "russian": "Russisch",
     "japanese": "Japanisch"
+  },
+  "UserMenu": {
+    "profile": "Profil",
+    "statistics": "Statistiken",
+    "level": "Level",
+    "signOut": "Abmelden"
+  },
+  "ProfilePage": {
+    "title": "Mein Fortschritt",
+    "goBack": "Zurück",
+    "summaryTitle": "Leistungszusammenfassung",
+    "summaryDescription": "Eine Übersicht über Ihre Tippleistung.",
+    "averageWpm": "Durchschnittliche WPM",
+    "averageAccuracy": "Durchschnittliche Genauigkeit",
+    "testsTaken": "Tests absolviert",
+    "progressChartTitle": "Fortschritt im Laufe der Zeit",
+    "historyTitle": "Testverlauf",
+    "date": "Datum",
+    "wpm": "WPM",
+    "accuracy": "Genauigkeit",
+    "difficulty": "Schwierigkeit",
+    "notEnoughData": "Nicht genügend Daten, um ein Diagramm anzuzeigen. Schließen Sie weitere Tests ab, um Ihren Fortschritt zu sehen!",
+    "noHistory": "Sie haben noch keine Tests abgeschlossen."
   }
 }

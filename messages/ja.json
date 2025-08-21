@@ -128,5 +128,28 @@
     "portuguese": "ポルトガル語",
     "russian": "ロシア語",
     "japanese": "日本語"
+  },
+    "UserMenu": {
+    "profile": "プロフィール",
+    "statistics": "統計",
+    "level": "レベル",
+    "signOut": "サインアウト"
+  },
+  "ProfilePage": {
+    "title": "私の進捗",
+    "goBack": "戻る",
+    "summaryTitle": "パフォーマンス概要",
+    "summaryDescription": "タイピングパフォーマンスの概要。",
+    "averageWpm": "平均WPM",
+    "averageAccuracy": "平均正確性",
+    "testsTaken": "実施したテスト",
+    "progressChartTitle": "時間経過に伴う進捗",
+    "historyTitle": "テスト履歴",
+    "date": "日付",
+    "wpm": "WPM",
+    "accuracy": "正確性",
+    "difficulty": "難易度",
+    "notEnoughData": "チャートを表示するためのデータが不足しています。進捗を確認するには、さらにテストを完了してください！",
+    "noHistory": "まだテストを完了していません。"
   }
 }

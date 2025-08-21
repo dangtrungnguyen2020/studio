@@ -130,5 +130,28 @@
     "portuguese": "Portuguese",
     "russian": "Russian",
     "japanese": "Japanese"
+  },
+  "UserMenu": {
+    "profile": "Profile",
+    "statistics": "Statistics",
+    "level": "Level",
+    "signOut": "Sign out"
+  },
+  "ProfilePage": {
+    "title": "My Progress",
+    "goBack": "Go Back",
+    "summaryTitle": "Performance Summary",
+    "summaryDescription": "An overview of your typing performance.",
+    "averageWpm": "Average WPM",
+    "averageAccuracy": "Average Accuracy",
+    "testsTaken": "Tests Taken",
+    "progressChartTitle": "Progress Over Time",
+    "historyTitle": "Test History",
+    "date": "Date",
+    "wpm": "WPM",
+    "accuracy": "Accuracy",
+    "difficulty": "Difficulty",
+    "notEnoughData": "Not enough data to display a chart. Complete more tests to see your progress!",
+    "noHistory": "You haven't completed any tests yet."
   }
 }

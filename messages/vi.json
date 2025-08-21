@@ -130,5 +130,28 @@
     "portuguese": "Tiếng Bồ Đào Nha",
     "russian": "Tiếng Nga",
     "japanese": "Tiếng Nhật"
+  },
+  "UserMenu": {
+    "profile": "Hồ sơ",
+    "statistics": "Thống kê",
+    "level": "Cấp độ",
+    "signOut": "Đăng xuất"
+  },
+  "ProfilePage": {
+    "title": "Tiến trình của tôi",
+    "goBack": "Quay lại",
+    "summaryTitle": "Tóm tắt hiệu suất",
+    "summaryDescription": "Tổng quan về hiệu suất gõ phím của bạn.",
+    "averageWpm": "WPM trung bình",
+    "averageAccuracy": "Độ chính xác trung bình",
+    "testsTaken": "Số bài đã làm",
+    "progressChartTitle": "Tiến trình theo thời gian",
+    "historyTitle": "Lịch sử kiểm tra",
+    "date": "Ngày",
+    "wpm": "WPM",
+    "accuracy": "Độ chính xác",
+    "difficulty": "Độ khó",
+    "notEnoughData": "Không đủ dữ liệu để hiển thị biểu đồ. Hoàn thành thêm bài kiểm tra để xem tiến trình của bạn!",
+    "noHistory": "Bạn chưa hoàn thành bài kiểm tra nào."
   }
 }
