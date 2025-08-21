@@ -8,6 +8,7 @@ import { ArrowLeft, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import AppHeader from "@/components/keystroke-symphony/app-header";
 
 export default function InfoPage() {
   const router = useRouter();
@@ -16,8 +17,9 @@ export default function InfoPage() {
   const features = t.raw('features') as string[];
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col p-4 sm:p-6 md:p-8 items-center justify-center">
-        <Card className="w-full max-w-2xl shadow-lg">
+    <div className="min-h-screen bg-background text-foreground flex flex-col p-4 sm:p-6 md:p-8 items-center">
+        <AppHeader page="info" />
+        <Card className="w-full max-w-2xl shadow-lg mt-6">
             <CardHeader>
                 <CardTitle className="text-3xl font-bold text-primary text-center">{t('title')}</CardTitle>
                 <CardDescription className="text-center text-muted-foreground pt-2">

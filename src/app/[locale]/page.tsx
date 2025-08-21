@@ -63,6 +63,7 @@ import { useTranslations } from "next-intl";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase";
 import { Separator } from "@/components/ui/separator";
+import AppHeader from "@/components/keystroke-symphony/app-header";
 
 type TestStats = {
   wpm: number;
@@ -151,8 +152,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    console.log(`### setTestText (${difficulty}, ${customText})`);
-
     if (difficulty !== "custom") {
       setTestText(generate(difficulty));
     } else if (isEditingCustomText) {
@@ -199,46 +198,7 @@ export default function Home() {
   return (
     <TooltipProvider>
       <div className="min-h-screen max-h-screen h-full overflow-hidden bg-background text-foreground flex flex-col items-center">
-        <header className="w-full max-w-5xl mx-auto flex justify-between items-center m-6">
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl sm:text-3xl font-bold text-primary">
-              {t("title")}
-            </h1>
-          </div>
-          <div className="flex items-center gap-2">
-            <Link href="/game">
-              <Button variant="outline">
-                <Gamepad2 className="mr-2 h-4 w-4" />
-                {t("gameMode")}
-              </Button>
-            </Link>
-            {user ? <UserMenu /> : <LoginDialog />}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <Settings className="h-5 w-5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>{tSettings("appearance")}</DropdownMenuLabel>
-                <div className="px-2">
-                  <ThemeSwitcher />
-                </div>
-                <DropdownMenuSeparator />
-                <DropdownMenuLabel>
-                  <LanguageSwitcher />
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <Link href="/info">
-                  <Button variant="ghost" className="w-full justify-start">
-                    <Info className="h-4 w-4 mr-2" />
-                    About
-                  </Button>
-                </Link>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </header>
+        <AppHeader page="home" />
         <main
           className="max-w-screen w-full flex flex-row gap-8 justify-stretch flex-1"
           style={{ minHeight: "1px" }}
