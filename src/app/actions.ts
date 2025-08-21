@@ -27,16 +27,20 @@ type SaveTestResultsInput = {
 
 export async function saveTestResults(input: SaveTestResultsInput) {
   if (!input.userId) {
-    throw new Error("User must be logged in to save results.");
+    // This action should only be called for logged-in users, 
+    // but as a safeguard, we won't throw an error to the client.
+    console.log("Attempted to save results without a user ID.");
+    return;
   }
   try {
-    await addDoc(collection(db, "typing-sessions"), {
+    const docRef = await addDoc(collection(db, "typing-sessions"), {
       ...input,
       timestamp: serverTimestamp(),
     });
+    console.log("Test results saved with ID: ", docRef.id);
   } catch (error) {
     console.error("Error saving test results to Firestore:", error);
     // We don't want to throw an error to the user if this fails,
-    // as it's not critical to their experience.
+    // as it's not critical to their experience, but we should log it.
   }
 }

@@ -1,7 +1,10 @@
 // src/lib/firebase.ts
-import { initializeApp, getApps, getApp } from "firebase/app";
-import { getAuth, browserLocalPersistence, setPersistence } from "firebase/auth";
+import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
+import { getAuth, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getFunctions } from "firebase/functions";
+import { getStorage } from "firebase/storage";
+import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
   "projectId": "keystroke-symphony-z6jrj",
@@ -13,12 +16,27 @@ const firebaseConfig = {
   "messagingSenderId": "316751782475"
 };
 
-// Initialize Firebase
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+
+let app: FirebaseApp;
+if (!getApps().length) {
+  app = initializeApp(firebaseConfig);
+  if (typeof window !== "undefined") {
+    // Enable analytics only on the client side
+    getAnalytics(app);
+  }
+} else {
+  app = getApp();
+}
+
 const auth = getAuth(app);
 const db = getFirestore(app);
+const functions = getFunctions(app);
+const storage = getStorage(app);
 
-// By default, Firebase uses local persistence. This explicit call ensures it.
-setPersistence(auth, browserLocalPersistence);
 
-export { app, auth, db };
+// Set persistence on the client side
+if (typeof window !== "undefined") {
+  setPersistence(auth, browserLocalPersistence);
+}
+
+export { app, auth, db, functions, storage };
