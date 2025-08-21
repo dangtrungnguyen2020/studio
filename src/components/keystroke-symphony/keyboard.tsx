@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { KEYBOARD_LAYOUTS } from "@/lib/keyboards";
-import type { KeyboardLayout, KeyboardTheme } from "@/lib/keyboards";
+import type { KeyboardLayout } from "@/lib/keyboards";
 import {
   ArrowLeft,
   ArrowRight,
@@ -14,7 +14,6 @@ import {
 
 interface KeyboardProps {
   layout: KeyboardLayout;
-  theme: KeyboardTheme;
   lastPressedKey: string | null;
   text: string;
   currentCharIndex: number;
@@ -22,7 +21,6 @@ interface KeyboardProps {
 
 const Keyboard = ({
   layout,
-  theme,
   lastPressedKey,
   text,
   currentCharIndex,
@@ -84,22 +82,17 @@ const Keyboard = ({
 
     return cn(
       "h-12 rounded-md flex items-center justify-center p-2 text-sm font-medium transition-all duration-100 ease-in-out",
-      "shadow-sm",
-      "hover:bg-muted",
-      isPressed ? "scale-95" : "",
-      isPressed
-        ? "bg-[--key-accent-bg] text-[--key-accent-text]"
-        : "bg-[--key-bg] text-[--key-text] border border-[--key-border]",
+      "shadow-sm border border-border",
+      "bg-secondary/50 hover:bg-secondary",
+      isPressed ? "scale-95 bg-primary text-primary-foreground" : "",
       widthClass,
-      isTargetKey && "bg-[--key-target-bg] ring-2 ring-[--key-target-ring]"
+      isTargetKey && "bg-accent text-accent-foreground ring-2 ring-primary"
     );
   };
 
   return (
     <div
-      className={`flex flex-col gap-2 p-4 bg-muted/20 rounded-lg ${
-        theme !== "default" ? `theme-${theme}` : ""
-      }`}
+      className={`flex flex-col gap-2 p-4 bg-muted/20 rounded-lg`}
     >
       {keyboardLayout.map((row, rowIndex) => (
         <div key={rowIndex} className="flex justify-center gap-2">

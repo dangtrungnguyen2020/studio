@@ -15,11 +15,6 @@
     "restartTooltip": "Appuyez sur <kbd>Échap</kbd> pour recommencer",
     "customTextPlaceholder": "Collez votre texte personnalisé ici...",
     "layout": "Disposition :",
-    "theme": "Thème :",
-    "defaultTheme": "Défaut",
-    "retroTheme": "Rétro",
-    "kidTheme": "Enfant des années 80",
-    "carbonTheme": "Carbone",
     "toggleKeyboard": "Afficher/Masquer le clavier",
     "unsupportedDeviceTitle": "Appareil non pris en charge",
     "unsupportedDeviceMessage": "Keystroke Symphony est conçu pour les navigateurs de bureau. Veuillez visiter sur un ordinateur pour une expérience complète."

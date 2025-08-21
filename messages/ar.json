@@ -15,11 +15,6 @@
     "restartTooltip": "اضغط على <kbd>Esc</kbd> لإعادة التشغيل",
     "customTextPlaceholder": "الصق النص المخصص هنا...",
     "layout": "التخطيط:",
-    "theme": "المظهر:",
-    "defaultTheme": "افتراضي",
-    "retroTheme": "قديم",
-    "kidTheme": "طفل الثمانينات",
-    "carbonTheme": "كربون",
     "toggleKeyboard": "إظهار/إخفاء لوحة المفاتيح",
     "unsupportedDeviceTitle": "جهاز غير مدعوم",
     "unsupportedDeviceMessage": "تم تصميم سيمفونية ضغطات المفاتيح لمتصفحات سطح المكتب. يرجى الزيارة على جهاز كمبيوتر للحصول على التجربة الكاملة."

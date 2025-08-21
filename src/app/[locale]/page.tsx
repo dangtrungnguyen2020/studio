@@ -53,7 +53,6 @@ import { KEYBOARD_LAYOUTS } from "@/lib/keyboards";
 import type {
   KeyboardLayout,
   Difficulty,
-  KeyboardTheme,
 } from "@/lib/keyboards";
 import Link from "next/link";
 import { useTheme } from "@/components/theme-provider";
@@ -78,7 +77,6 @@ export default function Home() {
 
   const [layout, setLayout] = useState<KeyboardLayout>("QWERTY");
   const { theme, colorTheme, setColorTheme, setTheme } = useTheme();
-  const [keyboardTheme, setKeyboardTheme] = useState<KeyboardTheme>("default");
   const [difficulty, setDifficulty] = useState<Difficulty>("medium");
   const [customText, setCustomText] = useState("");
   const [isEditingCustomText, setIsEditingCustomText] = useState(true);
@@ -108,20 +106,6 @@ export default function Home() {
         setLayout("QWERTY");
       }
     }
-  };
-
-  const handleKeyboardThemeChange = (newTheme: KeyboardTheme) => {
-    console.log(`### handleKeyboardThemeChange ${newTheme}`);
-
-    // remove old theme
-    document.body.classList.forEach((className) => {
-      if (className.startsWith("theme-")) {
-        document.body.classList.remove(className);
-      }
-    });
-    setKeyboardTheme(newTheme);
-    document.body.classList.add(`theme-${newTheme}`);
-    localStorage.setItem("keystroke-symphony-theme", newTheme);
   };
 
   const handleRestart = useCallback(() => {
@@ -160,13 +144,6 @@ export default function Home() {
   }, [difficulty, customText, isEditingCustomText, t]);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem(
-      "keystroke-symphony-theme"
-    ) as KeyboardTheme | null;
-    if (savedTheme) {
-      setKeyboardTheme(savedTheme);
-      document.body.classList.add(`theme-${savedTheme}`);
-    }
     const savedColorTheme = localStorage.getItem("color-theme") as any;
     if (savedColorTheme) {
       setColorTheme(savedColorTheme);
@@ -294,7 +271,6 @@ export default function Home() {
               {showKeyboard && (
                 <Keyboard
                   layout={layout}
-                  theme={keyboardTheme}
                   lastPressedKey={lastPressedKey}
                   text={testText}
                   currentCharIndex={currentCharIndex}
@@ -323,26 +299,6 @@ export default function Home() {
                         {l}
                       </SelectItem>
                     ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Palette className="h-4 w-4" />
-                <span>{t("theme")}</span>
-                <Select
-                  value={keyboardTheme}
-                  onValueChange={(v) =>
-                    handleKeyboardThemeChange(v as KeyboardTheme)
-                  }
-                >
-                  <SelectTrigger className="w-[120px]">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="default">{t("defaultTheme")}</SelectItem>
-                    <SelectItem value="retro">{t("retroTheme")}</SelectItem>
-                    <SelectItem value="80s-kid">{t("kidTheme")}</SelectItem>
-                    <SelectItem value="carbon">{t("carbonTheme")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

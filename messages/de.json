@@ -15,11 +15,6 @@
     "restartTooltip": "Drücken Sie <kbd>Esc</kbd>, um neu zu starten",
     "customTextPlaceholder": "Fügen Sie hier Ihren benutzerdefinierten Text ein...",
     "layout": "Layout:",
-    "theme": "Thema:",
-    "defaultTheme": "Standard",
-    "retroTheme": "Retro",
-    "kidTheme": "80er-Jahre-Kind",
-    "carbonTheme": "Carbon",
     "toggleKeyboard": "Tastatur ein-/ausblenden",
     "unsupportedDeviceTitle": "Nicht unterstütztes Gerät",
     "unsupportedDeviceMessage": "Keystroke Symphony ist für Desktop-Browser konzipiert. Bitte besuchen Sie uns auf einem Computer, um das volle Erlebnis zu genießen."

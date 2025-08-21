@@ -15,11 +15,6 @@
     "restartTooltip": "按 <kbd>Esc</kbd> 重新开始",
     "customTextPlaceholder": "在此处粘贴您的自定义文本...",
     "layout": "布局：",
-    "theme": "主题：",
-    "defaultTheme": "默认",
-    "retroTheme": "复古",
-    "kidTheme": "80后",
-    "carbonTheme": "碳",
     "toggleKeyboard": "显示/隐藏键盘",
     "unsupportedDeviceTitle": "不支持的设备",
     "unsupportedDeviceMessage": "击键交响曲专为桌面浏览器设计。请在计算机上访问以获得完整体验。"

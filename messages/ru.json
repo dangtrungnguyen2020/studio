@@ -15,11 +15,6 @@
     "restartTooltip": "Нажмите <kbd>Esc</kbd> для перезапуска",
     "customTextPlaceholder": "Вставьте свой текст сюда...",
     "layout": "Раскладка:",
-    "theme": "Тема:",
-    "defaultTheme": "По умолчанию",
-    "retroTheme": "Ретро",
-    "kidTheme": "Ребенок 80-х",
-    "carbonTheme": "Карбон",
     "toggleKeyboard": "Показать/скрыть клавиатуру",
     "unsupportedDeviceTitle": "Неподдерживаемое устройство",
     "unsupportedDeviceMessage": "Симфония нажатий предназначена для настольных браузеров. Пожалуйста, зайдите с компьютера для полноценного опыта."

@@ -15,11 +15,6 @@
     "restartTooltip": "फिर से शुरू करने के लिए <kbd>Esc</kbd> दबाएं",
     "customTextPlaceholder": "अपना कस्टम टेक्स्ट यहां पेस्ट करें...",
     "layout": "लेआउट:",
-    "theme": "थीम:",
-    "defaultTheme": "डिफ़ॉल्ट",
-    "retroTheme": "रेट्रो",
-    "kidTheme": "80 के दशक का बच्चा",
-    "carbonTheme": "कार्बन",
     "toggleKeyboard": "कीबोर्ड दिखाएं/छिपाएं",
     "unsupportedDeviceTitle": "असमर्थित डिवाइस",
     "unsupportedDeviceMessage": "कीस्ट्रोक सिम्फनी डेस्कटॉप ब्राउज़र के लिए डिज़ाइन किया गया है। पूर्ण अनुभव के लिए कृपया कंप्यूटर पर जाएं।"

@@ -15,11 +15,6 @@
     "restartTooltip": "<kbd>Esc</kbd>を押して再開",
     "customTextPlaceholder": "ここにカスタムテキストを貼り付けてください...",
     "layout": "レイアウト：",
-    "theme": "テーマ：",
-    "defaultTheme": "デフォルト",
-    "retroTheme": "レトロ",
-    "kidTheme": "80年代の子",
-    "carbonTheme": "カーボン",
     "toggleKeyboard": "キーボードの表示/非表示",
     "unsupportedDeviceTitle": "サポートされていないデバイス",
     "unsupportedDeviceMessage": "キーストロークシンフォニーはデスクトップブラウザ向けに設計されています。完全な体験のためにコンピュータでアクセスしてください。"

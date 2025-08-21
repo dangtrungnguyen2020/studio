@@ -17,11 +17,6 @@
     "restartTooltip": "Nhấn <kbd>Esc</kbd> để bắt đầu lại",
     "customTextPlaceholder": "Dán văn bản tùy chỉnh của bạn vào đây...",
     "layout": "Bố cục:",
-    "theme": "Chủ đề:",
-    "defaultTheme": "Mặc định",
-    "retroTheme": "Cổ điển",
-    "kidTheme": "Thập niên 80",
-    "carbonTheme": "Carbon",
     "toggleKeyboard": "Hiện/Ẩn Bàn phím",
     "unsupportedDeviceTitle": "Thiết bị không được hỗ trợ",
     "unsupportedDeviceMessage": "Keystroke Symphony được thiết kế cho trình duyệt máy tính để bàn. Vui lòng truy cập trên máy tính để có trải nghiệm đầy đủ."

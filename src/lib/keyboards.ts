@@ -16,36 +16,6 @@ export type Difficulty =
   | "custom"
   | "arrow-training"
   | "numpad-training";
-export type KeyboardTheme = "default" | "retro" | "80s-kid" | "carbon";
-
-export const THEMES: {
-  name: string;
-  value: KeyboardTheme;
-  description: string;
-}[] = [
-  {
-    name: "Default",
-    value: "default",
-    description:
-      "A clean, modern look with a dark background and vibrant accents.",
-  },
-  {
-    name: "Retro",
-    value: "retro",
-    description: "Classic beige and gray tones for a nostalgic, vintage feel.",
-  },
-  {
-    name: "80s Kid",
-    value: "80s-kid",
-    description: "Bright, bold, and neon colors that scream 1980s.",
-  },
-  {
-    name: "Carbon",
-    value: "carbon",
-    description:
-      "A sleek, dark theme with orange accents, inspired by carbon fiber.",
-  },
-];
 
 export const KEYBOARD_LAYOUTS: Record<KeyboardLayout, string[][]> = {
   QWERTY: [

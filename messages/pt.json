@@ -15,11 +15,6 @@
     "restartTooltip": "Pressione <kbd>Esc</kbd> para reiniciar",
     "customTextPlaceholder": "Cole seu texto personalizado aqui...",
     "layout": "Layout:",
-    "theme": "Tema:",
-    "defaultTheme": "Padrão",
-    "retroTheme": "Retrô",
-    "kidTheme": "Criança dos anos 80",
-    "carbonTheme": "Carbono",
     "toggleKeyboard": "Mostrar/Ocultar Teclado",
     "unsupportedDeviceTitle": "Dispositivo não suportado",
     "unsupportedDeviceMessage": "A Sinfonia de Teclas foi projetada para navegadores de desktop. Visite em um computador para a experiência completa."
