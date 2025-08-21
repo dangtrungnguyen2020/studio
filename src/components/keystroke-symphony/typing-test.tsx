@@ -1,11 +1,10 @@
-// src/components/keystroke-symphony/typing-test.tsx
 "use client";
 
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
-import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { useTranslations } from "next-intl";
 import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface TypingTestProps {
   text: string;
@@ -19,10 +18,10 @@ interface TypingTestProps {
 }
 
 const arrowKeyIcons: { [key: string]: React.ReactNode } = {
-  ArrowUp: <ArrowUp className="inline-block h-6 w-6 m-2" />,
-  ArrowDown: <ArrowDown className="inline-block h-6 w-6 m-2" />,
-  ArrowLeft: <ArrowLeft className="inline-block h-6 w-6 m-2" />,
-  ArrowRight: <ArrowRight className="inline-block h-6 w-6 m-2" />,
+  ArrowUp: <ArrowUp className="inline-block h-7 w-7 m-3" />,
+  ArrowDown: <ArrowDown className="inline-block h-7 w-7 m-3" />,
+  ArrowLeft: <ArrowLeft className="inline-block h-7 w-7 m-3" />,
+  ArrowRight: <ArrowRight className="inline-block h-7 w-7 m-3" />,
 };
 
 const TypingTest = ({
@@ -35,8 +34,11 @@ const TypingTest = ({
   const [userInput, setUserInput] = useState<string[]>([]);
   const [startTime, setStartTime] = useState<number | null>(null);
   const [errors, setErrors] = useState(0);
+  const [inputHtml, setInputHtml] = useState<React.ReactNode>(null);
   const [errorsMap, setErrorsMap] = useState<Map<string, number>>(new Map());
   const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const itemRef = useRef<HTMLSpanElement>(null);
 
   const words = useMemo(() => text.split(" "), [text]);
   const isArrowTraining = useMemo(
@@ -48,6 +50,7 @@ const TypingTest = ({
 
   const resetTest = useCallback(() => {
     setUserInput([]);
+    setInputHtml(null);
     setStartTime(null);
     setErrors(0);
     setErrorsMap(new Map());
@@ -95,10 +98,11 @@ const TypingTest = ({
     }
 
     if (e.key === "Backspace") {
-      if (currentIndex > 0) {
+      // disable backspace
+      /* if (currentIndex > 0) {
         setUserInput((prev) => prev.slice(0, -1));
         onCharIndexChange(currentIndex - 1);
-      }
+      } */
       return;
     }
 
@@ -118,6 +122,23 @@ const TypingTest = ({
           newMap.set(originalChar, (newMap.get(originalChar) || 0) + 1);
           return newMap;
         });
+        setInputHtml((current) => (
+          <>
+            {current}
+            {targetChar === " " ? (
+              <span className="bg-destructive/20 rounded-sm">&nbsp;</span>
+            ) : (
+              <span className="text-destructive">{targetChar}</span>
+            )}
+          </>
+        ));
+      } else {
+        setInputHtml((current) => (
+          <>
+            {current}
+            {char}
+          </>
+        ));
       }
 
       setUserInput((prev) => [...prev, char]);
@@ -134,6 +155,15 @@ const TypingTest = ({
       const wpm = Math.round(wordsTyped / durationInMinutes);
       const accuracy = Math.round(((totalLength - errors) / totalLength) * 100);
       onComplete({ wpm, accuracy, errors: errorsMap });
+    }
+
+    console.log("check scroll text:", containerRef.current, itemRef.current);
+    if (containerRef.current && itemRef.current) {
+      const newScroll =
+        itemRef.current.offsetHeight + itemRef.current.offsetTop;
+      console.log("check scroll text:", newScroll);
+
+      containerRef.current.scrollTop = newScroll + 200;
     }
   }, [userInput]);
 
@@ -155,9 +185,66 @@ const TypingTest = ({
     );
   }, [userInput, errors, isArrowTraining, words.length]);
 
+  const highlightRange = (text: string, start: number, end: number) => {
+    if (start < 0 || end > text.length || start >= end) return;
+
+    const before = text.slice(0, start);
+    const highlighted = text.slice(start, end);
+    const after = text.slice(end);
+
+    return `${before}<span className="text-destructive">${highlighted}</span>${after}`;
+  };
+
+  const renderTest = () => {
+    const currentIndex = userInput.length;
+    return (
+      <span className="h8 text-primary">
+        {inputHtml}
+        <span ref={itemRef} className="text-muted-foreground">
+          <span className="relative inline-block after:content-[''] after:block after:absolute after:h-[2px] after:bg-accent after:w-full after:mt-0 after:bottom-1">
+            {text.slice(currentIndex, currentIndex + 1)}
+          </span>
+          {text.slice(currentIndex + 1)}
+        </span>
+      </span>
+    );
+  };
+
+  const renderArrowTest = () => {
+    return (
+      <>
+        {words.map((char, index) => {
+          let charState: "correct" | "incorrect" | "current" | "pending" =
+            "pending";
+
+          if (index < userInput.length) {
+            charState = userInput[index] === char ? "correct" : "incorrect";
+          } else if (index === userInput.length) {
+            charState = "current";
+          }
+          return (
+            <span
+              key={index}
+              ref={charState === "pending" ? itemRef : null}
+              className={cn("m-2 bg-secondary rounded-md", {
+                // Added flex properties for alignment
+                "bg-primary/20": charState === "correct",
+                "bg-destructive/20": charState === "incorrect",
+                // "text-muted-foreground": charState === "pending",
+                "border border-primary": charState === "current",
+              })}
+            >
+              {arrowKeyIcons[char]}
+            </span>
+          );
+        })}
+      </>
+    );
+  };
+
   return (
     <div
-      className="flex flex-col overflow-hidden"
+      className="flex flex-col flex-1 overflow-hidden"
       onClick={() => inputRef.current?.focus()}
     >
       <div className="flex justify-between items-center mb-4 px-2">
@@ -168,54 +255,17 @@ const TypingTest = ({
           {accuracy}% {t("acc")}
         </div>
       </div>
-      <Card className="flex-1 flex-wrap overflow-y-auto relative bg-muted/30">
-        <CardContent className="p-4 text-xl sm:text-2xl tracking-wider leading-relaxed font-mono select-none whitespace-pre-wrap flex flex-wrap">
-          {(isArrowTraining ? words : text.split("")).map((char, index) => {
-            let charState: "correct" | "incorrect" | "current" | "pending" =
-              "pending";
-
-            if (index < userInput.length) {
-              charState = userInput[index] === char ? "correct" : "incorrect";
-            } else if (index === userInput.length) {
-              charState = "current";
-            }
-
-            return (
-              <span
-                key={index}
-                className={cn("flex items-center justify-center h-8", {
-                  // Added flex properties for alignment
-                  "text-primary": charState === "correct",
-                  "text-destructive": charState === "incorrect",
-                  "text-muted-foreground": charState === "pending",
-                  relative: charState === "current",
-                })}
-              >
-                {charState === "current" && (
-                  <span
-                    className={cn(
-                      "absolute bottom-0 left-0 w-full h-0.5 bg-accent animate-pulse"
-                    )}
-                  />
-                )}
-                {isArrowTraining ? (
-                  arrowKeyIcons[char]
-                ) : char === " " ? (
-                  <span
-                    className={
-                      charState === "incorrect"
-                        ? "bg-destructive/20 rounded-sm"
-                        : ""
-                    }
-                  >
-                    &nbsp;
-                  </span>
-                ) : (
-                  char
-                )}
-              </span>
-            );
-          })}
+      <Card
+        ref={containerRef}
+        className="p-4 flex-1 flex-wrap overflow-y-auto relative bg-muted/30"
+      >
+        <CardContent
+          className={cn(
+            "p-0 text-xl sm:text-2xl tracking-wider leading-relaxed select-none whitespace-pre-wrap flex flex-wrap",
+            isArrowTraining ? "justify-center" : "font-mono"
+          )}
+        >
+          {isArrowTraining ? renderArrowTest() : renderTest()}
           <input
             ref={inputRef}
             type="text"

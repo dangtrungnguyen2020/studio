@@ -70,7 +70,7 @@ const Game = () => {
     if (status === "playing") {
       inputRef.current?.focus();
 
-      const baseSpeed = {
+      const baseSpeed: any = {
         "very-easy": 120,
         easy: 100,
         medium: 90,

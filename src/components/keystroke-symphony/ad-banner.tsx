@@ -32,7 +32,6 @@ const AdBanner = (props: { className: string }) => {
     <div
       // Attach the ref to the div
       ref={adContainerRef}
-      style={{ width: 416 }}
       className={cn("flex justify-center my-4", props.className)}
     >
       <ins
@@ -40,7 +39,6 @@ const AdBanner = (props: { className: string }) => {
         style={{ display: "block" }}
         data-ad-client="ca-pub-7533423449746957"
         data-ad-slot="5440592927"
-        data-ad-format="auto"
         data-full-width-responsive="true"
       ></ins>
     </div>

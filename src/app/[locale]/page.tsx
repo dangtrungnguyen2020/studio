@@ -1,4 +1,3 @@
-
 // src/app/page.tsx
 "use client";
 
@@ -63,6 +62,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { useTranslations } from "next-intl";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase";
+import { Separator } from "@/components/ui/separator";
 
 type TestStats = {
   wpm: number;
@@ -154,9 +154,9 @@ export default function Home() {
     console.log(`### setTestText (${difficulty}, ${customText})`);
 
     if (difficulty !== "custom") {
-        setTestText(generate(difficulty));
+      setTestText(generate(difficulty));
     } else if (isEditingCustomText) {
-        setTestText(generateCustom(customText, t));
+      setTestText(generateCustom(customText, t));
     }
   }, [difficulty, customText, isEditingCustomText, t]);
 
@@ -240,72 +240,76 @@ export default function Home() {
           </div>
         </header>
         <main
-          className="w-full flex flex-row gap-8 justify-stretch flex-1"
+          className="max-w-screen w-full flex flex-row gap-8 justify-stretch flex-1"
           style={{ minHeight: "1px" }}
         >
-          <AdBanner className="flex-1" />
-          <div className="max-w-5xl mx-auto flex flex-col">
-            <div className="flex flex-col flex-1 overflow-hidden rounded-lg border bg-card text-card-foreground shadow-lg border-primary/20 p-4 sm:p-6">
-              <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4 mb-6">
-                <Select
-                  value={difficulty}
-                  onValueChange={(v) => handleDifficultyChange(v as Difficulty)}
-                >
-                  <SelectTrigger className="w-full sm:w-[200px]">
-                    <SelectValue placeholder={t("selectDifficulty")} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="very-easy">{t("veryEasy")}</SelectItem>
-                    <SelectItem value="easy">{t("easy")}</SelectItem>
-                    <SelectItem value="medium">{t("medium")}</SelectItem>
-                    <SelectItem value="hard">{t("hard")}</SelectItem>
-                    <SelectItem value="expert">{t("expert")}</SelectItem>
-                    <SelectItem value="arrow-training">
-                      {t("arrowTraining")}
-                    </SelectItem>
-                    <SelectItem value="numpad-training">
-                      {t("numpadTraining")}
-                    </SelectItem>
-                    <SelectItem value="custom">{t("customText")}</SelectItem>
-                  </SelectContent>
-                </Select>
-                 {difficulty === "custom" && (
-                    <div className="flex gap-2">
-                        {isEditingCustomText ? (
-                            <Button onClick={handleApplyCustomText} size="sm">
-                                <Check className="mr-2 h-4 w-4" />
-                                Apply
-                            </Button>
-                        ) : (
-                            <Button onClick={() => setIsEditingCustomText(true)} variant="outline" size="sm">
-                                <Edit className="mr-2 h-4 w-4" />
-                                Edit
-                            </Button>
-                        )}
-                    </div>
-                )}
-                <Tooltip>
-                  <TooltipTrigger asChild>
+          <AdBanner className="flex-1 min-w-1" />
+          <div className="min-w-[960] mx-auto flex flex-col flex-1 overflow-hidden rounded-lg border bg-card text-card-foreground shadow-lg border-primary/20 p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4 mb-6">
+              <Select
+                value={difficulty}
+                onValueChange={(v) => handleDifficultyChange(v as Difficulty)}
+              >
+                <SelectTrigger className="w-full sm:w-[200px]">
+                  <SelectValue placeholder={t("selectDifficulty")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="arrow-training">
+                    {t("arrowTraining")}
+                  </SelectItem>
+                  <SelectItem value="numpad-training">
+                    {t("numpadTraining")}
+                  </SelectItem>
+                  <Separator />
+                  <SelectItem value="very-easy">{t("veryEasy")}</SelectItem>
+                  <SelectItem value="easy">{t("easy")}</SelectItem>
+                  <SelectItem value="medium">{t("medium")}</SelectItem>
+                  <SelectItem value="hard">{t("hard")}</SelectItem>
+                  <SelectItem value="expert">{t("expert")}</SelectItem>
+                  <SelectItem value="custom">{t("customText")}</SelectItem>
+                </SelectContent>
+              </Select>
+              {difficulty === "custom" && (
+                <div className="flex gap-2">
+                  {isEditingCustomText ? (
+                    <Button onClick={handleApplyCustomText} size="sm">
+                      <Check className="mr-2 h-4 w-4" />
+                      Apply
+                    </Button>
+                  ) : (
                     <Button
-                      onClick={handleRestart}
+                      onClick={() => setIsEditingCustomText(true)}
                       variant="outline"
                       size="sm"
-                      className="w-full sm:w-auto ml-auto"
                     >
-                      <RefreshCw className="mr-2 h-4 w-4" />
-                      {t("restartTest")}
+                      <Edit className="mr-2 h-4 w-4" />
+                      Edit
                     </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: t.raw("restartTooltip"),
-                      }}
-                    />
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-              <div className="flex-1 flex flex-col">
+                  )}
+                </div>
+              )}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    onClick={handleRestart}
+                    variant="outline"
+                    size="sm"
+                    className="w-full sm:w-auto ml-auto"
+                  >
+                    <RefreshCw className="mr-2 h-4 w-4" />
+                    {t("restartTest")}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p
+                    dangerouslySetInnerHTML={{
+                      __html: t.raw("restartTooltip"),
+                    }}
+                  />
+                </TooltipContent>
+              </Tooltip>
+            </div>
+            <div className="flex flex-col flex-1 overflow-hidden">
               {difficulty === "custom" && isEditingCustomText ? (
                 <Textarea
                   placeholder={t("customTextPlaceholder")}
@@ -315,14 +319,13 @@ export default function Home() {
                 />
               ) : (
                 <TypingTest
-                    key={testId}
-                    text={testText}
-                    onComplete={handleTestComplete}
-                    onKeyPress={setLastPressedKey}
-                    onCharIndexChange={setCurrentCharIndex}
+                  key={testId}
+                  text={testText}
+                  onComplete={handleTestComplete}
+                  onKeyPress={setLastPressedKey}
+                  onCharIndexChange={setCurrentCharIndex}
                 />
               )}
-              </div>
             </div>
 
             {/* <AdBanner /> */}
@@ -339,9 +342,9 @@ export default function Home() {
               )}
             </div>
           </div>
-          <AdBanner className="flex-1" />
+          <AdBanner className="flex-1 min-w-1" />
         </main>
-        <footer className="w-full flex justify-between items-center p-4 border-t">
+        <footer className="w-full flex justify-between items-center mt-4 p-4 border-t">
           <div className="w-full max-w-5xl mx-auto flex flex-1 justify-between items-center gap-8">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -422,4 +425,3 @@ export default function Home() {
     </TooltipProvider>
   );
 }
-
