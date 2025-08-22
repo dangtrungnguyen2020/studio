@@ -177,11 +177,11 @@ export default function Home() {
       <div className="min-h-screen max-h-screen h-full overflow-hidden bg-background text-foreground flex flex-col items-center">
         <AppHeader page="home" />
         <main
-          className="max-w-screen w-full flex flex-row gap-8 justify-stretch flex-1"
+          className="w-full flex-1 flex flex-row justify-center items-stretch gap-8 px-4"
           style={{ minHeight: "1px" }}
         >
-          <AdBanner className="flex-1 min-w-1" />
-          <div className="min-w-[960] mx-auto flex flex-col flex-1 overflow-hidden rounded-lg border bg-card text-card-foreground shadow-lg border-primary/20 p-4 sm:p-6">
+          <AdBanner className="flex-1" />
+          <div className="w-full max-w-5xl mx-auto flex flex-col flex-1 overflow-hidden rounded-lg border bg-card text-card-foreground shadow-lg border-primary/20 p-4 sm:p-6">
             <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4 mb-6">
               <Select
                 value={difficulty}
@@ -278,7 +278,7 @@ export default function Home() {
               )}
             </div>
           </div>
-          <AdBanner className="flex-1 min-w-1" />
+          <AdBanner className="flex-1" />
         </main>
         <footer className="w-full flex justify-between items-center mt-4 p-4 border-t">
           <div className="w-full max-w-5xl mx-auto flex flex-1 justify-between items-center gap-8">
