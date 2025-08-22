@@ -172,6 +172,9 @@
     "createSuccessDesc": "Bài viết của bạn hiện đã được đăng cho cộng đồng đọc.",
     "createErrorTitle": "Xuất bản thất bại",
     "notFound": "Không tìm thấy bài viết",
-    "backToArticles": "Quay lại danh sách bài viết"
+    "backToArticles": "Quay lại danh sách bài viết",
+    "shareTitle": "Chia sẻ",
+    "shareLinkCopied": "Đã sao chép liên kết!",
+    "shareLinkCopiedDesc": "Liên kết bài viết đã được sao chép vào bộ nhớ tạm."
   }
 }

@@ -170,6 +170,9 @@
     "createSuccessDesc": "Ваша статья теперь доступна для чтения сообществом.",
     "createErrorTitle": "Ошибка публикации",
     "notFound": "Статья не найдена",
-    "backToArticles": "Назад к статьям"
+    "backToArticles": "Назад к статьям",
+    "shareTitle": "Поделиться",
+    "shareLinkCopied": "Ссылка скопирована!",
+    "shareLinkCopiedDesc": "Ссылка на статью скопирована в буфер обмена."
   }
 }

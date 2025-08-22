@@ -170,6 +170,9 @@
     "createSuccessDesc": "Ihr Artikel ist jetzt live und kann von der Community gelesen werden.",
     "createErrorTitle": "Veröffentlichung fehlgeschlagen",
     "notFound": "Artikel nicht gefunden",
-    "backToArticles": "Zurück zu den Artikeln"
+    "backToArticles": "Zurück zu den Artikeln",
+    "shareTitle": "Teilen",
+    "shareLinkCopied": "Link kopiert!",
+    "shareLinkCopiedDesc": "Der Link zum Artikel wurde in Ihre Zwischenablage kopiert."
   }
 }

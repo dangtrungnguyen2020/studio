@@ -170,6 +170,9 @@
     "createSuccessDesc": "Tu artículo ahora está en vivo para que la comunidad lo lea.",
     "createErrorTitle": "Error al publicar",
     "notFound": "Artículo no encontrado",
-    "backToArticles": "Volver a los artículos"
+    "backToArticles": "Volver a los artículos",
+    "shareTitle": "Compartir",
+    "shareLinkCopied": "¡Enlace copiado!",
+    "shareLinkCopiedDesc": "El enlace del artículo ha sido copiado a tu portapapeles."
   }
 }

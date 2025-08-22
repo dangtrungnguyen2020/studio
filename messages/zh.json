@@ -170,6 +170,9 @@
     "createSuccessDesc": "您的文章现在已经上线，供社区阅读。",
     "createErrorTitle": "发表失败",
     "notFound": "未找到文章",
-    "backToArticles": "返回文章列表"
+    "backToArticles": "返回文章列表",
+    "shareTitle": "分享",
+    "shareLinkCopied": "链接已复制！",
+    "shareLinkCopiedDesc": "文章链接已复制到您的剪贴板。"
   }
 }

@@ -54,7 +54,7 @@
     "google": "Google के साथ साइन इन करें",
     "facebook": "Facebook के साथ साइन इन करें",
     "twitter": "X के साथ साइन इन करें",
-    "linkedin": "LinkedIn के ساتھ سائن ان کریں",
+    "linkedin": "LinkedIn के साथ साइन इन करें",
     "apple": "Apple के साथ साइन इन करें",
     "goBack": "टाइपिंग पर वापस जाएं",
     "signInSuccess": "साइन इन सफल",
@@ -170,6 +170,9 @@
     "createSuccessDesc": "आपका लेख अब समुदाय के पढ़ने के लिए लाइव है।",
     "createErrorTitle": "प्रकाशन विफल",
     "notFound": "लेख नहीं मिला",
-    "backToArticles": "लेखों पर वापस"
+    "backToArticles": "लेखों पर वापस",
+    "shareTitle": "शेयर करें",
+    "shareLinkCopied": "लिंक कॉपी किया गया!",
+    "shareLinkCopiedDesc": "लेख का लिंक आपके क्लिपबोर्ड पर कॉपी कर लिया गया है।"
   }
 }

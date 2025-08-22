@@ -170,6 +170,9 @@
     "createSuccessDesc": "مقالك الآن مباشر ليقرأه المجتمع.",
     "createErrorTitle": "فشل النشر",
     "notFound": "لم يتم العثور على المقال",
-    "backToArticles": "العودة إلى المقالات"
+    "backToArticles": "العودة إلى المقالات",
+    "shareTitle": "مشاركة",
+    "shareLinkCopied": "تم نسخ الرابط!",
+    "shareLinkCopiedDesc": "تم نسخ رابط المقال إلى حافظتك."
   }
 }

@@ -170,6 +170,9 @@
     "createSuccessDesc": "あなたの記事がコミュニティで読めるようになりました。",
     "createErrorTitle": "公開に失敗しました",
     "notFound": "記事が見つかりません",
-    "backToArticles": "記事一覧に戻る"
+    "backToArticles": "記事一覧に戻る",
+    "shareTitle": "共有",
+    "shareLinkCopied": "リンクがコピーされました！",
+    "shareLinkCopiedDesc": "記事へのリンクがクリップボードにコピーされました。"
   }
 }

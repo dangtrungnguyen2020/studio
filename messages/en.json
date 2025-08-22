@@ -172,6 +172,9 @@
     "createSuccessDesc": "Your article is now live for the community to read.",
     "createErrorTitle": "Publishing Failed",
     "notFound": "Article Not Found",
-    "backToArticles": "Back to Articles"
+    "backToArticles": "Back to Articles",
+    "shareTitle": "Share",
+    "shareLinkCopied": "Link Copied!",
+    "shareLinkCopiedDesc": "The article link has been copied to your clipboard."
   }
 }

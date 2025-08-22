@@ -170,6 +170,9 @@
     "createSuccessDesc": "Votre article est maintenant en ligne pour que la communauté puisse le lire.",
     "createErrorTitle": "Échec de la publication",
     "notFound": "Article non trouvé",
-    "backToArticles": "Retour aux articles"
+    "backToArticles": "Retour aux articles",
+    "shareTitle": "Partager",
+    "shareLinkCopied": "Lien copié !",
+    "shareLinkCopiedDesc": "Le lien de l'article a été copié dans votre presse-papiers."
   }
 }
