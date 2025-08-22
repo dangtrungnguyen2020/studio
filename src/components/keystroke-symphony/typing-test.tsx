@@ -41,7 +41,7 @@ const TypingTest = ({
   const currentTextRef = useRef<HTMLSpanElement>(null);
 
   const words = useMemo(() => text.split(" "), [text]);
-  const isArrowTraining = useMemo(
+  const isSpecialTraining = useMemo(
     () => words.every((word) => word.startsWith("Arrow")),
     [words]
   );
@@ -80,10 +80,9 @@ const TypingTest = ({
       return;
     }
 
-    if (
-      currentIndex >= (isArrowTraining ? words.length : text.length) &&
-      e.key !== "Backspace"
-    ) {
+    const totalLength = isSpecialTraining ? words.length : text.length;
+
+    if (currentIndex >= totalLength && e.key !== "Backspace") {
       return;
     }
 
@@ -110,7 +109,7 @@ const TypingTest = ({
 
     if (isTypingKey && !e.ctrlKey && !e.metaKey) {
       const char = e.key;
-      const targetChar = isArrowTraining
+      const targetChar = isSpecialTraining
         ? words[currentIndex]
         : text[currentIndex];
 
@@ -147,11 +146,11 @@ const TypingTest = ({
   };
 
   useEffect(() => {
-    const totalLength = isArrowTraining ? words.length : text.length;
+    const totalLength = isSpecialTraining ? words.length : text.length;
     if (userInput.length === totalLength && totalLength > 0 && startTime) {
       const endTime = Date.now();
       const durationInMinutes = (endTime - startTime) / 1000 / 60;
-      const wordsTyped = isArrowTraining ? totalLength : text.length / 5;
+      const wordsTyped = isSpecialTraining ? totalLength : text.length / 5;
       const wpm = Math.round(wordsTyped / durationInMinutes);
       const accuracy = Math.round(((totalLength - errors) / totalLength) * 100);
       onComplete({ wpm, accuracy, errors: errorsMap });
@@ -171,29 +170,27 @@ const TypingTest = ({
         elementRect.bottom <= containerRect.bottom;
 
       if (!isVisible) {
-        // Scroll to the element
         activeElement.scrollIntoView({ behavior: "smooth", block: "center" });
       }
     }
-  }, [currentIndex]); // Rerun when the current character index changes
+  }, [currentIndex]);
 
   const wpm = useMemo(() => {
     if (!startTime || userInput.length === 0) return 0;
     const durationInMinutes = (Date.now() - startTime) / 1000 / 60;
-    const wordsTyped = isArrowTraining
+    const wordsTyped = isSpecialTraining
       ? userInput.length
       : userInput.length / 5;
     return Math.round(wordsTyped / durationInMinutes);
-  }, [startTime, userInput, isArrowTraining]);
+  }, [startTime, userInput, isSpecialTraining]);
 
   const accuracy = useMemo(() => {
     if (userInput.length === 0) return 100;
-    const totalLength = isArrowTraining ? words.length : userInput.length;
-    const currentErrors = isArrowTraining ? errors : errors;
+    const currentErrors = errors;
     return Math.round(
       ((userInput.length - currentErrors) / userInput.length) * 100
     );
-  }, [userInput, errors, isArrowTraining, words.length]);
+  }, [userInput, errors]);
 
   const renderTest = () => {
     console.log("### render Text Test", text);
@@ -215,7 +212,7 @@ const TypingTest = ({
     );
   };
 
-  const renderArrowTest = () => {
+  const renderSpecialTraining = () => {
     console.log("### render Arrow Test", words);
 
     return (
@@ -268,11 +265,13 @@ const TypingTest = ({
       >
         <CardContent
           className={cn(
-            "p-0 text-xl sm:text-2xl tracking-wider leading-relaxed select-none whitespace-pre-wrap flex flex-wrap",
-            isArrowTraining ? "justify-center" : "font-mono"
+            "p-0 tracking-wider leading-relaxed select-none whitespace-pre-wrap flex flex-wrap",
+            isSpecialTraining
+              ? "justify-center items-center"
+              : "font-mono text-xl sm:text-2xl"
           )}
         >
-          {isArrowTraining ? renderArrowTest() : renderTest()}
+          {isSpecialTraining ? renderSpecialTraining() : renderTest()}
           <input
             ref={inputRef}
             type="text"

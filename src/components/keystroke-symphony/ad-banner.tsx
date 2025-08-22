@@ -9,7 +9,7 @@ declare global {
   }
 }
 
-const AdBanner = (props: { className: string }) => {
+const AdBanner = (props: { className?: string }) => {
   // Use a ref to get a reference to the DOM element
   const adContainerRef = useRef<HTMLDivElement>(null);
 
@@ -32,7 +32,7 @@ const AdBanner = (props: { className: string }) => {
     <div
       // Attach the ref to the div
       ref={adContainerRef}
-      className={cn("flex justify-center my-4", props.className)}
+      className={cn("flex justify-center items-center my-4 min-w-40", props.className)}
     >
       <ins
         className="adsbygoogle flex-1"

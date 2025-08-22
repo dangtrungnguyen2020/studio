@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import { KEYBOARD_LAYOUTS } from "@/lib/keyboards";
 import type { KeyboardLayout, KeyDefinition } from "@/lib/keyboards";
@@ -35,7 +35,17 @@ const Keyboard = ({
     ArrowUp: <ArrowUp size={16} />,
     ArrowDown: <ArrowDown size={16} />,
     Alt: <Command size={16} />,
+    "↑": <ArrowUp size={16} />,
+    "↓": <ArrowDown size={16} />,
+    "←": <ArrowLeft size={16} />,
+    "→": <ArrowRight size={16} />,
   };
+  
+  const words = useMemo(() => text.split(" "), [text]);
+  const isArrowTraining = useMemo(
+    () => words.every((word) => word.startsWith("Arrow")),
+    [words]
+  );
 
   useEffect(() => {
     if (lastPressedKey) {
@@ -55,19 +65,31 @@ const Keyboard = ({
     return style;
   };
 
+  const keyToLabelMap: { [key: string]: string } = {
+    ArrowUp: "↑",
+    ArrowDown: "↓",
+    ArrowLeft: "←",
+    ArrowRight: "→",
+  };
+
   const getKeyClass = (key: KeyDefinition) => {
     const targetChar =
-      text && text.length > 0 && currentCharIndex < text.length
-        ? text[currentCharIndex]
+      text && text.length > 0 && currentCharIndex < (isArrowTraining ? words.length : text.length)
+        ? (isArrowTraining ? words[currentCharIndex] : text[currentCharIndex])
         : null;
+        
     let isTargetKey = false;
     if (targetChar) {
-      isTargetKey =
-        key.label?.toLowerCase() === targetChar.toLowerCase() ||
-        (key.label === "Space" && targetChar === " ") ||
-        (key.label === "Shift" &&
-          targetChar.toUpperCase() === targetChar &&
-          /[a-z]/i.test(targetChar));
+       if (isArrowTraining) {
+        isTargetKey = key.label === keyToLabelMap[targetChar];
+      } else {
+        isTargetKey =
+          key.label?.toLowerCase() === targetChar.toLowerCase() ||
+          (key.label === "Space" && targetChar === " ") ||
+          (key.label === "Shift" &&
+            targetChar.toUpperCase() === targetChar &&
+            /[a-z]/i.test(targetChar));
+      }
     }
 
     const isPressed =
