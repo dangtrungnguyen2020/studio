@@ -157,25 +157,25 @@ const TypingTest = ({
       onComplete({ wpm, accuracy, errors: errorsMap });
     }
   }, [userInput]);
-  
+
   useEffect(() => {
     if (containerRef.current && currentTextRef.current) {
-        const container = containerRef.current;
-        const activeElement = currentTextRef.current;
+      const container = containerRef.current;
+      const activeElement = currentTextRef.current;
 
-        const containerRect = container.getBoundingClientRect();
-        const elementRect = activeElement.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      const elementRect = activeElement.getBoundingClientRect();
 
-        const isVisible =
-            elementRect.top >= containerRect.top &&
-            elementRect.bottom <= containerRect.bottom;
+      const isVisible =
+        elementRect.top >= containerRect.top &&
+        elementRect.bottom <= containerRect.bottom;
 
-        if (!isVisible) {
-            // Scroll to the element
-            activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+      if (!isVisible) {
+        // Scroll to the element
+        activeElement.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
     }
-}, [currentIndex]); // Rerun when the current character index changes
+  }, [currentIndex]); // Rerun when the current character index changes
 
   const wpm = useMemo(() => {
     if (!startTime || userInput.length === 0) return 0;
@@ -196,12 +196,17 @@ const TypingTest = ({
   }, [userInput, errors, isArrowTraining, words.length]);
 
   const renderTest = () => {
+    console.log("### render Text Test", text);
+
     const currentIndex = userInput.length;
     return (
       <span className="h8 text-primary">
         {inputHtml}
         <span className="text-muted-foreground">
-          <span ref={currentTextRef} className="relative inline-block after:content-[''] after:block after:absolute after:h-[2px] after:bg-accent after:w-full after:mt-0 after:bottom-1">
+          <span
+            ref={currentTextRef}
+            className="relative inline-block after:content-[''] after:block after:absolute after:h-[2px] after:bg-accent after:w-full after:mt-0 after:bottom-1"
+          >
             {text.slice(currentIndex, currentIndex + 1)}
           </span>
           {text.slice(currentIndex + 1)}
@@ -211,6 +216,8 @@ const TypingTest = ({
   };
 
   const renderArrowTest = () => {
+    console.log("### render Arrow Test", words);
+
     return (
       <>
         {words.map((char, index) => {
