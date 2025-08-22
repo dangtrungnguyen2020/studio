@@ -48,9 +48,7 @@ const Keyboard = ({
 
   const getKeyStyle = (key: KeyDefinition) => {
     let style: React.CSSProperties = {};
-    if (key.colSpan) {
-      style.gridColumn = `span ${key.colSpan}`;
-    }
+    style.gridColumn = `span ${key.colSpan || (key.label ? 2 : 1)}`;
     if (key.rowSpan) {
       style.gridRow = `span ${key.rowSpan}`;
     }
@@ -65,7 +63,7 @@ const Keyboard = ({
     let isTargetKey = false;
     if (targetChar) {
       isTargetKey =
-        key.label.toLowerCase() === targetChar.toLowerCase() ||
+        key.label?.toLowerCase() === targetChar.toLowerCase() ||
         (key.label === "Space" && targetChar === " ") ||
         (key.label === "Shift" &&
           targetChar.toUpperCase() === targetChar &&
@@ -73,34 +71,35 @@ const Keyboard = ({
     }
 
     const isPressed =
-      pressedKey === key.label.toLowerCase() ||
+      pressedKey === key.label?.toLowerCase() ||
       (pressedKey === " " && key.label === "Space");
 
     return cn(
       "h-12 rounded-md flex items-center justify-center p-2 text-sm font-medium transition-all duration-100 ease-in-out",
-      "shadow-sm border border-border",
-      "bg-secondary/50 hover:bg-secondary",
-      isPressed ? "scale-95 bg-primary text-primary-foreground" : "",
-      isTargetKey && "bg-accent text-accent-foreground ring-2 ring-primary"
+      "shadow-sm border border-border bg-secondary/50",
+      `row-span-${key.rowSpan || 1}`,
+      `col-span-${key.colSpan || 2}`,
+      isPressed ? "scale-95 bg-primary text-accent-foreground" : "",
+      isTargetKey && "bg-accent/20 ring-2 ring-primary"
     );
   };
 
   const maxCols = keyboardLayout.reduce((max, row) => {
-    const rowCols = row.reduce((sum, key) => sum + (key.colSpan || 1), 0);
+    const rowCols = row.reduce((sum, key) => sum + (key.colSpan || (key.label ? 2 : 1)), 0);
     return Math.max(max, rowCols);
   }, 0);
 
   return (
     <div
-      className={`grid gap-1 p-4 bg-muted/20 rounded-lg justify-center`}
+      className={`grid grid-cols-${maxCols} gap-2 p-4 bg-muted/20 rounded-lg justify-center`}
       style={{
         gridTemplateColumns: `repeat(${maxCols}, minmax(0, 1fr))`,
         gridAutoRows: "auto",
       }}
     >
       {keyboardLayout.flat().map((key, index) => (
-        <div key={index} className={getKeyClass(key)} style={getKeyStyle(key)}>
-          {keyIcons[key.label] || key.label}
+        <div key={index} className={key.label ? getKeyClass(key) : ""} style={getKeyStyle(key)}>
+          {key.label ? keyIcons[key.label] || key.label : ""}
         </div>
       ))}
     </div>

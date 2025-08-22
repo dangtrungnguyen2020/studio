@@ -75,7 +75,7 @@ export default function Home() {
   const tSettings = useTranslations("ThemeSwitcher");
   const [user] = useAuthState(auth);
 
-  const [layout, setLayout] = useState<KeyboardLayout>("QWERTY");
+  const [layout, setLayout] = useState<KeyboardLayout>("60%");
   const { theme, colorTheme, setColorTheme, setTheme } = useTheme();
   const [difficulty, setDifficulty] = useState<Difficulty>("medium");
   const [customText, setCustomText] = useState("");
@@ -103,7 +103,7 @@ export default function Home() {
     } else {
       // Revert to a default layout if needed, e.g., QWERTY
       if (layout === "TKL" || layout === "Numpad") {
-        setLayout("QWERTY");
+        setLayout("60%");
       }
     }
   };
@@ -267,7 +267,7 @@ export default function Home() {
 
             {/* <AdBanner /> */}
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-row justify-center">
               {showKeyboard && (
                 <Keyboard
                   layout={layout}
