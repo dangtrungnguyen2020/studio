@@ -38,7 +38,7 @@ const TypingTest = ({
   const [errorsMap, setErrorsMap] = useState<Map<string, number>>(new Map());
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const itemRef = useRef<HTMLSpanElement>(null);
+  const currentTextRef = useRef<HTMLSpanElement>(null);
 
   const words = useMemo(() => text.split(" "), [text]);
   const isArrowTraining = useMemo(
@@ -156,16 +156,26 @@ const TypingTest = ({
       const accuracy = Math.round(((totalLength - errors) / totalLength) * 100);
       onComplete({ wpm, accuracy, errors: errorsMap });
     }
-
-    console.log("check scroll text:", containerRef.current, itemRef.current);
-    if (containerRef.current && itemRef.current) {
-      const newScroll =
-        itemRef.current.offsetHeight + itemRef.current.offsetTop;
-      console.log("check scroll text:", newScroll);
-
-      containerRef.current.scrollTop = newScroll + 200;
-    }
   }, [userInput]);
+  
+  useEffect(() => {
+    if (containerRef.current && currentTextRef.current) {
+        const container = containerRef.current;
+        const activeElement = currentTextRef.current;
+
+        const containerRect = container.getBoundingClientRect();
+        const elementRect = activeElement.getBoundingClientRect();
+
+        const isVisible =
+            elementRect.top >= containerRect.top &&
+            elementRect.bottom <= containerRect.bottom;
+
+        if (!isVisible) {
+            // Scroll to the element
+            activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+}, [currentIndex]); // Rerun when the current character index changes
 
   const wpm = useMemo(() => {
     if (!startTime || userInput.length === 0) return 0;
@@ -185,23 +195,13 @@ const TypingTest = ({
     );
   }, [userInput, errors, isArrowTraining, words.length]);
 
-  const highlightRange = (text: string, start: number, end: number) => {
-    if (start < 0 || end > text.length || start >= end) return;
-
-    const before = text.slice(0, start);
-    const highlighted = text.slice(start, end);
-    const after = text.slice(end);
-
-    return `${before}<span className="text-destructive">${highlighted}</span>${after}`;
-  };
-
   const renderTest = () => {
     const currentIndex = userInput.length;
     return (
       <span className="h8 text-primary">
         {inputHtml}
-        <span ref={itemRef} className="text-muted-foreground">
-          <span className="relative inline-block after:content-[''] after:block after:absolute after:h-[2px] after:bg-accent after:w-full after:mt-0 after:bottom-1">
+        <span className="text-muted-foreground">
+          <span ref={currentTextRef} className="relative inline-block after:content-[''] after:block after:absolute after:h-[2px] after:bg-accent after:w-full after:mt-0 after:bottom-1">
             {text.slice(currentIndex, currentIndex + 1)}
           </span>
           {text.slice(currentIndex + 1)}
@@ -225,7 +225,7 @@ const TypingTest = ({
           return (
             <span
               key={index}
-              ref={charState === "pending" ? itemRef : null}
+              ref={charState === "current" ? currentTextRef : null}
               className={cn("m-2 bg-secondary rounded-md", {
                 // Added flex properties for alignment
                 "bg-primary/20": charState === "correct",
