@@ -80,26 +80,23 @@ const Game = () => {
       };
 
       const wordFallSpeed = baseSpeed[difficulty] - level * 1.5;
-      const wordFrequency = 0.1 + level * 0.01;
+      const wordFrequency = 0.05 + level * 0.005; // Slightly adjusted for better scaling
+      const maxWords = 5 + Math.floor(level / 2); // Max words increase slowly with level
 
       gameLoopRef.current = setInterval(() => {
         // Add new word
-        if (Math.random() < wordFrequency) {
-          const newWord: Word = {
-            id: wordIdCounter.current++,
-            text: getWord(),
-            y: 0,
-            x: Math.random() * 80 + 10, // 10% to 90% of width
-          };
-          setWords((prev) => {
-            console.log(`### game interval:`, {
-              wordFallSpeed,
-              wordFrequency,
-              wcount: prev.length,
-            });
+        setWords((prev) => {
+          if (Math.random() < wordFrequency && prev.length < maxWords) {
+            const newWord: Word = {
+              id: wordIdCounter.current++,
+              text: getWord(),
+              y: 0,
+              x: Math.random() * 80 + 10, // 10% to 90% of width
+            };
             return [...prev, newWord];
-          });
-        }
+          }
+          return prev;
+        });
 
         // Move words
         setWords((prevWords) =>
