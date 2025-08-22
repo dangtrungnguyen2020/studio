@@ -39,13 +39,11 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase";
 import AppHeader from "@/components/keystroke-symphony/app-header";
 
-
 export default function GamePage() {
   const t = useTranslations("GamePage");
   const { setColorTheme } = useTheme();
   const isMobile = useIsMobile();
   const [user] = useAuthState(auth);
-
 
   useEffect(() => {
     const savedColorTheme = localStorage.getItem("color-theme") as any;
@@ -67,15 +65,19 @@ export default function GamePage() {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-background text-foreground flex flex-col p-4 sm:p-6 md:p-8 justify-center items-center">
+      <div className="min-h-screen max-h-screen h-full overflow-hidden bg-background bg-background text-foreground flex flex-col items-center">
         <AppHeader page="game" />
-        <main className="w-full max-w-5xl mx-auto flex flex-col gap-8 flex-1">
-          <Card className="shadow-lg border-primary/20 h-full flex flex-col flex-1">
+        <main
+          className="w-full mx-auto flex flex-row gap-8 justify-stretch flex-1 pb-4"
+          style={{ minHeight: "1px" }}
+        >
+          <AdBanner className="w-64 min-w-1 max-w-2xs overflow-hidden" />
+          <Card className="w-full max-w-5xl mb-4 shadow-lg border-primary/20 h-full flex flex-col flex-1">
             <CardContent className="p-4 sm:p-6 flex-1 flex flex-col">
               <Game />
             </CardContent>
           </Card>
-          {/* <AdBanner /> */}
+          <AdBanner className="w-64 min-w-1 max-w-2xs overflow-hidden" />
         </main>
       </div>
     </TooltipProvider>

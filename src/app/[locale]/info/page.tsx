@@ -1,59 +1,94 @@
-
 // src/app/info/page.tsx
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardFooter,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import AppHeader from "@/components/keystroke-symphony/app-header";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import AdBanner from "@/components/keystroke-symphony/ad-banner";
 
 export default function InfoPage() {
   const router = useRouter();
-  const t = useTranslations('InfoPage');
+  const t = useTranslations("InfoPage");
 
-  const features = t.raw('features') as string[];
+  const features = t.raw("features") as string[];
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col p-4 sm:p-6 md:p-8 items-center">
+    <TooltipProvider>
+      <div className="min-h-screen bg-background bg-background text-foreground flex flex-col items-center">
         <AppHeader page="info" />
-        <Card className="w-full max-w-2xl shadow-lg mt-6">
+        <main
+          className="w-full mx-auto flex flex-row gap-8 justify-between items-center flex-1"
+          style={{ minHeight: "1px" }}
+        >
+          <AdBanner className="w-64 min-w-1 max-w-2xs overflow-hidden" />
+          <Card className="w-full max-w-2xl shadow-lg mt-6">
             <CardHeader>
-                <CardTitle className="text-3xl font-bold text-primary text-center">{t('title')}</CardTitle>
-                <CardDescription className="text-center text-muted-foreground pt-2">
-                    {t('description')}
-                </CardDescription>
+              <CardTitle className="text-3xl font-bold text-primary text-center">
+                {t("title")}
+              </CardTitle>
+              <CardDescription className="text-center text-muted-foreground pt-2">
+                {t("description")}
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-                <div>
-                    <h3 className="text-xl font-semibold mb-3 text-primary/90">{t('featuresTitle')}</h3>
-                    <ul className="space-y-2">
-                        {features.map((feature, index) => (
-                        <li key={index} className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />
-                            <span>{feature}</span>
-                        </li>
-                        ))}
-                    </ul>
-                </div>
-                 <div>
-                    <h3 className="text-xl font-semibold mb-3 text-primary/90">{t('gettingStartedTitle')}</h3>
-                    <p className="text-muted-foreground">
-                        {t.rich('gettingStarted', {
-                          practiceLink: (chunks) => <Link href="/"><Button variant="link" className="p-0 h-auto">{chunks}</Button></Link>,
-                          gameLink: (chunks) => <Link href="/game"><Button variant="link" className="p-0 h-auto">{chunks}</Button></Link>,
-                        })}
-                    </p>
-                </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-3 text-primary/90">
+                  {t("featuresTitle")}
+                </h3>
+                <ul className="space-y-2">
+                  {features.map((feature, index) => (
+                    <li key={index} className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-3 text-primary/90">
+                  {t("gettingStartedTitle")}
+                </h3>
+                <p className="text-muted-foreground">
+                  {t.rich("gettingStarted", {
+                    practiceLink: (chunks) => (
+                      <Link href="/">
+                        <Button variant="link" className="p-0 h-auto">
+                          {chunks}
+                        </Button>
+                      </Link>
+                    ),
+                    gameLink: (chunks) => (
+                      <Link href="/game">
+                        <Button variant="link" className="p-0 h-auto">
+                          {chunks}
+                        </Button>
+                      </Link>
+                    ),
+                  })}
+                </p>
+              </div>
             </CardContent>
             <CardFooter className="flex justify-center pt-6">
-                <Button onClick={() => router.back()}>
-                    <ArrowLeft className="mr-2 h-4 w-4" /> {t('goBack')}
-                </Button>
+              <Button onClick={() => router.back()}>
+                <ArrowLeft className="mr-2 h-4 w-4" /> {t("goBack")}
+              </Button>
             </CardFooter>
-        </Card>
-    </div>
+          </Card>
+          <AdBanner className="w-64 min-w-1 max-w-2xs overflow-hidden" />
+        </main>
+      </div>
+    </TooltipProvider>
   );
 }
