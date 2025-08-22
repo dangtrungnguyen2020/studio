@@ -44,7 +44,9 @@
     ],
     "gettingStartedTitle": "Erste Schritte",
     "gettingStarted": "Navigieren Sie zur Seite <practiceLink>Üben</practiceLink>, um einen Standard-Tipptest zu starten, oder probieren Sie den <gameLink>Spiel</gameLink>-Modus für ein interaktiveres Erlebnis.",
-    "goBack": "Zurück"
+    "goBack": "Zurück",
+    "gameStrategyTitle": "Spielstrategie: Fallende Wörter",
+    "gameStrategy": "Im Modus 'Fallende Wörter' ist es Ihr Ziel, die Wörter zu tippen, während sie den Bildschirm hinunterfallen, bevor sie den Boden erreichen. Jedes korrekt getippte Wort verschwindet und wird Ihrer Punktzahl hinzugefügt. Wenn ein Wort den Boden erreicht, verlieren Sie Gesundheit. Das Spiel endet, wenn Ihre Gesundheit Null erreicht. Bauen Sie eine Combo auf, indem Sie Wörter korrekt hintereinander tippen, um einen Punktemultiplikator zu aktivieren. Die Geschwindigkeit des Spiels und die Anzahl der Wörter nehmen zu, je mehr Punkte Sie erzielen, also bleiben Sie konzentriert!"
   },
   "LoginPage": {
     "title": "Anmelden",
@@ -146,5 +148,28 @@
     "difficulty": "Schwierigkeit",
     "notEnoughData": "Nicht genügend Daten, um ein Diagramm anzuzeigen. Schließen Sie weitere Tests ab, um Ihren Fortschritt zu sehen!",
     "noHistory": "Sie haben noch keine Tests abgeschlossen."
+  },
+  "ArticlePage": {
+    "title": "Artikel",
+    "subtitle": "/ Community",
+    "newArticleSubtitle": "/ Neu",
+    "browseArticles": "Artikel durchsuchen",
+    "createArticle": "Artikel erstellen",
+    "noArticles": "Es wurden noch keine Artikel veröffentlicht. Seien Sie der Erste!",
+    "newArticleTitle": "Einen neuen Artikel erstellen",
+    "newArticleDesc": "Teilen Sie Ihr Wissen mit der Community.",
+    "formTitle": "Artikeltitel",
+    "formTitlePlaceholder": "Geben Sie einen eingängigen Titel ein",
+    "formImage": "Titelbild",
+    "formContent": "Inhalt (Markdown)",
+    "formContentPlaceholder": "Schreiben Sie Ihren Artikel hier. Markdown wird unterstützt.",
+    "formPreview": "Vorschau",
+    "formCancel": "Abbrechen",
+    "formSubmit": "Artikel veröffentlichen",
+    "createSuccessTitle": "Artikel veröffentlicht!",
+    "createSuccessDesc": "Ihr Artikel ist jetzt live und kann von der Community gelesen werden.",
+    "createErrorTitle": "Veröffentlichung fehlgeschlagen",
+    "notFound": "Artikel nicht gefunden",
+    "backToArticles": "Zurück zu den Artikeln"
   }
 }

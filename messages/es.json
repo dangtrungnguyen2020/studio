@@ -44,7 +44,9 @@
     ],
     "gettingStartedTitle": "Empezando",
     "gettingStarted": "Navega a la página de <practiceLink>Práctica</practiceLink> para comenzar una prueba de mecanografía estándar, o prueba el modo <gameLink>Juego</gameLink> para una experiencia más interactiva.",
-    "goBack": "Regresar"
+    "goBack": "Regresar",
+    "gameStrategyTitle": "Estrategia de juego: Palabras que caen",
+    "gameStrategy": "En el modo 'Palabras que caen', tu objetivo es escribir las palabras a medida que descienden por la pantalla antes de que lleguen al fondo. Cada palabra escrita correctamente desaparece y se suma a tu puntuación. Si una palabra llega al fondo, pierdes salud. El juego termina cuando tu salud llega a cero. Acumula una racha escribiendo palabras correctamente seguidas para activar un multiplicador de puntuación. La velocidad del juego y la cantidad de palabras aumentarán a medida que obtengas más puntos, ¡así que mantente concentrado!"
   },
   "LoginPage": {
     "title": "Iniciar sesión",
@@ -146,5 +148,28 @@
     "difficulty": "Dificultad",
     "notEnoughData": "No hay suficientes datos para mostrar un gráfico. ¡Completa más pruebas para ver tu progreso!",
     "noHistory": "Aún no has completado ninguna prueba."
+  },
+  "ArticlePage": {
+    "title": "Artículos",
+    "subtitle": "/ Comunidad",
+    "newArticleSubtitle": "/ Nuevo",
+    "browseArticles": "Explorar artículos",
+    "createArticle": "Crear artículo",
+    "noArticles": "Todavía no se han publicado artículos. ¡Sé el primero!",
+    "newArticleTitle": "Crear un nuevo artículo",
+    "newArticleDesc": "Comparte tus conocimientos con la comunidad.",
+    "formTitle": "Título del artículo",
+    "formTitlePlaceholder": "Ingresa un título atractivo",
+    "formImage": "Imagen de portada",
+    "formContent": "Contenido (Markdown)",
+    "formContentPlaceholder": "Escribe tu artículo aquí. Se admite Markdown.",
+    "formPreview": "Vista previa",
+    "formCancel": "Cancelar",
+    "formSubmit": "Publicar artículo",
+    "createSuccessTitle": "¡Artículo publicado!",
+    "createSuccessDesc": "Tu artículo ahora está en vivo para que la comunidad lo lea.",
+    "createErrorTitle": "Error al publicar",
+    "notFound": "Artículo no encontrado",
+    "backToArticles": "Volver a los artículos"
   }
 }

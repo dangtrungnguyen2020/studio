@@ -44,7 +44,9 @@
     ],
     "gettingStartedTitle": "はじめに",
     "gettingStarted": "標準的なタイピングテストを開始するには<practiceLink>練習</practiceLink>ページに移動するか、よりインタラクティブな体験のために<gameLink>ゲーム</gameLink>モードをお試しください。",
-    "goBack": "戻る"
+    "goBack": "戻る",
+    "gameStrategyTitle": "ゲーム戦略：フォーリングワーズ",
+    "gameStrategy": "「フォーリングワーズ」モードでは、画面を落下する単語が一番下に到達する前に入力することが目標です。正しく入力された各単語は消え、スコアに加算されます。単語が一番下に到達すると、体力が減少します。体力がゼロになるとゲームオーバーです。連続して単語を正しく入力してコンボを組むと、スコア乗数が有効になります。より多くのポイントを獲得するにつれて、ゲームの速度と単語数が増加するため、集中力を維持してください！"
   },
   "LoginPage": {
     "title": "サインイン",
@@ -146,5 +148,28 @@
     "difficulty": "難易度",
     "notEnoughData": "チャートを表示するためのデータが不足しています。進捗を確認するには、さらにテストを完了してください！",
     "noHistory": "まだテストを完了していません。"
+  },
+  "ArticlePage": {
+    "title": "記事",
+    "subtitle": "/ コミュニティ",
+    "newArticleSubtitle": "/ 新規",
+    "browseArticles": "記事を閲覧",
+    "createArticle": "記事を作成",
+    "noArticles": "まだ記事が投稿されていません。一番乗りになろう！",
+    "newArticleTitle": "新しい記事を作成",
+    "newArticleDesc": "あなたの知識をコミュニティと共有しましょう。",
+    "formTitle": "記事のタイトル",
+    "formTitlePlaceholder": "キャッチーなタイトルを入力",
+    "formImage": "カバー画像",
+    "formContent": "コンテンツ（Markdown）",
+    "formContentPlaceholder": "ここに記事を書いてください。Markdownがサポートされています。",
+    "formPreview": "プレビュー",
+    "formCancel": "キャンセル",
+    "formSubmit": "記事を公開",
+    "createSuccessTitle": "記事が公開されました！",
+    "createSuccessDesc": "あなたの記事がコミュニティで読めるようになりました。",
+    "createErrorTitle": "公開に失敗しました",
+    "notFound": "記事が見つかりません",
+    "backToArticles": "記事一覧に戻る"
   }
 }

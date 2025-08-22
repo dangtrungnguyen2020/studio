@@ -46,7 +46,9 @@
     ],
     "gettingStartedTitle": "Getting Started",
     "gettingStarted": "Navigate to the <practiceLink>Practice</practiceLink> page to start a standard typing test, or try the <gameLink>Game</gameLink> mode for a more interactive experience.",
-    "goBack": "Go Back"
+    "goBack": "Go Back",
+    "gameStrategyTitle": "Game Strategy: Falling Words",
+    "gameStrategy": "In 'Falling Words' mode, your goal is to type the words as they descend down the screen before they reach the bottom. Each correctly typed word disappears and adds to your score. If a word reaches the bottom, you lose health. The game ends when your health reaches zero. Build up a combo by typing words correctly in a row to activate a score multiplier. The game's speed and the number of words will increase as you score more points, so stay focused!"
   },
   "LoginPage": {
     "title": "Sign In",
@@ -148,5 +150,28 @@
     "difficulty": "Difficulty",
     "notEnoughData": "Not enough data to display a chart. Complete more tests to see your progress!",
     "noHistory": "You haven't completed any tests yet."
+  },
+  "ArticlePage": {
+    "title": "Articles",
+    "subtitle": "/ Community",
+    "newArticleSubtitle": "/ New",
+    "browseArticles": "Browse Articles",
+    "createArticle": "Create Article",
+    "noArticles": "No articles have been posted yet. Be the first!",
+    "newArticleTitle": "Create a New Article",
+    "newArticleDesc": "Share your knowledge with the community.",
+    "formTitle": "Article Title",
+    "formTitlePlaceholder": "Enter a catchy title",
+    "formImage": "Cover Image",
+    "formContent": "Content (Markdown)",
+    "formContentPlaceholder": "Write your article here. Markdown is supported.",
+    "formPreview": "Preview",
+    "formCancel": "Cancel",
+    "formSubmit": "Publish Article",
+    "createSuccessTitle": "Article Published!",
+    "createSuccessDesc": "Your article is now live for the community to read.",
+    "createErrorTitle": "Publishing Failed",
+    "notFound": "Article Not Found",
+    "backToArticles": "Back to Articles"
   }
 }

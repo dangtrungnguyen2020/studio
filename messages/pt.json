@@ -44,7 +44,9 @@
     ],
     "gettingStartedTitle": "Começando",
     "gettingStarted": "Navegue para a página <practiceLink>Prática</practiceLink> para iniciar um teste de digitação padrão ou experimente o modo <gameLink>Jogo</gameLink> para uma experiência mais interativa.",
-    "goBack": "Voltar"
+    "goBack": "Voltar",
+    "gameStrategyTitle": "Estratégia do Jogo: Palavras que Caem",
+    "gameStrategy": "No modo 'Palavras que Caem', seu objetivo é digitar as palavras à medida que elas descem pela tela antes que cheguem ao fundo. Cada palavra digitada corretamente desaparece e aumenta sua pontuação. Se uma palavra chegar ao fundo, você perde saúde. O jogo termina quando sua saúde chega a zero. Crie uma sequência digitando as palavras corretamente em sequência para ativar um multiplicador de pontuação. A velocidade do jogo e o número de palavras aumentarão conforme você marca mais pontos, então mantenha o foco!"
   },
   "LoginPage": {
     "title": "Entrar",
@@ -146,5 +148,28 @@
     "difficulty": "Dificuldade",
     "notEnoughData": "Não há dados suficientes para exibir um gráfico. Conclua mais testes para ver seu progresso!",
     "noHistory": "Você ainda não concluiu nenhum teste."
+  },
+  "ArticlePage": {
+    "title": "Artigos",
+    "subtitle": "/ Comunidade",
+    "newArticleSubtitle": "/ Novo",
+    "browseArticles": "Procurar Artigos",
+    "createArticle": "Criar Artigo",
+    "noArticles": "Nenhum artigo foi publicado ainda. Seja o primeiro!",
+    "newArticleTitle": "Criar um Novo Artigo",
+    "newArticleDesc": "Compartilhe seu conhecimento com a comunidade.",
+    "formTitle": "Título do Artigo",
+    "formTitlePlaceholder": "Digite um título cativante",
+    "formImage": "Imagem de Capa",
+    "formContent": "Conteúdo (Markdown)",
+    "formContentPlaceholder": "Escreva seu artigo aqui. Markdown é suportado.",
+    "formPreview": "Pré-visualização",
+    "formCancel": "Cancelar",
+    "formSubmit": "Publicar Artigo",
+    "createSuccessTitle": "Artigo Publicado!",
+    "createSuccessDesc": "Seu artigo agora está disponível para a comunidade ler.",
+    "createErrorTitle": "Falha na Publicação",
+    "notFound": "Artigo Não Encontrado",
+    "backToArticles": "Voltar para Artigos"
   }
 }

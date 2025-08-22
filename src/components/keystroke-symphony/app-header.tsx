@@ -7,11 +7,13 @@ import {
   Info,
   Gamepad2,
   BookOpen,
+  Newspaper,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -25,7 +27,7 @@ import { auth } from '@/lib/firebase';
 import { useTranslations } from 'next-intl';
 
 type AppHeaderProps = {
-  page: 'home' | 'game' | 'info';
+  page: 'home' | 'game' | 'info' | 'articles' | 'new-article' | 'view-article';
 };
 
 export default function AppHeader({ page }: AppHeaderProps) {
@@ -33,9 +35,40 @@ export default function AppHeader({ page }: AppHeaderProps) {
   const tHome = useTranslations('HomePage');
   const tGame = useTranslations('GamePage');
   const tSettings = useTranslations('ThemeSwitcher');
+  const tArticles = useTranslations('ArticlePage');
 
-  const title = page === 'game' ? tGame('title') : tHome('title');
-  const subtitle = page === 'game' ? tGame('subtitle') : undefined;
+  const getTitle = () => {
+    switch (page) {
+      case 'game':
+        return tGame('title');
+      case 'articles':
+        return tArticles.raw('title');
+       case 'new-article':
+        return tArticles.raw('title');
+       case 'view-article':
+        return tArticles.raw('title');
+      default:
+        return tHome('title');
+    }
+  }
+
+  const getSubtitle = () => {
+     switch (page) {
+      case 'game':
+        return tGame('subtitle');
+      case 'articles':
+        return tArticles('subtitle');
+       case 'new-article':
+        return tArticles('newArticleSubtitle');
+       case 'view-article':
+         return ''
+      default:
+        return undefined;
+    }
+  }
+
+  const title = getTitle();
+  const subtitle = getSubtitle();
 
   return (
     <header className="w-full max-w-5xl mx-auto flex justify-between items-center my-6 px-4 sm:px-0">
@@ -82,14 +115,21 @@ export default function AppHeader({ page }: AppHeaderProps) {
             <DropdownMenuLabel>
               <LanguageSwitcher />
             </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+             <Link href="/articles">
+                <DropdownMenuItem>
+                  <Newspaper className="h-4 w-4 mr-2" />
+                  {tArticles('title')}
+                </DropdownMenuItem>
+              </Link>
             {page !== 'info' && (
                 <>
                 <DropdownMenuSeparator />
                 <Link href="/info">
-                  <Button variant="ghost" className="w-full justify-start">
+                   <DropdownMenuItem>
                     <Info className="h-4 w-4 mr-2" />
                     About
-                  </Button>
+                  </DropdownMenuItem>
                 </Link>
               </>
             )}
@@ -99,3 +139,4 @@ export default function AppHeader({ page }: AppHeaderProps) {
     </header>
   );
 }
+

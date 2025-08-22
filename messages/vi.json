@@ -46,7 +46,9 @@
     ],
     "gettingStartedTitle": "Bắt đầu",
     "gettingStarted": "Điều hướng đến trang <practiceLink>Luyện tập</practiceLink> để bắt đầu một bài kiểm tra gõ tiêu chuẩn, hoặc thử chế độ <gameLink>Trò chơi</gameLink> để có trải nghiệm tương tác hơn.",
-    "goBack": "Quay lại"
+    "goBack": "Quay lại",
+    "gameStrategyTitle": "Chiến lược trò chơi: Chữ Rơi",
+    "gameStrategy": "Trong chế độ 'Chữ Rơi', mục tiêu của bạn là gõ các từ khi chúng rơi xuống màn hình trước khi chúng chạm đáy. Mỗi từ được gõ đúng sẽ biến mất và cộng vào điểm của bạn. Nếu một từ chạm đáy, bạn sẽ mất máu. Trò chơi kết thúc khi máu của bạn về không. Xây dựng một chuỗi combo bằng cách gõ đúng các từ liên tiếp để kích hoạt hệ số nhân điểm. Tốc độ của trò chơi và số lượng từ sẽ tăng lên khi bạn ghi được nhiều điểm hơn, vì vậy hãy tập trung!"
   },
   "LoginPage": {
     "title": "Đăng nhập",
@@ -148,5 +150,28 @@
     "difficulty": "Độ khó",
     "notEnoughData": "Không đủ dữ liệu để hiển thị biểu đồ. Hoàn thành thêm bài kiểm tra để xem tiến trình của bạn!",
     "noHistory": "Bạn chưa hoàn thành bài kiểm tra nào."
+  },
+  "ArticlePage": {
+    "title": "Bài viết",
+    "subtitle": "/ Cộng đồng",
+    "newArticleSubtitle": "/ Mới",
+    "browseArticles": "Duyệt bài viết",
+    "createArticle": "Tạo bài viết",
+    "noArticles": "Chưa có bài viết nào được đăng. Hãy là người đầu tiên!",
+    "newArticleTitle": "Tạo bài viết mới",
+    "newArticleDesc": "Chia sẻ kiến thức của bạn với cộng đồng.",
+    "formTitle": "Tiêu đề bài viết",
+    "formTitlePlaceholder": "Nhập một tiêu đề hấp dẫn",
+    "formImage": "Ảnh bìa",
+    "formContent": "Nội dung (Markdown)",
+    "formContentPlaceholder": "Viết bài của bạn ở đây. Hỗ trợ Markdown.",
+    "formPreview": "Xem trước",
+    "formCancel": "Hủy",
+    "formSubmit": "Xuất bản bài viết",
+    "createSuccessTitle": "Bài viết đã được xuất bản!",
+    "createSuccessDesc": "Bài viết của bạn hiện đã được đăng cho cộng đồng đọc.",
+    "createErrorTitle": "Xuất bản thất bại",
+    "notFound": "Không tìm thấy bài viết",
+    "backToArticles": "Quay lại danh sách bài viết"
   }
 }

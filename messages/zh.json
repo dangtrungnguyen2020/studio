@@ -44,7 +44,9 @@
     ],
     "gettingStartedTitle": "入门",
     "gettingStarted": "导航到<practiceLink>练习</practiceLink>页面开始标准打字测试，或尝试<gameLink>游戏</gameLink>模式以获得更具互动性的体验。",
-    "goBack": "返回"
+    "goBack": "返回",
+    "gameStrategyTitle": "游戏策略：掉落的单词",
+    "gameStrategy": "在“掉落的单词”模式中，您的目标是在单词到达底部之前输入它们。每个正确输入的单词都会消失并增加您的分数。如果单词到达底部，您将失去生命值。当您的生命值降至零时，游戏结束。通过连续正确输入单词来建立连击，以激活分数乘数。随着您得分的增加，游戏的速度和单词数量会增加，因此请保持专注！"
   },
   "LoginPage": {
     "title": "登录",
@@ -146,5 +148,28 @@
     "difficulty": "难度",
     "notEnoughData": "数据不足，无法显示图表。完成更多测试以查看您的进度！",
     "noHistory": "您还没有完成任何测试。"
+  },
+  "ArticlePage": {
+    "title": "文章",
+    "subtitle": "/ 社区",
+    "newArticleSubtitle": "/ 新建",
+    "browseArticles": "浏览文章",
+    "createArticle": "创建文章",
+    "noArticles": "还没有人发表文章。成为第一个！",
+    "newArticleTitle": "创建新文章",
+    "newArticleDesc": "与社区分享您的知识。",
+    "formTitle": "文章标题",
+    "formTitlePlaceholder": "输入一个吸引人的标题",
+    "formImage": "封面图片",
+    "formContent": "内容 (Markdown)",
+    "formContentPlaceholder": "在这里写您的文章。支持 Markdown。",
+    "formPreview": "预览",
+    "formCancel": "取消",
+    "formSubmit": "发表文章",
+    "createSuccessTitle": "文章已发表！",
+    "createSuccessDesc": "您的文章现在已经上线，供社区阅读。",
+    "createErrorTitle": "发表失败",
+    "notFound": "未找到文章",
+    "backToArticles": "返回文章列表"
   }
 }
