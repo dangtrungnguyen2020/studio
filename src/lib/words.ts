@@ -12,11 +12,8 @@ const expertParagraph =
 const arrowKeys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
 const numpadKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
-const generatePhoneNumber = (): string => {
-  const areaCode = Math.floor(Math.random() * 899) + 100;
-  const firstPart = Math.floor(Math.random() * 899) + 100;
-  const secondPart = Math.floor(Math.random() * 9000) + 1000;
-  return `${areaCode}-${firstPart}-${secondPart}`;
+const generateFourDigitNumber = (): string => {
+  return (Math.floor(Math.random() * 9000) + 1000).toString();
 };
 
 export const generateWords = (count: number): string => {
@@ -49,7 +46,7 @@ export const generate = (difficulty: Difficulty): string => {
     case "easy":
       return generateWords(20);
     case "medium":
-      return Array(5).fill(0).map(generatePhoneNumber).join(" ");
+      return Array(20).fill(0).map(generateFourDigitNumber).join(" ");
     case "hard":
       return hardArticle;
     case "expert":
