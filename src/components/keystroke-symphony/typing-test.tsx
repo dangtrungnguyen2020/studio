@@ -141,7 +141,7 @@ const TypingTest = ({
       const accuracy = Math.round(((totalLength - errors) / totalLength) * 100);
       onComplete({ wpm, accuracy, errors: errorsMap });
     }
-  }, [userInput, words, text, isSpecialTraining, startTime, errors, errorsMap, onComplete]);
+  }, [userInput]);
   
   useEffect(() => {
     if (containerRef.current && currentTextRef.current) {
