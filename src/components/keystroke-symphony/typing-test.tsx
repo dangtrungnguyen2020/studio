@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
@@ -34,13 +35,17 @@ const TypingTest = ({
   const [userInput, setUserInput] = useState<string[]>([]);
   const [startTime, setStartTime] = useState<number | null>(null);
   const [errors, setErrors] = useState(0);
-  const [inputHtml, setInputHtml] = useState<React.ReactNode>(null);
   const [errorsMap, setErrorsMap] = useState<Map<string, number>>(new Map());
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const currentTextRef = useRef<HTMLSpanElement>(null);
 
   const words = useMemo(() => text.split(" "), [text]);
+  const isSpecialTraining = useMemo(
+    () => words.every((word) => word.startsWith("Arrow") || !isNaN(parseInt(word))),
+    [words]
+  );
+  
   const isArrowTraining = useMemo(
     () => words.every((word) => word.startsWith("Arrow")),
     [words]
@@ -50,7 +55,6 @@ const TypingTest = ({
 
   const resetTest = useCallback(() => {
     setUserInput([]);
-    setInputHtml(null);
     setStartTime(null);
     setErrors(0);
     setErrorsMap(new Map());
@@ -79,9 +83,11 @@ const TypingTest = ({
       resetTest();
       return;
     }
+    
+    const totalLength = isSpecialTraining ? words.length : text.length;
 
     if (
-      currentIndex >= (isArrowTraining ? words.length : text.length) &&
+      currentIndex >= totalLength &&
       e.key !== "Backspace"
     ) {
       return;
@@ -99,10 +105,6 @@ const TypingTest = ({
 
     if (e.key === "Backspace") {
       // disable backspace
-      /* if (currentIndex > 0) {
-        setUserInput((prev) => prev.slice(0, -1));
-        onCharIndexChange(currentIndex - 1);
-      } */
       return;
     }
 
@@ -110,7 +112,7 @@ const TypingTest = ({
 
     if (isTypingKey && !e.ctrlKey && !e.metaKey) {
       const char = e.key;
-      const targetChar = isArrowTraining
+      const targetChar = isSpecialTraining
         ? words[currentIndex]
         : text[currentIndex];
 
@@ -122,23 +124,6 @@ const TypingTest = ({
           newMap.set(originalChar, (newMap.get(originalChar) || 0) + 1);
           return newMap;
         });
-        setInputHtml((current) => (
-          <>
-            {current}
-            {targetChar === " " ? (
-              <span className="bg-destructive/20 rounded-sm">&nbsp;</span>
-            ) : (
-              <span className="text-destructive">{targetChar}</span>
-            )}
-          </>
-        ));
-      } else {
-        setInputHtml((current) => (
-          <>
-            {current}
-            {char}
-          </>
-        ));
       }
 
       setUserInput((prev) => [...prev, char]);
@@ -147,16 +132,16 @@ const TypingTest = ({
   };
 
   useEffect(() => {
-    const totalLength = isArrowTraining ? words.length : text.length;
+    const totalLength = isSpecialTraining ? words.length : text.length;
     if (userInput.length === totalLength && totalLength > 0 && startTime) {
       const endTime = Date.now();
       const durationInMinutes = (endTime - startTime) / 1000 / 60;
-      const wordsTyped = isArrowTraining ? totalLength : text.length / 5;
+      const wordsTyped = isSpecialTraining ? totalLength : text.length / 5;
       const wpm = Math.round(wordsTyped / durationInMinutes);
       const accuracy = Math.round(((totalLength - errors) / totalLength) * 100);
       onComplete({ wpm, accuracy, errors: errorsMap });
     }
-  }, [userInput]);
+  }, [userInput, words, text, isSpecialTraining, startTime, errors, errorsMap, onComplete]);
   
   useEffect(() => {
     if (containerRef.current && currentTextRef.current) {
@@ -171,70 +156,84 @@ const TypingTest = ({
             elementRect.bottom <= containerRect.bottom;
 
         if (!isVisible) {
-            // Scroll to the element
             activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     }
-}, [currentIndex]); // Rerun when the current character index changes
+}, [currentIndex]);
 
   const wpm = useMemo(() => {
     if (!startTime || userInput.length === 0) return 0;
     const durationInMinutes = (Date.now() - startTime) / 1000 / 60;
-    const wordsTyped = isArrowTraining
+    const wordsTyped = isSpecialTraining
       ? userInput.length
       : userInput.length / 5;
     return Math.round(wordsTyped / durationInMinutes);
-  }, [startTime, userInput, isArrowTraining]);
+  }, [startTime, userInput, isSpecialTraining]);
 
   const accuracy = useMemo(() => {
     if (userInput.length === 0) return 100;
-    const totalLength = isArrowTraining ? words.length : userInput.length;
-    const currentErrors = isArrowTraining ? errors : errors;
+    const currentErrors = errors;
     return Math.round(
       ((userInput.length - currentErrors) / userInput.length) * 100
     );
-  }, [userInput, errors, isArrowTraining, words.length]);
+  }, [userInput, errors]);
 
-  const renderTest = () => {
-    const currentIndex = userInput.length;
-    return (
-      <span className="h8 text-primary">
-        {inputHtml}
-        <span className="text-muted-foreground">
-          <span ref={currentTextRef} className="relative inline-block after:content-[''] after:block after:absolute after:h-[2px] after:bg-accent after:w-full after:mt-0 after:bottom-1">
-            {text.slice(currentIndex, currentIndex + 1)}
-          </span>
-          {text.slice(currentIndex + 1)}
-        </span>
-      </span>
-    );
-  };
-
-  const renderArrowTest = () => {
+  const renderText = () => {
+    const chars = text.split('');
     return (
       <>
-        {words.map((char, index) => {
-          let charState: "correct" | "incorrect" | "current" | "pending" =
-            "pending";
-
-          if (index < userInput.length) {
+        {chars.map((char, index) => {
+          let charState: "correct" | "incorrect" | "current" | "pending" = "pending";
+          if (index < currentIndex) {
             charState = userInput[index] === char ? "correct" : "incorrect";
-          } else if (index === userInput.length) {
+          } else if (index === currentIndex) {
             charState = "current";
           }
+
           return (
             <span
               key={index}
               ref={charState === "current" ? currentTextRef : null}
-              className={cn("m-2 bg-secondary rounded-md", {
-                // Added flex properties for alignment
-                "bg-primary/20": charState === "correct",
-                "bg-destructive/20": charState === "incorrect",
-                // "text-muted-foreground": charState === "pending",
-                "border border-primary": charState === "current",
+              className={cn({
+                "text-primary": charState === "correct",
+                "text-destructive": charState === "incorrect",
+                "text-muted-foreground": charState === "pending",
+                "relative after:content-[''] after:block after:absolute after:h-[2px] after:bg-accent after:w-full after:bottom-0": charState === 'current'
               })}
             >
-              {arrowKeyIcons[char]}
+              {char === " " && (charState === "incorrect" || charState === "pending" || charState === "current") ? 
+                <span className={cn("rounded-sm", {"bg-destructive/20": charState === "incorrect"})}>&nbsp;</span> : char}
+            </span>
+          );
+        })}
+      </>
+    );
+  };
+
+  const renderSpecialTraining = () => {
+    const items = words;
+    return (
+      <>
+        {items.map((item, index) => {
+          let itemState: "correct" | "incorrect" | "current" | "pending" = "pending";
+
+          if (index < userInput.length) {
+            itemState = userInput[index] === item ? "correct" : "incorrect";
+          } else if (index === userInput.length) {
+            itemState = "current";
+          }
+          const isArrow = item.startsWith('Arrow');
+          return (
+            <span
+              key={index}
+              ref={itemState === "current" ? currentTextRef : null}
+              className={cn("m-2 bg-secondary rounded-md", {
+                "bg-primary/20": itemState === "correct",
+                "bg-destructive/20": itemState === "incorrect",
+                "border border-primary": itemState === "current",
+              })}
+            >
+              {isArrow ? arrowKeyIcons[item] : <span className="inline-block p-4 font-mono text-2xl">{item}</span>}
             </span>
           );
         })}
@@ -261,11 +260,11 @@ const TypingTest = ({
       >
         <CardContent
           className={cn(
-            "p-0 text-xl sm:text-2xl tracking-wider leading-relaxed select-none whitespace-pre-wrap flex flex-wrap",
-            isArrowTraining ? "justify-center" : "font-mono"
+            "p-0 tracking-wider leading-relaxed select-none whitespace-pre-wrap flex flex-wrap",
+            isSpecialTraining ? "justify-center items-center" : "font-mono text-xl sm:text-2xl"
           )}
         >
-          {isArrowTraining ? renderArrowTest() : renderTest()}
+          {isSpecialTraining ? renderSpecialTraining() : renderText()}
           <input
             ref={inputRef}
             type="text"
