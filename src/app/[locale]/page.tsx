@@ -2,21 +2,8 @@
 "use client";
 
 import { useState, useMemo, useCallback, useEffect } from "react";
-import {
-  Keyboard as KeyboardIcon,
-  RefreshCw,
-  Bot,
-  Settings,
-  ChevronDown,
-  Palette,
-  Gamepad2,
-  Info,
-  Languages,
-  Check,
-  Edit,
-} from "lucide-react";
+import { Keyboard as KeyboardIcon, RefreshCw, Check, Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -31,30 +18,15 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { ThemeSwitcher } from "@/components/theme-switcher";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 import Keyboard from "@/components/keystroke-symphony/keyboard";
 import TypingTest from "@/components/keystroke-symphony/typing-test";
 import Results from "@/components/keystroke-symphony/results";
 import AdBanner from "@/components/keystroke-symphony/ad-banner";
-import LanguageSwitcher from "@/components/language-switcher";
-import LoginDialog from "@/components/keystroke-symphony/login-dialog";
-import UserMenu from "@/components/keystroke-symphony/user-menu";
 
 import { generate, generateCustom } from "@/lib/words";
 import { KEYBOARD_LAYOUTS } from "@/lib/keyboards";
-import type {
-  KeyboardLayout,
-  Difficulty,
-} from "@/lib/keyboards";
-import Link from "next/link";
+import type { KeyboardLayout, Difficulty } from "@/lib/keyboards";
 import { useTheme } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -177,11 +149,11 @@ export default function Home() {
       <div className="min-h-screen max-h-screen h-full overflow-hidden bg-background text-foreground flex flex-col items-center">
         <AppHeader page="home" />
         <main
-          className="w-full flex-1 flex flex-row justify-center items-stretch gap-8 px-4"
+          className="w-full mx-auto flex flex-row gap-8 justify-stretch flex-1"
           style={{ minHeight: "1px" }}
         >
-          <AdBanner className="flex-1" />
-          <div className="w-full max-w-5xl mx-auto flex flex-col flex-1 overflow-hidden rounded-lg border bg-card text-card-foreground shadow-lg border-primary/20 p-4 sm:p-6">
+          <AdBanner className="w-64 min-w-1 max-w-2xs overflow-hidden" />
+          <div className="w-[64rem] max-w-5xl mx-auto flex flex-col flex-1 overflow-hidden rounded-lg border bg-card text-card-foreground shadow-lg border-primary/20 p-4">
             <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4 mb-6">
               <Select
                 value={difficulty}
@@ -278,7 +250,7 @@ export default function Home() {
               )}
             </div>
           </div>
-          <AdBanner className="flex-1" />
+          <AdBanner className="w-64 min-w-1 max-w-2xs overflow-hidden" />
         </main>
         <footer className="w-full flex justify-between items-center mt-4 p-4 border-t">
           <div className="w-full max-w-5xl mx-auto flex flex-1 justify-between items-center gap-8">
