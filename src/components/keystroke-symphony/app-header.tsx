@@ -11,6 +11,7 @@ import {
   ShieldCheck,
   LayoutDashboard,
   Users,
+  Shield,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -129,6 +130,37 @@ export default function AppHeader({ page }: AppHeaderProps) {
             </Link>
         )}
         {user ? <UserMenu /> : <LoginDialog />}
+
+        {isAdmin && (
+           <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                <Shield className="mr-2 h-4 w-4" /> {tAdmin('title')}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+               <Link href="/admin/dashboard">
+                <DropdownMenuItem>
+                  <LayoutDashboard className="h-4 w-4 mr-2" />
+                  {tAdmin('dashboardTitle')}
+                </DropdownMenuItem>
+              </Link>
+               <Link href="/admin">
+                <DropdownMenuItem>
+                  <ShieldCheck className="h-4 w-4 mr-2" />
+                  {tAdmin('reviewTitle')}
+                </DropdownMenuItem>
+              </Link>
+              <Link href="/admin/users">
+                <DropdownMenuItem>
+                  <Users className="h-4 w-4 mr-2" />
+                  {tAdmin('usersTitle')}
+                </DropdownMenuItem>
+              </Link>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="icon">
@@ -151,30 +183,6 @@ export default function AppHeader({ page }: AppHeaderProps) {
                   {tArticles('title')}
                 </DropdownMenuItem>
               </Link>
-            {isAdmin && (
-              <>
-               <DropdownMenuSeparator />
-               <DropdownMenuLabel>{tAdmin('title')}</DropdownMenuLabel>
-               <Link href="/admin/dashboard">
-                <DropdownMenuItem>
-                  <LayoutDashboard className="h-4 w-4 mr-2" />
-                  {tAdmin('dashboardTitle')}
-                </DropdownMenuItem>
-              </Link>
-               <Link href="/admin">
-                <DropdownMenuItem>
-                  <ShieldCheck className="h-4 w-4 mr-2" />
-                  {tAdmin('reviewTitle')}
-                </DropdownMenuItem>
-              </Link>
-              <Link href="/admin/users">
-                <DropdownMenuItem>
-                  <Users className="h-4 w-4 mr-2" />
-                  {tAdmin('usersTitle')}
-                </DropdownMenuItem>
-              </Link>
-              </>
-            )}
             {page !== 'info' && (
                 <>
                 <DropdownMenuSeparator />
