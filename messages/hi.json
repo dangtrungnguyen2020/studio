@@ -1,3 +1,4 @@
+
 {
   "HomePage": {
     "title": "कीस्ट्रोक सिम्फनी",
@@ -184,6 +185,7 @@
   "AdminPage": {
     "title": "व्यवस्थापक",
     "subtitle": "/ समीक्षा",
+    "dashboardSubtitle": "/ डैशबोर्ड",
     "pendingTitle": "लंबित लेख",
     "pendingDescription": "उपयोगकर्ता द्वारा सबमिट किए गए लेखों की समीक्षा करें और उन्हें स्वीकृत या अस्वीकृत करें।",
     "tableTitle": "शीर्षक",
@@ -201,6 +203,17 @@
     "rejectModalDesc": "कृपया इस लेख को अस्वीकृत करने का कारण बताएं। यह लेखक को दिखाई देगा।",
     "rejectReasonPlaceholder": "अस्वीकृति का कारण दर्ज करें...",
     "cancel": "रद्द करें",
-    "rejectButton": "अस्वीकृत करें"
+    "rejectButton": "अस्वीकृत करें",
+    "dashboardTitle": "डैशबोर्ड",
+    "reviewTitle": "लेखों की समीक्षा करें",
+    "statsError": "आंकड़े लोड नहीं किए जा सके।",
+    "totalTestsTitle": "कुल टेस्ट",
+    "totalTestsDesc": "सभी उपयोगकर्ताओं द्वारा पूरे किए गए टाइपिंग टेस्ट की कुल संख्या।",
+    "avgWpmTitle": "औसत WPM",
+    "avgWpmDesc": "सभी टेस्टों में प्रति मिनट औसत शब्द।",
+    "avgAccuracyTitle": "औसत सटीकता",
+    "avgAccuracyDesc": "सभी टेस्टों में औसत सटीकता प्रतिशत।",
+    "testsOverTimeTitle": "समय के साथ टेस्ट",
+    "difficultyDistTitle": "कठिनाई वितरण"
   }
 }

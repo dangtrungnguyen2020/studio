@@ -1,3 +1,4 @@
+
 {
   "HomePage": {
     "title": "Keystroke Symphony",
@@ -184,6 +185,7 @@
   "AdminPage": {
     "title": "Admin",
     "subtitle": "/ Examen",
+    "dashboardSubtitle": "/ Tableau de bord",
     "pendingTitle": "Articles en attente",
     "pendingDescription": "Examinez et approuvez ou rejetez les articles soumis par les utilisateurs.",
     "tableTitle": "Titre",
@@ -201,6 +203,17 @@
     "rejectModalDesc": "Veuillez fournir une raison pour rejeter cet article. Elle sera visible par l'auteur.",
     "rejectReasonPlaceholder": "Saisissez le motif du rejet...",
     "cancel": "Annuler",
-    "rejectButton": "Rejeter"
+    "rejectButton": "Rejeter",
+    "dashboardTitle": "Tableau de bord",
+    "reviewTitle": "Examiner les articles",
+    "statsError": "Impossible de charger les statistiques.",
+    "totalTestsTitle": "Tests totaux",
+    "totalTestsDesc": "Nombre total de tests de dactylographie terminés par tous les utilisateurs.",
+    "avgWpmTitle": "MPM moyen",
+    "avgWpmDesc": "La moyenne de mots par minute pour tous les tests.",
+    "avgAccuracyTitle": "Précision moyenne",
+    "avgAccuracyDesc": "Le pourcentage de précision moyen pour tous les tests.",
+    "testsOverTimeTitle": "Tests au fil du temps",
+    "difficultyDistTitle": "Répartition de la difficulté"
   }
 }

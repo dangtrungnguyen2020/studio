@@ -9,6 +9,7 @@ import {
   BookOpen,
   Newspaper,
   ShieldCheck,
+  LayoutDashboard,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -28,7 +29,7 @@ import { auth, adminUids } from '@/lib/firebase';
 import { useTranslations } from 'next-intl';
 
 type AppHeaderProps = {
-  page: 'home' | 'game' | 'info' | 'articles' | 'new-article' | 'view-article' | 'admin';
+  page: 'home' | 'game' | 'info' | 'articles' | 'new-article' | 'view-article' | 'admin' | 'admin-dashboard';
 };
 
 export default function AppHeader({ page }: AppHeaderProps) {
@@ -53,6 +54,8 @@ export default function AppHeader({ page }: AppHeaderProps) {
         return tArticles.raw('title');
       case 'admin':
         return tAdmin.raw('title');
+      case 'admin-dashboard':
+        return tAdmin.raw('title');
       default:
         return tHome('title');
     }
@@ -70,6 +73,8 @@ export default function AppHeader({ page }: AppHeaderProps) {
          return ''
        case 'admin':
         return tAdmin('subtitle');
+       case 'admin-dashboard':
+        return tAdmin('dashboardSubtitle');
       default:
         return undefined;
     }
@@ -131,12 +136,21 @@ export default function AppHeader({ page }: AppHeaderProps) {
                 </DropdownMenuItem>
               </Link>
             {isAdmin && (
+              <>
+               <DropdownMenuSeparator />
+               <Link href="/admin/dashboard">
+                <DropdownMenuItem>
+                  <LayoutDashboard className="h-4 w-4 mr-2" />
+                  {tAdmin('dashboardTitle')}
+                </DropdownMenuItem>
+              </Link>
                <Link href="/admin">
                 <DropdownMenuItem>
                   <ShieldCheck className="h-4 w-4 mr-2" />
-                  {tAdmin('title')}
+                  {tAdmin('reviewTitle')}
                 </DropdownMenuItem>
               </Link>
+              </>
             )}
             {page !== 'info' && (
                 <>

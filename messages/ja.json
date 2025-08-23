@@ -1,3 +1,4 @@
+
 {
   "HomePage": {
     "title": "キーストロークシンフォニー",
@@ -184,6 +185,7 @@
   "AdminPage": {
     "title": "管理者",
     "subtitle": "/ レビュー",
+    "dashboardSubtitle": "/ ダッシュボード",
     "pendingTitle": "保留中の記事",
     "pendingDescription": "ユーザーが送信した記事を確認し、承認または拒否します。",
     "tableTitle": "タイトル",
@@ -201,6 +203,17 @@
     "rejectModalDesc": "この記事を拒否する理由を入力してください。これは著者に表示されます。",
     "rejectReasonPlaceholder": "拒否の理由を入力してください...",
     "cancel": "キャンセル",
-    "rejectButton": "拒否"
+    "rejectButton": "拒否",
+    "dashboardTitle": "ダッシュボード",
+    "reviewTitle": "記事をレビュー",
+    "statsError": "統計を読み込めませんでした。",
+    "totalTestsTitle": "合計テスト数",
+    "totalTestsDesc": "すべてのユーザーが完了したタイピングテストの総数。",
+    "avgWpmTitle": "平均WPM",
+    "avgWpmDesc": "すべてのテストの1分あたりの平均単語数。",
+    "avgAccuracyTitle": "平均精度",
+    "avgAccuracyDesc": "すべてのテストの平均精度パーセンテージ。",
+    "testsOverTimeTitle": "経時的なテスト",
+    "difficultyDistTitle": "難易度分布"
   }
 }

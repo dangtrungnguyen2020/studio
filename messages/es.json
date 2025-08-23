@@ -1,3 +1,4 @@
+
 {
   "HomePage": {
     "title": "Keystroke Symphony",
@@ -184,6 +185,7 @@
   "AdminPage": {
     "title": "Administración",
     "subtitle": "/ Revisión",
+    "dashboardSubtitle": "/ Panel de control",
     "pendingTitle": "Artículos Pendientes",
     "pendingDescription": "Revisa y aprueba o rechaza los artículos enviados por los usuarios.",
     "tableTitle": "Título",
@@ -201,6 +203,17 @@
     "rejectModalDesc": "Por favor, proporciona una razón para rechazar este artículo. Esto será visible para el autor.",
     "rejectReasonPlaceholder": "Introduce la razón del rechazo...",
     "cancel": "Cancelar",
-    "rejectButton": "Rechazar"
+    "rejectButton": "Rechazar",
+    "dashboardTitle": "Panel de control",
+    "reviewTitle": "Revisar Artículos",
+    "statsError": "No se pudieron cargar las estadísticas.",
+    "totalTestsTitle": "Pruebas Totales",
+    "totalTestsDesc": "Número total de pruebas de mecanografía completadas por todos los usuarios.",
+    "avgWpmTitle": "PPM Promedio",
+    "avgWpmDesc": "El promedio de palabras por minuto en todas las pruebas.",
+    "avgAccuracyTitle": "Precisión Promedio",
+    "avgAccuracyDesc": "El porcentaje de precisión promedio en todas las pruebas.",
+    "testsOverTimeTitle": "Pruebas a lo largo del tiempo",
+    "difficultyDistTitle": "Distribución de Dificultad"
   }
 }

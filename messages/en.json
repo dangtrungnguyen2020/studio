@@ -1,3 +1,4 @@
+
 {
   "HomePage": {
     "title": "Keystroke Symphony",
@@ -186,6 +187,7 @@
   "AdminPage": {
     "title": "Admin",
     "subtitle": "/ Review",
+    "dashboardSubtitle": "/ Dashboard",
     "pendingTitle": "Pending Articles",
     "pendingDescription": "Review and approve or reject user-submitted articles.",
     "tableTitle": "Title",
@@ -203,6 +205,17 @@
     "rejectModalDesc": "Please provide a reason for rejecting this article. This will be visible to the author.",
     "rejectReasonPlaceholder": "Enter rejection reason...",
     "cancel": "Cancel",
-    "rejectButton": "Reject"
+    "rejectButton": "Reject",
+    "dashboardTitle": "Dashboard",
+    "reviewTitle": "Review Articles",
+    "statsError": "Could not load stats.",
+    "totalTestsTitle": "Total Tests",
+    "totalTestsDesc": "Total number of typing tests completed by all users.",
+    "avgWpmTitle": "Average WPM",
+    "avgWpmDesc": "The average words per minute across all tests.",
+    "avgAccuracyTitle": "Average Accuracy",
+    "avgAccuracyDesc": "The average accuracy percentage across all tests.",
+    "testsOverTimeTitle": "Tests Over Time",
+    "difficultyDistTitle": "Difficulty Distribution"
   }
 }

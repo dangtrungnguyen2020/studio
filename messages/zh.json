@@ -1,3 +1,4 @@
+
 {
   "HomePage": {
     "title": "击键交响曲",
@@ -184,6 +185,7 @@
   "AdminPage": {
     "title": "管理",
     "subtitle": "/ 审核",
+    "dashboardSubtitle": "/ 仪表板",
     "pendingTitle": "待审核的文章",
     "pendingDescription": "审核并批准或拒绝用户提交的文章。",
     "tableTitle": "标题",
@@ -201,6 +203,17 @@
     "rejectModalDesc": "请提供拒绝此文章的原因。作者将可以看到此原因。",
     "rejectReasonPlaceholder": "输入拒绝原因...",
     "cancel": "取消",
-    "rejectButton": "拒绝"
+    "rejectButton": "拒绝",
+    "dashboardTitle": "仪表板",
+    "reviewTitle": "审核文章",
+    "statsError": "无法加载统计信息。",
+    "totalTestsTitle": "总测试数",
+    "totalTestsDesc": "所有用户完成的打字测试总数。",
+    "avgWpmTitle": "平均 WPM",
+    "avgWpmDesc": "所有测试的平均每分钟字数。",
+    "avgAccuracyTitle": "平均准确率",
+    "avgAccuracyDesc": "所有测试的平均准确率百分比。",
+    "testsOverTimeTitle": "随时间变化的测试",
+    "difficultyDistTitle": "难度分布"
   }
 }

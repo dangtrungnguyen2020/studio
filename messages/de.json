@@ -1,3 +1,4 @@
+
 {
   "HomePage": {
     "title": "Keystroke Symphony",
@@ -184,6 +185,7 @@
   "AdminPage": {
     "title": "Admin",
     "subtitle": "/ Überprüfung",
+    "dashboardSubtitle": "/ Dashboard",
     "pendingTitle": "Ausstehende Artikel",
     "pendingDescription": "Überprüfen und genehmigen oder ablehnen Sie von Benutzern eingereichte Artikel.",
     "tableTitle": "Titel",
@@ -201,6 +203,17 @@
     "rejectModalDesc": "Bitte geben Sie einen Grund für die Ablehnung dieses Artikels an. Dieser wird für den Autor sichtbar sein.",
     "rejectReasonPlaceholder": "Ablehnungsgrund eingeben...",
     "cancel": "Abbrechen",
-    "rejectButton": "Ablehnen"
+    "rejectButton": "Ablehnen",
+    "dashboardTitle": "Dashboard",
+    "reviewTitle": "Artikel überprüfen",
+    "statsError": "Statistiken konnten nicht geladen werden.",
+    "totalTestsTitle": "Gesamtzahl der Tests",
+    "totalTestsDesc": "Gesamtzahl der von allen Benutzern abgeschlossenen Tipptests.",
+    "avgWpmTitle": "Durchschnittliche WPM",
+    "avgWpmDesc": "Die durchschnittlichen Wörter pro Minute über alle Tests.",
+    "avgAccuracyTitle": "Durchschnittliche Genauigkeit",
+    "avgAccuracyDesc": "Der durchschnittliche Genauigkeitsprozentsatz über alle Tests.",
+    "testsOverTimeTitle": "Tests im Laufe der Zeit",
+    "difficultyDistTitle": "Schwierigkeitsverteilung"
   }
 }

@@ -1,3 +1,4 @@
+
 {
   "HomePage": {
     "title": "Keystroke Symphony",
@@ -186,6 +187,7 @@
   "AdminPage": {
     "title": "Quản trị",
     "subtitle": "/ Xem xét",
+    "dashboardSubtitle": "/ Bảng điều khiển",
     "pendingTitle": "Bài viết đang chờ xử lý",
     "pendingDescription": "Xem xét và phê duyệt hoặc từ chối các bài viết do người dùng gửi.",
     "tableTitle": "Tiêu đề",
@@ -203,6 +205,17 @@
     "rejectModalDesc": "Vui lòng cung cấp lý do từ chối bài viết này. Tác giả sẽ thấy lý do này.",
     "rejectReasonPlaceholder": "Nhập lý do từ chối...",
     "cancel": "Hủy",
-    "rejectButton": "Từ chối"
+    "rejectButton": "Từ chối",
+    "dashboardTitle": "Bảng điều khiển",
+    "reviewTitle": "Xem xét bài viết",
+    "statsError": "Không thể tải thống kê.",
+    "totalTestsTitle": "Tổng số bài kiểm tra",
+    "totalTestsDesc": "Tổng số bài kiểm tra gõ phím đã được hoàn thành bởi tất cả người dùng.",
+    "avgWpmTitle": "WPM trung bình",
+    "avgWpmDesc": "Số từ mỗi phút trung bình trên tất cả các bài kiểm tra.",
+    "avgAccuracyTitle": "Độ chính xác trung bình",
+    "avgAccuracyDesc": "Tỷ lệ phần trăm độ chính xác trung bình trên tất cả các bài kiểm tra.",
+    "testsOverTimeTitle": "Số bài kiểm tra theo thời gian",
+    "difficultyDistTitle": "Phân phối độ khó"
   }
 }

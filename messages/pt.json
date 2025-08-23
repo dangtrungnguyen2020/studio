@@ -1,3 +1,4 @@
+
 {
   "HomePage": {
     "title": "Sinfonia de Teclas",
@@ -28,7 +29,7 @@
   },
   "InfoPage": {
     "title": "Sobre a Sinfonia de Teclas",
-    "description": "Um treinador de digitação avançado projetado para elevar suas habilidades no teclado através da prática e do jogo.",
+    "description": "Um treinador de digitação avançado projetado para elevar suas habilidades no teclado através da prática и do jogo.",
     "featuresTitle": "Recursos",
     "features": [
       "Pratique com diferentes layouts de teclado: QWERTY, DVORAK e AZERTY.",
@@ -184,6 +185,7 @@
   "AdminPage": {
     "title": "Admin",
     "subtitle": "/ Revisão",
+    "dashboardSubtitle": "/ Painel",
     "pendingTitle": "Artigos Pendentes",
     "pendingDescription": "Revise e aprove ou rejeite os artigos enviados pelos usuários.",
     "tableTitle": "Título",
@@ -201,6 +203,17 @@
     "rejectModalDesc": "Forneça um motivo para rejeitar este artigo. Isso será visível para o autor.",
     "rejectReasonPlaceholder": "Digite o motivo da rejeição...",
     "cancel": "Cancelar",
-    "rejectButton": "Rejeitar"
+    "rejectButton": "Rejeitar",
+    "dashboardTitle": "Painel",
+    "reviewTitle": "Revisar Artigos",
+    "statsError": "Não foi possível carregar as estatísticas.",
+    "totalTestsTitle": "Total de Testes",
+    "totalTestsDesc": "Número total de testes de digitação concluídos por todos os usuários.",
+    "avgWpmTitle": "Média de PPM",
+    "avgWpmDesc": "A média de palavras por minuto em todos os testes.",
+    "avgAccuracyTitle": "Precisão Média",
+    "avgAccuracyDesc": "A porcentagem de precisão média em todos os testes.",
+    "testsOverTimeTitle": "Testes ao Longo do Tempo",
+    "difficultyDistTitle": "Distribuição de Dificuldade"
   }
 }

@@ -4,7 +4,7 @@
 import { generatePersonalizedExercises } from "@/ai/flows/personalized-typing-exercises";
 import type { PersonalizedExercisesInput, PersonalizedExercisesOutput } from "@/ai/flows/personalized-typing-exercises";
 import { db, storage, adminUids } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp, query, where, getDocs, orderBy, doc, getDoc, updateDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, query, where, getDocs, orderBy, doc, getDoc, updateDoc,getCountFromServer } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { randomUUID } from "crypto";
 
@@ -244,4 +244,61 @@ export async function rejectArticle(userId: string, articleId: string, reason: s
     console.error('Error rejecting article:', error);
     throw new Error('Failed to reject article.');
   }
+}
+
+
+export type AdminDashboardStats = {
+    totalTests: number;
+    averageWpm: number;
+    averageAccuracy: number;
+    testsByDate: { date: string; count: number }[];
+    testsByDifficulty: { difficulty: string; count: number }[];
+};
+
+export async function getAdminDashboardStats(userId: string): Promise<AdminDashboardStats> {
+    if (!adminUids.includes(userId)) {
+        throw new Error('Unauthorized');
+    }
+
+    try {
+        const sessionsCollection = collection(db, 'typing-sessions');
+        const snapshot = await getDocs(sessionsCollection);
+        
+        let totalWpm = 0;
+        let totalAccuracy = 0;
+        const testsByDate: Record<string, number> = {};
+        const testsByDifficulty: Record<string, number> = {};
+
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            totalWpm += data.wpm;
+            totalAccuracy += data.accuracy;
+
+            const date = data.timestamp.toDate().toISOString().split('T')[0]; // YYYY-MM-DD
+            testsByDate[date] = (testsByDate[date] || 0) + 1;
+
+            const difficulty = data.difficulty || 'unknown';
+            testsByDifficulty[difficulty] = (testsByDifficulty[difficulty] || 0) + 1;
+        });
+
+        const totalTests = snapshot.size;
+        const averageWpm = totalTests > 0 ? Math.round(totalWpm / totalTests) : 0;
+        const averageAccuracy = totalTests > 0 ? Math.round(totalAccuracy / totalTests) : 0;
+
+        return {
+            totalTests,
+            averageWpm,
+            averageAccuracy,
+            testsByDate: Object.entries(testsByDate)
+                .map(([date, count]) => ({ date, count }))
+                .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()),
+            testsByDifficulty: Object.entries(testsByDifficulty)
+                .map(([difficulty, count]) => ({ difficulty, count }))
+                .sort((a, b) => b.count - a.count),
+        };
+
+    } catch (error) {
+        console.error("Error fetching admin dashboard stats:", error);
+        throw new Error("Failed to fetch dashboard data.");
+    }
 }

@@ -1,3 +1,4 @@
+
 {
   "HomePage": {
     "title": "سيمفونية ضغطات المفاتيح",
@@ -184,6 +185,7 @@
   "AdminPage": {
     "title": "مشرف",
     "subtitle": "/ مراجعة",
+    "dashboardSubtitle": "/ لوحة التحكم",
     "pendingTitle": "المقالات المعلقة",
     "pendingDescription": "مراجعة والموافقة على أو رفض المقالات المقدمة من المستخدمين.",
     "tableTitle": "العنوان",
@@ -201,6 +203,17 @@
     "rejectModalDesc": "يرجى تقديم سبب لرفض هذا المقال. سيكون هذا مرئيًا للمؤلف.",
     "rejectReasonPlaceholder": "أدخل سبب الرفض...",
     "cancel": "إلغاء",
-    "rejectButton": "رفض"
+    "rejectButton": "رفض",
+    "dashboardTitle": "لوحة التحكم",
+    "reviewTitle": "مراجعة المقالات",
+    "statsError": "تعذر تحميل الإحصائيات.",
+    "totalTestsTitle": "إجمالي الاختبارات",
+    "totalTestsDesc": "إجمالي عدد اختبارات الكتابة التي أكملها جميع المستخدمين.",
+    "avgWpmTitle": "متوسط ​​WPM",
+    "avgWpmDesc": "متوسط ​​الكلمات في الدقيقة عبر جميع الاختبارات.",
+    "avgAccuracyTitle": "متوسط ​​الدقة",
+    "avgAccuracyDesc": "متوسط ​​نسبة الدقة في جميع الاختبارات.",
+    "testsOverTimeTitle": "الاختبارات عبر الزمن",
+    "difficultyDistTitle": "توزيع الصعوبة"
   }
 }
