@@ -182,7 +182,8 @@
     "backToArticles": "Quay lại danh sách bài viết",
     "shareTitle": "Chia sẻ",
     "shareLinkCopied": "Đã sao chép liên kết!",
-    "shareLinkCopiedDesc": "Liên kết bài viết đã được sao chép vào bộ nhớ tạm."
+    "shareLinkCopiedDesc": "Liên kết bài viết đã được sao chép vào bộ nhớ tạm.",
+    "translating": "Đang dịch sang ngôn ngữ của bạn..."
   },
   "AdminPage": {
     "title": "Quản trị",

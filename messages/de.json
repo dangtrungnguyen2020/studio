@@ -180,7 +180,8 @@
     "backToArticles": "Zurück zu den Artikeln",
     "shareTitle": "Teilen",
     "shareLinkCopied": "Link kopiert!",
-    "shareLinkCopiedDesc": "Der Link zum Artikel wurde in Ihre Zwischenablage kopiert."
+    "shareLinkCopiedDesc": "Der Link zum Artikel wurde in Ihre Zwischenablage kopiert.",
+    "translating": "Übersetzung in Ihre Sprache..."
   },
   "AdminPage": {
     "title": "Admin",

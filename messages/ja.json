@@ -180,7 +180,8 @@
     "backToArticles": "記事一覧に戻る",
     "shareTitle": "共有",
     "shareLinkCopied": "リンクがコピーされました！",
-    "shareLinkCopiedDesc": "記事へのリンクがクリップボードにコピーされました。"
+    "shareLinkCopiedDesc": "記事へのリンクがクリップボードにコピーされました。",
+    "translating": "あなたの言語に翻訳しています..."
   },
   "AdminPage": {
     "title": "管理者",

@@ -23,7 +23,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Loader2, Check, X, MessageSquare, ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { format } from 'date-fns';
 import { useToast } from '@/hooks/use-toast';
 import {
@@ -47,6 +47,7 @@ export default function AdminPage() {
   const [loadingData, setLoadingData] = useState(true);
   const router = useRouter();
   const { toast } = useToast();
+  const locale = useLocale();
   
   const [isRejecting, setIsRejecting] = useState(false);
   const [rejectionReason, setRejectionReason] = useState("");
@@ -138,7 +139,7 @@ export default function AdminPage() {
                                 <TableRow key={article.id}>
                                     <TableCell>
                                          <Link href={`/articles/${article.id}`} className="hover:underline text-primary" target="_blank">
-                                            {article.title}
+                                            {article.title[article.originalLanguage] || article.title.en}
                                         </Link>
                                     </TableCell>
                                     <TableCell>{article.authorName}</TableCell>

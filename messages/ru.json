@@ -180,7 +180,8 @@
     "backToArticles": "Назад к статьям",
     "shareTitle": "Поделиться",
     "shareLinkCopied": "Ссылка скопирована!",
-    "shareLinkCopiedDesc": "Ссылка на статью скопирована в буфер обмена."
+    "shareLinkCopiedDesc": "Ссылка на статью скопирована в буфер обмена.",
+    "translating": "Перевод на ваш язык..."
   },
   "AdminPage": {
     "title": "Админ",

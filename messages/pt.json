@@ -180,7 +180,8 @@
     "backToArticles": "Voltar para Artigos",
     "shareTitle": "Compartilhar",
     "shareLinkCopied": "Link copiado!",
-    "shareLinkCopiedDesc": "O link do artigo foi copiado para a sua área de transferência."
+    "shareLinkCopiedDesc": "O link do artigo foi copiado para a sua área de transferência.",
+    "translating": "Traduzindo para o seu idioma..."
   },
   "AdminPage": {
     "title": "Admin",

@@ -12,7 +12,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/lib/firebase';
 import { useRouter } from '@/navigation';
 import AppHeader from '@/components/keystroke-symphony/app-header';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import AdBanner from '@/components/keystroke-symphony/ad-banner';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { formatDistanceToNow } from 'date-fns';
@@ -25,6 +25,7 @@ export default function ArticlesPage() {
   const [user] = useAuthState(auth);
   const router = useRouter();
   const t = useTranslations('ArticlePage');
+  const locale = useLocale();
 
   useEffect(() => {
     getArticles()
@@ -69,11 +70,11 @@ export default function ArticlesPage() {
                 {articles.map((article) => (
                     <Link href={`/articles/${article.id}`} key={article.id} className="block">
                     <Card className="h-full flex flex-col overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                        <img src={article.imageUrl} alt={article.title} className="w-full h-40 object-cover" data-ai-hint="article cover" />
+                        <img src={article.imageUrl} alt={article.title[locale] || article.title.en} className="w-full h-40 object-cover" data-ai-hint="article cover" />
                         <CardHeader>
                             <div className="flex justify-between items-start">
-                                <CardTitle className="line-clamp-2">{article.title}</CardTitle>
-                                <Badge variant="outline">{languageNames[article.language as keyof typeof languageNames] || article.language}</Badge>
+                                <CardTitle className="line-clamp-2">{article.title[locale] || article.title.en}</CardTitle>
+                                <Badge variant="outline">{languageNames[article.originalLanguage as keyof typeof languageNames] || article.originalLanguage}</Badge>
                             </div>
                         </CardHeader>
                         <CardContent className="flex-grow">

@@ -180,7 +180,8 @@
     "backToArticles": "العودة إلى المقالات",
     "shareTitle": "مشاركة",
     "shareLinkCopied": "تم نسخ الرابط!",
-    "shareLinkCopiedDesc": "تم نسخ رابط المقال إلى حافظتك."
+    "shareLinkCopiedDesc": "تم نسخ رابط المقال إلى حافظتك.",
+    "translating": "جارٍ الترجمة إلى لغتك..."
   },
   "AdminPage": {
     "title": "مشرف",

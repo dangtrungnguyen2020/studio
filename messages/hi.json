@@ -180,7 +180,8 @@
     "backToArticles": "लेखों पर वापस",
     "shareTitle": "शेयर करें",
     "shareLinkCopied": "लिंक कॉपी किया गया!",
-    "shareLinkCopiedDesc": "लेख का लिंक आपके क्लिपबोर्ड पर कॉपी कर लिया गया है।"
+    "shareLinkCopiedDesc": "लेख का लिंक आपके क्लिपबोर्ड पर कॉपी कर लिया गया है।",
+    "translating": "आपकी भाषा में अनुवाद हो रहा है..."
   },
   "AdminPage": {
     "title": "व्यवस्थापक",

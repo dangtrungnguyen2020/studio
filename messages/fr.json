@@ -180,7 +180,8 @@
     "backToArticles": "Retour aux articles",
     "shareTitle": "Partager",
     "shareLinkCopied": "Lien copié !",
-    "shareLinkCopiedDesc": "Le lien de l'article a été copié dans votre presse-papiers."
+    "shareLinkCopiedDesc": "Le lien de l'article a été copié dans votre presse-papiers.",
+    "translating": "Traduction dans votre langue..."
   },
   "AdminPage": {
     "title": "Admin",

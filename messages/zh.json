@@ -180,7 +180,8 @@
     "backToArticles": "返回文章列表",
     "shareTitle": "分享",
     "shareLinkCopied": "链接已复制！",
-    "shareLinkCopiedDesc": "文章链接已复制到您的剪贴板。"
+    "shareLinkCopiedDesc": "文章链接已复制到您的剪贴板。",
+    "translating": "正在翻译成您的语言..."
   },
   "AdminPage": {
     "title": "管理",

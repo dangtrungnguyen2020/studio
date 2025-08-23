@@ -13,7 +13,7 @@ import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import AppHeader from '@/components/keystroke-symphony/app-header';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -27,14 +27,31 @@ export default function ArticlePage() {
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
   const t = useTranslations('ArticlePage');
+  const locale = useLocale();
+  const [isTranslating, setIsTranslating] = useState(false);
   
   useEffect(() => {
     if (id) {
+      setLoading(true);
       getArticle(id)
-        .then(setArticle)
+        .then((art) => {
+            if (art) {
+                if (!art.content[locale] || !art.title[locale]) {
+                    setIsTranslating(true);
+                    // The action already triggers the translation and returns the translated content
+                    // We just need to re-fetch or trust the returned value
+                    getArticle(id).then(translatedArt => {
+                        setArticle(translatedArt);
+                        setIsTranslating(false);
+                    })
+                } else {
+                    setArticle(art);
+                }
+            }
+        })
         .finally(() => setLoading(false));
     }
-  }, [id]);
+  }, [id, locale]);
 
   const getInitials = (name: string | null | undefined) => {
     if (!name) return 'U';
@@ -86,10 +103,10 @@ export default function ArticlePage() {
                         <ArrowLeft className="mr-2 h-4 w-4" /> {t('backToArticles')}
                     </Button>
                     <div className="flex justify-between items-start">
-                      <h1 className="text-4xl font-bold text-primary leading-tight mb-4">{article.title}</h1>
+                      <h1 className="text-4xl font-bold text-primary leading-tight mb-4">{article.title[locale] || article.title.en}</h1>
                       <Badge variant="outline" className="flex items-center gap-2">
                         <Languages className="h-4 w-4" />
-                        {languageNames[article.language as keyof typeof languageNames] || article.language}
+                        {languageNames[locale as keyof typeof languageNames] || locale}
                       </Badge>
                     </div>
                     <div className="flex items-center justify-between">
@@ -119,13 +136,20 @@ export default function ArticlePage() {
                     </div>
                 </header>
 
-                <img src={article.imageUrl} alt={article.title} className="w-full rounded-lg mb-8" data-ai-hint="article hero image"/>
+                <img src={article.imageUrl} alt={article.title[locale] || article.title.en} className="w-full rounded-lg mb-8" data-ai-hint="article hero image"/>
                 
-                <div className="prose dark:prose-invert max-w-full">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                        {article.content}
-                    </ReactMarkdown>
-                </div>
+                {isTranslating ? (
+                    <div className="flex flex-col items-center justify-center gap-4 text-muted-foreground my-8">
+                        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                        <p>{t('translating')}</p>
+                    </div>
+                ) : (
+                    <div className="prose dark:prose-invert max-w-full">
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                            {article.content[locale] || article.content.en}
+                        </ReactMarkdown>
+                    </div>
+                )}
             </article>
         </main>
     </div>

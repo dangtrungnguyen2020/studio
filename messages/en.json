@@ -182,7 +182,8 @@
     "backToArticles": "Back to Articles",
     "shareTitle": "Share",
     "shareLinkCopied": "Link Copied!",
-    "shareLinkCopiedDesc": "The article link has been copied to your clipboard."
+    "shareLinkCopiedDesc": "The article link has been copied to your clipboard.",
+    "translating": "Translating to your language..."
   },
   "AdminPage": {
     "title": "Admin",

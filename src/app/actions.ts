@@ -3,12 +3,14 @@
 
 import { generatePersonalizedExercises } from "@/ai/flows/personalized-typing-exercises";
 import type { PersonalizedExercisesInput, PersonalizedExercisesOutput } from "@/ai/flows/personalized-typing-exercises";
+import { translateText } from "@/ai/flows/translate-text";
 import { db, storage } from "@/lib/firebase-admin";
 import { collection, addDoc, serverTimestamp, query, where, getDocs, orderBy, doc, getDoc, updateDoc, getCountFromServer, setDoc, deleteField, arrayUnion, arrayRemove } from "firebase/firestore";
 import { getStorage as getAdminStorage } from 'firebase-admin/storage';
 import { getAuth as getAdminAuth } from 'firebase-admin/auth';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { randomUUID } from "crypto";
+import { getLocale } from "next-intl/server";
 
 async function getAdminUids(): Promise<string[]> {
     const adminDoc = await doc(db, 'app-settings', 'admins').get();
@@ -119,25 +121,51 @@ export async function uploadImage(formData: FormData): Promise<string> {
 
 export type Article = {
   id: string;
+  title: Record<string, string>; // language -> text
+  content: Record<string, string>; // language -> text
+  imageUrl: string;
+  authorId: string;
+  authorName: string;
+  authorPhotoURL: string;
+  createdAt: Date;
+  originalLanguage: string;
+  status: 'pending' | 'approved' | 'rejected';
+  rejectionReason?: string;
+};
+
+
+export async function createArticle(data: {
   title: string;
   content: string;
   imageUrl: string;
   authorId: string;
   authorName: string;
   authorPhotoURL: string;
-  createdAt: Date;
   language: string;
-  status: 'pending' | 'approved' | 'rejected';
-  rejectionReason?: string;
-};
-
-export async function createArticle(data: Omit<Article, 'id' | 'createdAt' | 'status' | 'rejectionReason'>) {
+}) {
   try {
-    const docRef = await addDoc(collection(db, "articles"), {
-      ...data,
-      createdAt: serverTimestamp(),
-      status: 'pending',
-    });
+    const articleData: Partial<Article> & { createdAt: any } = {
+        title: { [data.language]: data.title },
+        content: { [data.language]: data.content },
+        imageUrl: data.imageUrl,
+        authorId: data.authorId,
+        authorName: data.authorName,
+        authorPhotoURL: data.authorPhotoURL,
+        originalLanguage: data.language,
+        status: 'pending',
+        createdAt: serverTimestamp(),
+    };
+    
+    if (data.language !== 'en') {
+        const [titleTranslation, contentTranslation] = await Promise.all([
+            translateText({ text: data.title, targetLanguage: 'en' }),
+            translateText({ text: data.content, targetLanguage: 'en' })
+        ]);
+        articleData.title!.en = titleTranslation.translation;
+        articleData.content!.en = contentTranslation.translation;
+    }
+
+    const docRef = await addDoc(collection(db, "articles"), articleData);
     return docRef.id;
   } catch (error) {
     console.error("Error creating article:", error);
@@ -145,8 +173,37 @@ export async function createArticle(data: Omit<Article, 'id' | 'createdAt' | 'st
   }
 }
 
+async function translateArticle(article: Article, targetLocale: string): Promise<Article> {
+    if (article.title[targetLocale] && article.content[targetLocale]) {
+        return article;
+    }
+
+    // Use English as the source for translation
+    const sourceTitle = article.title.en || article.title[article.originalLanguage];
+    const sourceContent = article.content.en || article.content[article.originalLanguage];
+
+    const [titleTranslation, contentTranslation] = await Promise.all([
+        translateText({ text: sourceTitle, targetLanguage: targetLocale }),
+        translateText({ text: sourceContent, targetLanguage: targetLocale })
+    ]);
+    
+    const updatedArticle = { ...article };
+    updatedArticle.title[targetLocale] = titleTranslation.translation;
+    updatedArticle.content[targetLocale] = contentTranslation.translation;
+
+    // Save the new translation to Firestore asynchronously
+    const articleRef = doc(db, 'articles', article.id);
+    updateDoc(articleRef, {
+        [`title.${targetLocale}`]: titleTranslation.translation,
+        [`content.${targetLocale}`]: contentTranslation.translation,
+    }).catch(console.error);
+
+    return updatedArticle;
+}
+
 export async function getArticles(): Promise<Article[]> {
   try {
+    const locale = await getLocale();
     const q = query(
         collection(db, "articles"), 
         where("status", "==", "approved"),
@@ -162,7 +219,16 @@ export async function getArticles(): Promise<Article[]> {
         createdAt: data.createdAt.toDate(),
       } as Article);
     });
-    return articles;
+
+    // Translate titles if necessary
+     const translatedArticles = await Promise.all(articles.map(async (article) => {
+      if (article.title[locale]) {
+        return article;
+      }
+      return await translateArticle(article, locale);
+    }));
+
+    return translatedArticles;
   } catch (error) {
     console.error("Error fetching articles:", error);
     return [];
@@ -176,12 +242,17 @@ export async function getArticle(id: string): Promise<Article | null> {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      const data = docSnap.data();
-      return {
+      let article = {
         id: docSnap.id,
-        ...data,
-        createdAt: data.createdAt.toDate(),
+        ...docSnap.data(),
+        createdAt: docSnap.data().createdAt.toDate(),
       } as Article;
+
+      const locale = await getLocale();
+      if (!article.title[locale] || !article.content[locale]) {
+          article = await translateArticle(article, locale);
+      }
+      return article;
     } else {
       return null;
     }
