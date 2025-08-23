@@ -5,7 +5,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { getArticle, Article } from '@/app/actions';
-import { Loader2, ArrowLeft, Share2, Link, Copy } from 'lucide-react';
+import { Loader2, ArrowLeft, Share2, Copy, Languages } from 'lucide-react';
 import { FaFacebook } from 'react-icons/fa';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -16,6 +16,8 @@ import AppHeader from '@/components/keystroke-symphony/app-header';
 import { useTranslations } from 'next-intl';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { languageNames } from '@/lib/language-names';
 
 export default function ArticlePage() {
   const params = useParams();
@@ -25,8 +27,7 @@ export default function ArticlePage() {
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
   const t = useTranslations('ArticlePage');
-  const tToast = useTranslations('Toast');
-
+  
   useEffect(() => {
     if (id) {
       getArticle(id)
@@ -84,7 +85,13 @@ export default function ArticlePage() {
                      <Button variant="outline" onClick={() => router.push('/articles')} className="mb-6">
                         <ArrowLeft className="mr-2 h-4 w-4" /> {t('backToArticles')}
                     </Button>
-                    <h1 className="text-4xl font-bold text-primary leading-tight mb-4">{article.title}</h1>
+                    <div className="flex justify-between items-start">
+                      <h1 className="text-4xl font-bold text-primary leading-tight mb-4">{article.title}</h1>
+                      <Badge variant="outline" className="flex items-center gap-2">
+                        <Languages className="h-4 w-4" />
+                        {languageNames[article.language as keyof typeof languageNames] || article.language}
+                      </Badge>
+                    </div>
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4 text-muted-foreground">
                              <Avatar>

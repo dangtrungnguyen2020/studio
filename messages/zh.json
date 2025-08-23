@@ -166,6 +166,8 @@
     "formPreview": "预览",
     "formCancel": "取消",
     "formSubmit": "发表文章",
+    "formLanguage": "文章语言",
+    "formLanguagePlaceholder": "选择一种语言...",
     "createSuccessTitle": "文章已发表！",
     "createSuccessDesc": "您的文章现在已经上线，供社区阅读。",
     "createErrorTitle": "发表失败",

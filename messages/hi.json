@@ -166,6 +166,8 @@
     "formPreview": "पूर्वावलोकन",
     "formCancel": "रद्द करें",
     "formSubmit": "लेख प्रकाशित करें",
+    "formLanguage": "लेख की भाषा",
+    "formLanguagePlaceholder": "एक भाषा चुनें...",
     "createSuccessTitle": "लेख प्रकाशित!",
     "createSuccessDesc": "आपका लेख अब समुदाय के पढ़ने के लिए लाइव है।",
     "createErrorTitle": "प्रकाशन विफल",

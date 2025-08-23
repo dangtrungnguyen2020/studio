@@ -168,6 +168,8 @@
     "formPreview": "Preview",
     "formCancel": "Cancel",
     "formSubmit": "Publish Article",
+    "formLanguage": "Article Language",
+    "formLanguagePlaceholder": "Select a language...",
     "createSuccessTitle": "Article Published!",
     "createSuccessDesc": "Your article is now live for the community to read.",
     "createErrorTitle": "Publishing Failed",

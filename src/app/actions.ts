@@ -106,6 +106,7 @@ export type Article = {
   authorName: string;
   authorPhotoURL: string;
   createdAt: Date;
+  language: string;
 };
 
 export async function createArticle(data: Omit<Article, 'id' | 'createdAt'>) {
@@ -162,4 +163,3 @@ export async function getArticle(id: string): Promise<Article | null> {
     return null;
   }
 }
-

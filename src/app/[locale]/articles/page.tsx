@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { getArticles, Article } from '@/app/actions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { PlusCircle, Loader2 } from 'lucide-react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/lib/firebase';
@@ -16,6 +17,7 @@ import AdBanner from '@/components/keystroke-symphony/ad-banner';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { formatDistanceToNow } from 'date-fns';
 import Link from 'next/link';
+import { languageNames } from '@/lib/language-names';
 
 export default function ArticlesPage() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -69,7 +71,10 @@ export default function ArticlesPage() {
                     <Card className="h-full flex flex-col overflow-hidden hover:shadow-lg transition-shadow duration-300">
                         <img src={article.imageUrl} alt={article.title} className="w-full h-40 object-cover" data-ai-hint="article cover" />
                         <CardHeader>
-                            <CardTitle className="line-clamp-2">{article.title}</CardTitle>
+                            <div className="flex justify-between items-start">
+                                <CardTitle className="line-clamp-2">{article.title}</CardTitle>
+                                <Badge variant="outline">{languageNames[article.language as keyof typeof languageNames] || article.language}</Badge>
+                            </div>
                         </CardHeader>
                         <CardContent className="flex-grow">
                            {/* Potentially a short description here */}
@@ -81,8 +86,8 @@ export default function ArticlesPage() {
                             </Avatar>
                             <div className="flex flex-col">
                                 <span>{article.authorName}</span>
-                                <time dateTime={article.createdAt.toISOString()}>
-                                    {formatDistanceToNow(article.createdAt, { addSuffix: true })}
+                                <time dateTime={new Date(article.createdAt).toISOString()}>
+                                    {formatDistanceToNow(new Date(article.createdAt), { addSuffix: true })}
                                 </time>
                             </div>
                         </CardFooter>

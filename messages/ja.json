@@ -166,6 +166,8 @@
     "formPreview": "プレビュー",
     "formCancel": "キャンセル",
     "formSubmit": "記事を公開",
+    "formLanguage": "記事の言語",
+    "formLanguagePlaceholder": "言語を選択してください...",
     "createSuccessTitle": "記事が公開されました！",
     "createSuccessDesc": "あなたの記事がコミュニティで読めるようになりました。",
     "createErrorTitle": "公開に失敗しました",

@@ -166,6 +166,8 @@
     "formPreview": "معاينة",
     "formCancel": "إلغاء",
     "formSubmit": "نشر المقال",
+    "formLanguage": "لغة المقال",
+    "formLanguagePlaceholder": "اختر لغة...",
     "createSuccessTitle": "تم نشر المقال!",
     "createSuccessDesc": "مقالك الآن مباشر ليقرأه المجتمع.",
     "createErrorTitle": "فشل النشر",

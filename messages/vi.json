@@ -168,6 +168,8 @@
     "formPreview": "Xem trước",
     "formCancel": "Hủy",
     "formSubmit": "Xuất bản bài viết",
+    "formLanguage": "Ngôn ngữ bài viết",
+    "formLanguagePlaceholder": "Chọn một ngôn ngữ...",
     "createSuccessTitle": "Bài viết đã được xuất bản!",
     "createSuccessDesc": "Bài viết của bạn hiện đã được đăng cho cộng đồng đọc.",
     "createErrorTitle": "Xuất bản thất bại",

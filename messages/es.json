@@ -166,6 +166,8 @@
     "formPreview": "Vista previa",
     "formCancel": "Cancelar",
     "formSubmit": "Publicar artículo",
+    "formLanguage": "Idioma del artículo",
+    "formLanguagePlaceholder": "Selecciona un idioma...",
     "createSuccessTitle": "¡Artículo publicado!",
     "createSuccessDesc": "Tu artículo ahora está en vivo para que la comunidad lo lea.",
     "createErrorTitle": "Error al publicar",

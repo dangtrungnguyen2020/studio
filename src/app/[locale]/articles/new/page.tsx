@@ -2,7 +2,7 @@
 // src/app/[locale]/articles/new/page.tsx
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -21,11 +21,16 @@ import AppHeader from '@/components/keystroke-symphony/app-header';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useTranslations } from 'next-intl';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { routing } from '@/i18n/routing';
+import { languageNames } from '@/lib/language-names';
+
 
 const formSchema = z.object({
   title: z.string().min(5, { message: 'Title must be at least 5 characters.' }),
   content: z.string().min(50, { message: 'Content must be at least 50 characters.' }),
   image: z.instanceof(File).refine(file => file.size > 0, 'An image is required.'),
+  language: z.string({ required_error: 'Please select a language.' }),
 });
 
 export default function NewArticlePage() {
@@ -67,6 +72,7 @@ export default function NewArticlePage() {
         title: values.title,
         content: values.content,
         imageUrl,
+        language: values.language,
         authorId: user.uid,
         authorName: user.displayName || 'Anonymous',
         authorPhotoURL: user.photoURL || '',
@@ -96,19 +102,45 @@ export default function NewArticlePage() {
                 <CardContent>
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                            <FormField
-                                control={form.control}
-                                name="title"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>{t('formTitle')}</FormLabel>
-                                        <FormControl>
-                                            <Input placeholder={t('formTitlePlaceholder')} {...field} />
-                                        </FormControl>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <FormField
+                                    control={form.control}
+                                    name="title"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>{t('formTitle')}</FormLabel>
+                                            <FormControl>
+                                                <Input placeholder={t('formTitlePlaceholder')} {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="language"
+                                    render={({ field }) => (
+                                      <FormItem>
+                                        <FormLabel>{t('formLanguage')}</FormLabel>
+                                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                          <FormControl>
+                                            <SelectTrigger>
+                                              <SelectValue placeholder={t('formLanguagePlaceholder')} />
+                                            </SelectTrigger>
+                                          </FormControl>
+                                          <SelectContent>
+                                            {routing.locales.map((locale) => (
+                                              <SelectItem key={locale} value={locale}>
+                                                {languageNames[locale as keyof typeof languageNames]}
+                                              </SelectItem>
+                                            ))}
+                                          </SelectContent>
+                                        </Select>
                                         <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
+                                      </FormItem>
+                                    )}
+                                  />
+                            </div>
                              <FormField
                                 control={form.control}
                                 name="image"

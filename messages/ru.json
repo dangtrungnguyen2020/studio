@@ -166,6 +166,8 @@
     "formPreview": "Предварительный просмотр",
     "formCancel": "Отмена",
     "formSubmit": "Опубликовать статью",
+    "formLanguage": "Язык статьи",
+    "formLanguagePlaceholder": "Выберите язык...",
     "createSuccessTitle": "Статья опубликована!",
     "createSuccessDesc": "Ваша статья теперь доступна для чтения сообществом.",
     "createErrorTitle": "Ошибка публикации",
