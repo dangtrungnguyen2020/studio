@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, adminUids } from '@/lib/firebase';
+import { auth } from '@/lib/firebase';
 import { getAdminDashboardStats, AdminDashboardStats } from '@/app/actions';
 import {
   Card,
@@ -29,11 +29,15 @@ export default function AdminDashboardPage() {
 
   useEffect(() => {
     if (!loadingAuth) {
-      if (!user || !adminUids.includes(user.uid)) {
+      if (!user) {
         router.push('/');
       } else {
         getAdminDashboardStats(user.uid)
           .then(setStats)
+          .catch((err) => {
+            console.error(err);
+            router.push('/'); // Redirect if user is not an admin
+          })
           .finally(() => setLoadingData(false));
       }
     }

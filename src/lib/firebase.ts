@@ -38,9 +38,4 @@ if (typeof window !== "undefined") {
   setPersistence(auth, browserLocalPersistence);
 }
 
-// In a real application, this should be managed securely in your database.
-// This is now managed in Firestore, see actions.ts
-// export const adminUids = ["YOUR_ADMIN_UID_HERE"];
-
-
 export { app, auth, db, functions, storage };

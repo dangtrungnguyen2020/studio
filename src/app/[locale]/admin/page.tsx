@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, adminUids } from '@/lib/firebase';
+import { auth } from '@/lib/firebase';
 import { getPendingArticles, approveArticle, rejectArticle, Article } from '@/app/actions';
 import {
   Card,
@@ -53,16 +53,20 @@ export default function AdminPage() {
   const [articleToReject, setArticleToReject] = useState<Article | null>(null);
 
   const fetchPending = () => {
-    if (user && adminUids.includes(user.uid)) {
+    if (user) {
       getPendingArticles(user.uid)
         .then(setArticles)
+        .catch((err) => {
+          console.error(err);
+          router.push('/'); // Redirect if user is not an admin
+        })
         .finally(() => setLoadingData(false));
     }
   }
 
   useEffect(() => {
     if (!loadingAuth) {
-      if (!user || !adminUids.includes(user.uid)) {
+      if (!user) {
         router.push('/');
       } else {
         fetchPending();
