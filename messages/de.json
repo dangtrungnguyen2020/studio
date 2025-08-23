@@ -228,5 +228,21 @@
     "statusUpdateSuccess": "Admin-Status aktualisiert.",
     "statusUpdateSuccessDesc": "Die Berechtigungen des Benutzers wurden geändert.",
     "statusUpdateError": "Status konnte nicht aktualisiert werden."
+  },
+  "ProductPage": {
+    "title": "Produkte",
+    "subtitle": "/ Tastaturen",
+    "browseProducts": "Tastaturen durchsuchen",
+    "filter": "Filtern",
+    "filterByBrand": "Marke",
+    "filterByGen": "Generation",
+    "filterByLayout": "Layout",
+    "noProducts": "Keine Produkte entsprechen Ihren aktuellen Filtern. Versuchen Sie, einige zu entfernen!",
+    "notFound": "Produkt nicht gefunden",
+    "backToProducts": "Zurück zu den Produkten",
+    "features": "Eigenschaften",
+    "specs": "Spezifikationen",
+    "reviews": "Bewertungen",
+    "noReviews": "Schreiben Sie die erste Bewertung!"
   }
 }

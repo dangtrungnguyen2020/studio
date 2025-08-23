@@ -228,5 +228,21 @@
     "statusUpdateSuccess": "Статус администратора обновлен.",
     "statusUpdateSuccessDesc": "Разрешения пользователя были изменены.",
     "statusUpdateError": "Не удалось обновить статус."
+  },
+  "ProductPage": {
+    "title": "Продукты",
+    "subtitle": "/ Клавиатуры",
+    "browseProducts": "Просмотр клавиатур",
+    "filter": "Фильтр",
+    "filterByBrand": "Бренд",
+    "filterByGen": "Поколение",
+    "filterByLayout": "Раскладка",
+    "noProducts": "Нет продуктов, соответствующих вашим текущим фильтрам. Попробуйте убрать некоторые!",
+    "notFound": "Продукт не найден",
+    "backToProducts": "Назад к продуктам",
+    "features": "Особенности",
+    "specs": "Характеристики",
+    "reviews": "Отзывы",
+    "noReviews": "Будьте первым, кто оставит отзыв!"
   }
 }

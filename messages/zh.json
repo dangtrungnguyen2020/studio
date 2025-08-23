@@ -228,5 +228,21 @@
     "statusUpdateSuccess": "管理员状态已更新。",
     "statusUpdateSuccessDesc": "用户的权限已更改。",
     "statusUpdateError": "更新状态失败。"
+  },
+  "ProductPage": {
+    "title": "产品",
+    "subtitle": "/ 键盘",
+    "browseProducts": "浏览键盘",
+    "filter": "筛选",
+    "filterByBrand": "品牌",
+    "filterByGen": "代",
+    "filterByLayout": "布局",
+    "noProducts": "没有与您当前筛选条件匹配的产品。尝试删除一些！",
+    "notFound": "未找到产品",
+    "backToProducts": "返回产品",
+    "features": "特点",
+    "specs": "规格",
+    "reviews": "评论",
+    "noReviews": "成为第一个留下评论的人！"
   }
 }

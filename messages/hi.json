@@ -228,5 +228,21 @@
     "statusUpdateSuccess": "व्यवस्थापक स्थिति अपडेट की गई।",
     "statusUpdateSuccessDesc": "उपयोगकर्ता की अनुमतियाँ बदल दी गई हैं।",
     "statusUpdateError": "स्थिति अपडेट करने में विफल।"
+  },
+  "ProductPage": {
+    "title": "उत्पाद",
+    "subtitle": "/ कीबोर्ड",
+    "browseProducts": "कीबोर्ड ब्राउज़ करें",
+    "filter": "फ़िल्टर",
+    "filterByBrand": "ब्रांड",
+    "filterByGen": "पीढ़ी",
+    "filterByLayout": "ख़ाका",
+    "noProducts": "कोई भी उत्पाद आपके वर्तमान फ़िल्टर से मेल नहीं खाता। कुछ हटाने का प्रयास करें!",
+    "notFound": "उत्पाद नहीं मिला",
+    "backToProducts": "उत्पादों पर वापस",
+    "features": "विशेषताएँ",
+    "specs": "विशेष विवरण",
+    "reviews": "समीक्षाएं",
+    "noReviews": "समीक्षा लिखने वाले पहले व्यक्ति बनें!"
   }
 }

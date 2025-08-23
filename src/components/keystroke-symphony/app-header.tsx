@@ -12,6 +12,7 @@ import {
   LayoutDashboard,
   Users,
   Shield,
+  Keyboard
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -33,7 +34,7 @@ import { useEffect, useState } from 'react';
 import { getAdminUids } from '@/app/actions-for-client';
 
 type AppHeaderProps = {
-  page: 'home' | 'game' | 'info' | 'articles' | 'new-article' | 'view-article' | 'admin' | 'admin-dashboard' | 'admin-users';
+  page: 'home' | 'game' | 'info' | 'articles' | 'new-article' | 'view-article' | 'admin' | 'admin-dashboard' | 'admin-users' | 'products' | 'view-product';
 };
 
 export default function AppHeader({ page }: AppHeaderProps) {
@@ -43,6 +44,7 @@ export default function AppHeader({ page }: AppHeaderProps) {
   const tSettings = useTranslations('ThemeSwitcher');
   const tArticles = useTranslations('ArticlePage');
   const tAdmin = useTranslations('AdminPage');
+  const tProducts = useTranslations('ProductPage');
   
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -71,6 +73,9 @@ export default function AppHeader({ page }: AppHeaderProps) {
       case 'admin-dashboard':
       case 'admin-users':
         return tAdmin.raw('title');
+      case 'products':
+      case 'view-product':
+        return tProducts.raw('title');
       default:
         return tHome('title');
     }
@@ -92,6 +97,8 @@ export default function AppHeader({ page }: AppHeaderProps) {
         return tAdmin('dashboardSubtitle');
        case 'admin-users':
         return tAdmin('usersSubtitle');
+       case 'products':
+        return tProducts('subtitle');
       default:
         return undefined;
     }
@@ -177,6 +184,12 @@ export default function AppHeader({ page }: AppHeaderProps) {
               <LanguageSwitcher />
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
+             <Link href="/products">
+                <DropdownMenuItem>
+                  <Keyboard className="h-4 w-4 mr-2" />
+                  {tProducts('title')}
+                </DropdownMenuItem>
+              </Link>
              <Link href="/articles">
                 <DropdownMenuItem>
                   <Newspaper className="h-4 w-4 mr-2" />

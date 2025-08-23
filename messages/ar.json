@@ -228,5 +228,21 @@
     "statusUpdateSuccess": "تم تحديث حالة المسؤول.",
     "statusUpdateSuccessDesc": "تم تغيير أذونات المستخدم.",
     "statusUpdateError": "فشل تحديث الحالة."
+  },
+  "ProductPage": {
+    "title": "المنتجات",
+    "subtitle": "/ لوحات المفاتيح",
+    "browseProducts": "تصفح لوحات المفاتيح",
+    "filter": "تصفية",
+    "filterByBrand": "العلامة التجارية",
+    "filterByGen": "الجيل",
+    "filterByLayout": "التخطيط",
+    "noProducts": "لا توجد منتجات تطابق عوامل التصفية الحالية. حاول إزالة البعض!",
+    "notFound": "المنتج غير موجود",
+    "backToProducts": "العودة إلى المنتجات",
+    "features": "الميزات",
+    "specs": "المواصفات",
+    "reviews": "المراجعات",
+    "noReviews": "كن أول من يترك مراجعة!"
   }
 }

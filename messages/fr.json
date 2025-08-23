@@ -228,5 +228,21 @@
     "statusUpdateSuccess": "Statut d'administrateur mis à jour.",
     "statusUpdateSuccessDesc": "Les autorisations de l'utilisateur ont été modifiées.",
     "statusUpdateError": "Échec de la mise à jour du statut."
+  },
+  "ProductPage": {
+    "title": "Produits",
+    "subtitle": "/ Claviers",
+    "browseProducts": "Parcourir les claviers",
+    "filter": "Filtrer",
+    "filterByBrand": "Marque",
+    "filterByGen": "Génération",
+    "filterByLayout": "Disposition",
+    "noProducts": "Aucun produit ne correspond à vos filtres actuels. Essayez d'en supprimer !",
+    "notFound": "Produit non trouvé",
+    "backToProducts": "Retour aux produits",
+    "features": "Caractéristiques",
+    "specs": "Spécifications",
+    "reviews": "Avis",
+    "noReviews": "Soyez le premier à laisser un avis !"
   }
 }

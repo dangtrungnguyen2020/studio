@@ -454,3 +454,125 @@ export async function setAdminStatus(adminUserId: string, targetUserId: string, 
         throw new Error("Failed to update admin status.");
     }
 }
+
+// Product Actions
+export type Product = {
+    id: string;
+    name: Record<string, string>;
+    brand: string;
+    generation: string;
+    layout: string;
+    imageUrl: string;
+    description: Record<string, string>;
+    features: Record<string, string[]>;
+    specs: Record<string, Record<string, string>>;
+    originalLanguage: string;
+};
+
+async function translateProduct(product: Product, targetLocale: string): Promise<Product> {
+    const translatedProduct = { ...product };
+    const needsTranslation = (field: keyof Product) => !product[field][targetLocale];
+
+    const translations: Promise<any>[] = [];
+
+    if (needsTranslation('name')) {
+        translations.push(translateText({ text: product.name.en, targetLanguage: targetLocale }));
+    } else {
+        translations.push(Promise.resolve({ translation: product.name[targetLocale] }));
+    }
+
+    if (needsTranslation('description')) {
+        translations.push(translateText({ text: product.description.en, targetLanguage: targetLocale }));
+    } else {
+        translations.push(Promise.resolve({ translation: product.description[targetLocale] }));
+    }
+    
+    // This is a simplified translation for features and specs
+    // In a real app, you might want a more robust way to handle this
+    if (needsTranslation('features')) {
+         const translatedFeatures = await Promise.all(
+            product.features.en.map(feature => translateText({ text: feature, targetLanguage: targetLocale }))
+        );
+        translatedProduct.features[targetLocale] = translatedFeatures.map(f => f.translation);
+    }
+    
+    if (needsTranslation('specs')) {
+        const specKeys = Object.keys(product.specs.en);
+        const specValues = Object.values(product.specs.en);
+        const translatedValues = await Promise.all(
+            specValues.map(value => translateText({ text: value, targetLanguage: targetLocale }))
+        );
+        const translatedSpecs: Record<string, string> = {};
+        specKeys.forEach((key, index) => {
+            translatedSpecs[key] = translatedValues[index].translation;
+        });
+        translatedProduct.specs[targetLocale] = translatedSpecs;
+    }
+
+
+    const [name, description] = await Promise.all(translations);
+    
+    translatedProduct.name[targetLocale] = name.translation;
+    translatedProduct.description[targetLocale] = description.translation;
+
+    // Asynchronously update the database with the new translations
+    updateDoc(doc(db, 'products', product.id), {
+        [`name.${targetLocale}`]: translatedProduct.name[targetLocale],
+        [`description.${targetLocale}`]: translatedProduct.description[targetLocale],
+        [`features.${targetLocale}`]: translatedProduct.features[targetLocale],
+        [`specs.${targetLocale}`]: translatedProduct.specs[targetLocale],
+    }).catch(console.error);
+
+    return translatedProduct;
+}
+
+
+export async function getProducts(): Promise<Product[]> {
+    try {
+        const locale = await getLocale();
+        const q = query(collection(db, "products"), orderBy("brand"), orderBy("name.en"));
+        const querySnapshot = await getDocs(q);
+
+        const products = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        } as Product));
+
+        const translatedProducts = await Promise.all(products.map(async (product) => {
+            if (product.name[locale]) {
+                return product;
+            }
+            return await translateProduct(product, locale);
+        }));
+
+        return translatedProducts;
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        return [];
+    }
+}
+
+export async function getProduct(id: string): Promise<Product | null> {
+    try {
+        const docRef = doc(db, "products", id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            let product = {
+                id: docSnap.id,
+                ...docSnap.data()
+            } as Product;
+
+            const locale = await getLocale();
+            if (!product.name[locale] || !product.description[locale]) {
+                product = await translateProduct(product, locale);
+            }
+            return product;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error("Error fetching product:", error);
+        return null;
+    }
+}

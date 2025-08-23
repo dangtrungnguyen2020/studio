@@ -230,5 +230,21 @@
     "statusUpdateSuccess": "Đã cập nhật trạng thái quản trị.",
     "statusUpdateSuccessDesc": "Quyền của người dùng đã được thay đổi.",
     "statusUpdateError": "Không thể cập nhật trạng thái."
+  },
+  "ProductPage": {
+    "title": "Sản phẩm",
+    "subtitle": "/ Bàn phím",
+    "browseProducts": "Duyệt Bàn phím",
+    "filter": "Lọc",
+    "filterByBrand": "Thương hiệu",
+    "filterByGen": "Thế hệ",
+    "filterByLayout": "Bố cục",
+    "noProducts": "Không có sản phẩm nào phù hợp với bộ lọc hiện tại của bạn. Hãy thử xóa một số bộ lọc!",
+    "notFound": "Không tìm thấy sản phẩm",
+    "backToProducts": "Quay lại Sản phẩm",
+    "features": "Tính năng",
+    "specs": "Thông số kỹ thuật",
+    "reviews": "Đánh giá",
+    "noReviews": "Hãy là người đầu tiên để lại đánh giá!"
   }
 }

@@ -228,5 +228,21 @@
     "statusUpdateSuccess": "Estado de administrador actualizado.",
     "statusUpdateSuccessDesc": "Los permisos del usuario han sido cambiados.",
     "statusUpdateError": "Error al actualizar el estado."
+  },
+  "ProductPage": {
+    "title": "Productos",
+    "subtitle": "/ Teclados",
+    "browseProducts": "Explorar Teclados",
+    "filter": "Filtrar",
+    "filterByBrand": "Marca",
+    "filterByGen": "Generación",
+    "filterByLayout": "Diseño",
+    "noProducts": "Ningún producto coincide con tus filtros actuales. ¡Prueba a eliminar algunos!",
+    "notFound": "Producto No Encontrado",
+    "backToProducts": "Volver a Productos",
+    "features": "Características",
+    "specs": "Especificaciones",
+    "reviews": "Reseñas",
+    "noReviews": "¡Sé el primero en dejar una reseña!"
   }
 }

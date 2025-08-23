@@ -230,5 +230,21 @@
     "statusUpdateSuccess": "Admin status updated.",
     "statusUpdateSuccessDesc": "The user's permissions have been changed.",
     "statusUpdateError": "Failed to update status."
+  },
+   "ProductPage": {
+    "title": "Products",
+    "subtitle": "/ Keyboards",
+    "browseProducts": "Browse Keyboards",
+    "filter": "Filter",
+    "filterByBrand": "Brand",
+    "filterByGen": "Generation",
+    "filterByLayout": "Layout",
+    "noProducts": "No products match your current filters. Try removing some!",
+    "notFound": "Product Not Found",
+    "backToProducts": "Back to Products",
+    "features": "Features",
+    "specs": "Specifications",
+    "reviews": "Reviews",
+    "noReviews": "Be the first to leave a review!"
   }
 }

@@ -228,5 +228,21 @@
     "statusUpdateSuccess": "管理者ステータスが更新されました。",
     "statusUpdateSuccessDesc": "ユーザーの権限が変更されました。",
     "statusUpdateError": "ステータスの更新に失敗しました。"
+  },
+  "ProductPage": {
+    "title": "製品",
+    "subtitle": "/ キーボード",
+    "browseProducts": "キーボードを閲覧",
+    "filter": "フィルター",
+    "filterByBrand": "ブランド",
+    "filterByGen": "世代",
+    "filterByLayout": "レイアウト",
+    "noProducts": "現在のフィルターに一致する製品はありません。いくつか削除してみてください！",
+    "notFound": "製品が見つかりません",
+    "backToProducts": "製品に戻る",
+    "features": "特徴",
+    "specs": "仕様",
+    "reviews": "レビュー",
+    "noReviews": "最初のレビューを残してください！"
   }
 }
