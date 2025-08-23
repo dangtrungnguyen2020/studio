@@ -186,6 +186,7 @@
     "title": "Админ",
     "subtitle": "/ Проверка",
     "dashboardSubtitle": "/ Панель управления",
+    "usersSubtitle": "/ Пользователи",
     "pendingTitle": "Статьи на рассмотрении",
     "pendingDescription": "Просмотрите и одобрите или отклоните статьи, отправленные пользователями.",
     "tableTitle": "Заголовок",
@@ -214,6 +215,17 @@
     "avgAccuracyTitle": "Средняя точность",
     "avgAccuracyDesc": "Средний процент точности по всем тестам.",
     "testsOverTimeTitle": "Тесты с течением времени",
-    "difficultyDistTitle": "Распределение сложности"
+    "difficultyDistTitle": "Распределение сложности",
+    "usersTitle": "Управление пользователями",
+    "usersDescription": "Назначение или отзыв прав администратора для пользователей.",
+    "tableUser": "Пользователь",
+    "tableEmail": "Электронная почта",
+    "tableAdmin": "Администратор",
+    "anonymous": "Анонимный",
+    "noUsers": "Пользователи не найдены.",
+    "usersError": "Не удалось загрузить пользователей.",
+    "statusUpdateSuccess": "Статус администратора обновлен.",
+    "statusUpdateSuccessDesc": "Разрешения пользователя были изменены.",
+    "statusUpdateError": "Не удалось обновить статус."
   }
 }

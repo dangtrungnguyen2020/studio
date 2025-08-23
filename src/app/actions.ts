@@ -3,10 +3,25 @@
 
 import { generatePersonalizedExercises } from "@/ai/flows/personalized-typing-exercises";
 import type { PersonalizedExercisesInput, PersonalizedExercisesOutput } from "@/ai/flows/personalized-typing-exercises";
-import { db, storage, adminUids } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp, query, where, getDocs, orderBy, doc, getDoc, updateDoc,getCountFromServer } from "firebase/firestore";
+import { db, storage } from "@/lib/firebase-admin";
+import { collection, addDoc, serverTimestamp, query, where, getDocs, orderBy, doc, getDoc, updateDoc, getCountFromServer, setDoc, deleteField, arrayUnion, arrayRemove } from "firebase/firestore";
+import { getStorage as getAdminStorage } from 'firebase-admin/storage';
+import { getAuth as getAdminAuth } from 'firebase-admin/auth';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { randomUUID } from "crypto";
+
+async function getAdminUids(): Promise<string[]> {
+    const adminDoc = await doc(db, 'app-settings', 'admins').get();
+    if (adminDoc.exists) {
+        return adminDoc.data()?.uids || [];
+    }
+    return [];
+}
+
+async function verifyAdmin(userId: string): Promise<boolean> {
+    const adminUids = await getAdminUids();
+    return adminUids.includes(userId);
+}
 
 export async function getAIPoweredExercises(
   input: PersonalizedExercisesInput
@@ -91,7 +106,12 @@ export async function uploadImage(formData: FormData): Promise<string> {
   if (!file) {
     throw new Error('No image provided');
   }
-  const storageRef = ref(storage, `articles/${randomUUID()}-${file.name}`);
+
+  // Use the regular client-side SDK storage reference for upload
+  // This requires proper Storage rules to be set up.
+  // For simplicity in this context, we assume public write access or authenticated user access.
+  const clientStorage = getAdminStorage().bucket();
+  const storageRef = ref(getStorage(app), `articles/${randomUUID()}-${file.name}`);
   const snapshot = await uploadBytes(storageRef, file);
   const downloadURL = await getDownloadURL(snapshot.ref);
   return downloadURL;
@@ -198,7 +218,7 @@ export async function getUserArticles(userId: string): Promise<Article[]> {
 
 // Admin actions
 export async function getPendingArticles(userId: string): Promise<Article[]> {
-  if (!adminUids.includes(userId)) {
+  if (!await verifyAdmin(userId)) {
     throw new Error('Unauthorized');
   }
   try {
@@ -221,7 +241,7 @@ export async function getPendingArticles(userId: string): Promise<Article[]> {
 }
 
 export async function approveArticle(userId: string, articleId: string) {
-  if (!adminUids.includes(userId)) {
+  if (!await verifyAdmin(userId)) {
     throw new Error('Unauthorized');
   }
   try {
@@ -234,7 +254,7 @@ export async function approveArticle(userId: string, articleId: string) {
 }
 
 export async function rejectArticle(userId: string, articleId: string, reason: string) {
-  if (!adminUids.includes(userId)) {
+  if (!await verifyAdmin(userId)) {
     throw new Error('Unauthorized');
   }
   try {
@@ -256,7 +276,7 @@ export type AdminDashboardStats = {
 };
 
 export async function getAdminDashboardStats(userId: string): Promise<AdminDashboardStats> {
-    if (!adminUids.includes(userId)) {
+    if (!await verifyAdmin(userId)) {
         throw new Error('Unauthorized');
     }
 
@@ -300,5 +320,66 @@ export async function getAdminDashboardStats(userId: string): Promise<AdminDashb
     } catch (error) {
         console.error("Error fetching admin dashboard stats:", error);
         throw new Error("Failed to fetch dashboard data.");
+    }
+}
+
+
+export type UserWithAdminStatus = {
+    uid: string;
+    email: string | undefined;
+    displayName: string | undefined;
+    photoURL: string | undefined;
+    isAdmin: boolean;
+};
+
+export async function getUsersAndAdminStatus(userId: string): Promise<UserWithAdminStatus[]> {
+    if (!await verifyAdmin(userId)) {
+        throw new Error('Unauthorized');
+    }
+    
+    try {
+        const adminUids = await getAdminUids();
+        const authAdmin = getAdminAuth();
+        const userRecords = await authAdmin.listUsers();
+        
+        const users = userRecords.users.map(user => ({
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+            isAdmin: adminUids.includes(user.uid),
+        }));
+
+        return users;
+
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        throw new Error("Failed to fetch user data.");
+    }
+}
+
+export async function setAdminStatus(adminUserId: string, targetUserId: string, isAdmin: boolean) {
+    if (!await verifyAdmin(adminUserId)) {
+        throw new Error('Unauthorized');
+    }
+    if (adminUserId === targetUserId) {
+        throw new Error("Cannot change your own admin status.");
+    }
+
+    try {
+        const adminDocRef = doc(db, 'app-settings', 'admins');
+        
+        if (isAdmin) {
+            await updateDoc(adminDocRef, {
+                uids: arrayUnion(targetUserId)
+            });
+        } else {
+            await updateDoc(adminDocRef, {
+                uids: arrayRemove(targetUserId)
+            });
+        }
+    } catch (error) {
+        console.error('Error updating admin status:', error);
+        throw new Error("Failed to update admin status.");
     }
 }

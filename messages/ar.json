@@ -186,6 +186,7 @@
     "title": "مشرف",
     "subtitle": "/ مراجعة",
     "dashboardSubtitle": "/ لوحة التحكم",
+    "usersSubtitle": "/ المستخدمون",
     "pendingTitle": "المقالات المعلقة",
     "pendingDescription": "مراجعة والموافقة على أو رفض المقالات المقدمة من المستخدمين.",
     "tableTitle": "العنوان",
@@ -214,6 +215,17 @@
     "avgAccuracyTitle": "متوسط ​​الدقة",
     "avgAccuracyDesc": "متوسط ​​نسبة الدقة في جميع الاختبارات.",
     "testsOverTimeTitle": "الاختبارات عبر الزمن",
-    "difficultyDistTitle": "توزيع الصعوبة"
+    "difficultyDistTitle": "توزيع الصعوبة",
+    "usersTitle": "إدارة المستخدمين",
+    "usersDescription": "تعيين أو إلغاء امتيازات المسؤول للمستخدمين.",
+    "tableUser": "المستخدم",
+    "tableEmail": "البريد الإلكتروني",
+    "tableAdmin": "مسؤول",
+    "anonymous": "مجهول",
+    "noUsers": "لم يتم العثور على مستخدمين.",
+    "usersError": "تعذر تحميل المستخدمين.",
+    "statusUpdateSuccess": "تم تحديث حالة المسؤول.",
+    "statusUpdateSuccessDesc": "تم تغيير أذونات المستخدم.",
+    "statusUpdateError": "فشل تحديث الحالة."
   }
 }

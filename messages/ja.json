@@ -186,6 +186,7 @@
     "title": "管理者",
     "subtitle": "/ レビュー",
     "dashboardSubtitle": "/ ダッシュボード",
+    "usersSubtitle": "/ ユーザー",
     "pendingTitle": "保留中の記事",
     "pendingDescription": "ユーザーが送信した記事を確認し、承認または拒否します。",
     "tableTitle": "タイトル",
@@ -214,6 +215,17 @@
     "avgAccuracyTitle": "平均精度",
     "avgAccuracyDesc": "すべてのテストの平均精度パーセンテージ。",
     "testsOverTimeTitle": "経時的なテスト",
-    "difficultyDistTitle": "難易度分布"
+    "difficultyDistTitle": "難易度分布",
+    "usersTitle": "ユーザーを管理",
+    "usersDescription": "ユーザーの管理者権限を割り当てまたは取り消します。",
+    "tableUser": "ユーザー",
+    "tableEmail": "Eメール",
+    "tableAdmin": "管理者",
+    "anonymous": "匿名",
+    "noUsers": "ユーザーが見つかりません。",
+    "usersError": "ユーザーを読み込めませんでした。",
+    "statusUpdateSuccess": "管理者ステータスが更新されました。",
+    "statusUpdateSuccessDesc": "ユーザーの権限が変更されました。",
+    "statusUpdateError": "ステータスの更新に失敗しました。"
   }
 }

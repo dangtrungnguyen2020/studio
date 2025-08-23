@@ -188,6 +188,7 @@
     "title": "Admin",
     "subtitle": "/ Review",
     "dashboardSubtitle": "/ Dashboard",
+    "usersSubtitle": "/ Users",
     "pendingTitle": "Pending Articles",
     "pendingDescription": "Review and approve or reject user-submitted articles.",
     "tableTitle": "Title",
@@ -216,6 +217,17 @@
     "avgAccuracyTitle": "Average Accuracy",
     "avgAccuracyDesc": "The average accuracy percentage across all tests.",
     "testsOverTimeTitle": "Tests Over Time",
-    "difficultyDistTitle": "Difficulty Distribution"
+    "difficultyDistTitle": "Difficulty Distribution",
+    "usersTitle": "Manage Users",
+    "usersDescription": "Assign or revoke admin privileges for users.",
+    "tableUser": "User",
+    "tableEmail": "Email",
+    "tableAdmin": "Admin",
+    "anonymous": "Anonymous",
+    "noUsers": "No users found.",
+    "usersError": "Could not load users.",
+    "statusUpdateSuccess": "Admin status updated.",
+    "statusUpdateSuccessDesc": "The user's permissions have been changed.",
+    "statusUpdateError": "Failed to update status."
   }
 }

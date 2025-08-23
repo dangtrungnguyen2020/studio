@@ -186,6 +186,7 @@
     "title": "Admin",
     "subtitle": "/ Examen",
     "dashboardSubtitle": "/ Tableau de bord",
+    "usersSubtitle": "/ Utilisateurs",
     "pendingTitle": "Articles en attente",
     "pendingDescription": "Examinez et approuvez ou rejetez les articles soumis par les utilisateurs.",
     "tableTitle": "Titre",
@@ -214,6 +215,17 @@
     "avgAccuracyTitle": "Précision moyenne",
     "avgAccuracyDesc": "Le pourcentage de précision moyen pour tous les tests.",
     "testsOverTimeTitle": "Tests au fil du temps",
-    "difficultyDistTitle": "Répartition de la difficulté"
+    "difficultyDistTitle": "Répartition de la difficulté",
+    "usersTitle": "Gérer les utilisateurs",
+    "usersDescription": "Attribuer ou révoquer les privilèges d'administrateur pour les utilisateurs.",
+    "tableUser": "Utilisateur",
+    "tableEmail": "E-mail",
+    "tableAdmin": "Admin",
+    "anonymous": "Anonyme",
+    "noUsers": "Aucun utilisateur trouvé.",
+    "usersError": "Impossible de charger les utilisateurs.",
+    "statusUpdateSuccess": "Statut d'administrateur mis à jour.",
+    "statusUpdateSuccessDesc": "Les autorisations de l'utilisateur ont été modifiées.",
+    "statusUpdateError": "Échec de la mise à jour du statut."
   }
 }

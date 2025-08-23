@@ -186,6 +186,7 @@
     "title": "Admin",
     "subtitle": "/ Überprüfung",
     "dashboardSubtitle": "/ Dashboard",
+    "usersSubtitle": "/ Benutzer",
     "pendingTitle": "Ausstehende Artikel",
     "pendingDescription": "Überprüfen und genehmigen oder ablehnen Sie von Benutzern eingereichte Artikel.",
     "tableTitle": "Titel",
@@ -214,6 +215,17 @@
     "avgAccuracyTitle": "Durchschnittliche Genauigkeit",
     "avgAccuracyDesc": "Der durchschnittliche Genauigkeitsprozentsatz über alle Tests.",
     "testsOverTimeTitle": "Tests im Laufe der Zeit",
-    "difficultyDistTitle": "Schwierigkeitsverteilung"
+    "difficultyDistTitle": "Schwierigkeitsverteilung",
+    "usersTitle": "Benutzer verwalten",
+    "usersDescription": "Admin-Rechte für Benutzer zuweisen oder entziehen.",
+    "tableUser": "Benutzer",
+    "tableEmail": "E-Mail",
+    "tableAdmin": "Admin",
+    "anonymous": "Anonym",
+    "noUsers": "Keine Benutzer gefunden.",
+    "usersError": "Benutzer konnten nicht geladen werden.",
+    "statusUpdateSuccess": "Admin-Status aktualisiert.",
+    "statusUpdateSuccessDesc": "Die Berechtigungen des Benutzers wurden geändert.",
+    "statusUpdateError": "Status konnte nicht aktualisiert werden."
   }
 }

@@ -186,6 +186,7 @@
     "title": "Administración",
     "subtitle": "/ Revisión",
     "dashboardSubtitle": "/ Panel de control",
+    "usersSubtitle": "/ Usuarios",
     "pendingTitle": "Artículos Pendientes",
     "pendingDescription": "Revisa y aprueba o rechaza los artículos enviados por los usuarios.",
     "tableTitle": "Título",
@@ -214,6 +215,17 @@
     "avgAccuracyTitle": "Precisión Promedio",
     "avgAccuracyDesc": "El porcentaje de precisión promedio en todas las pruebas.",
     "testsOverTimeTitle": "Pruebas a lo largo del tiempo",
-    "difficultyDistTitle": "Distribución de Dificultad"
+    "difficultyDistTitle": "Distribución de Dificultad",
+    "usersTitle": "Administrar Usuarios",
+    "usersDescription": "Asignar o revocar privilegios de administrador para los usuarios.",
+    "tableUser": "Usuario",
+    "tableEmail": "Correo electrónico",
+    "tableAdmin": "Administrador",
+    "anonymous": "Anónimo",
+    "noUsers": "No se encontraron usuarios.",
+    "usersError": "No se pudieron cargar los usuarios.",
+    "statusUpdateSuccess": "Estado de administrador actualizado.",
+    "statusUpdateSuccessDesc": "Los permisos del usuario han sido cambiados.",
+    "statusUpdateError": "Error al actualizar el estado."
   }
 }

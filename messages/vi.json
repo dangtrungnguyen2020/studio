@@ -188,6 +188,7 @@
     "title": "Quản trị",
     "subtitle": "/ Xem xét",
     "dashboardSubtitle": "/ Bảng điều khiển",
+    "usersSubtitle": "/ Người dùng",
     "pendingTitle": "Bài viết đang chờ xử lý",
     "pendingDescription": "Xem xét và phê duyệt hoặc từ chối các bài viết do người dùng gửi.",
     "tableTitle": "Tiêu đề",
@@ -216,6 +217,17 @@
     "avgAccuracyTitle": "Độ chính xác trung bình",
     "avgAccuracyDesc": "Tỷ lệ phần trăm độ chính xác trung bình trên tất cả các bài kiểm tra.",
     "testsOverTimeTitle": "Số bài kiểm tra theo thời gian",
-    "difficultyDistTitle": "Phân phối độ khó"
+    "difficultyDistTitle": "Phân phối độ khó",
+    "usersTitle": "Quản lý người dùng",
+    "usersDescription": "Gán hoặc thu hồi quyền quản trị cho người dùng.",
+    "tableUser": "Người dùng",
+    "tableEmail": "Email",
+    "tableAdmin": "Quản trị viên",
+    "anonymous": "Ẩn danh",
+    "noUsers": "Không tìm thấy người dùng.",
+    "usersError": "Không thể tải người dùng.",
+    "statusUpdateSuccess": "Đã cập nhật trạng thái quản trị.",
+    "statusUpdateSuccessDesc": "Quyền của người dùng đã được thay đổi.",
+    "statusUpdateError": "Không thể cập nhật trạng thái."
   }
 }

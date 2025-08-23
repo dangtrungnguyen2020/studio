@@ -186,6 +186,7 @@
     "title": "Admin",
     "subtitle": "/ Revisão",
     "dashboardSubtitle": "/ Painel",
+    "usersSubtitle": "/ Usuários",
     "pendingTitle": "Artigos Pendentes",
     "pendingDescription": "Revise e aprove ou rejeite os artigos enviados pelos usuários.",
     "tableTitle": "Título",
@@ -214,6 +215,17 @@
     "avgAccuracyTitle": "Precisão Média",
     "avgAccuracyDesc": "A porcentagem de precisão média em todos os testes.",
     "testsOverTimeTitle": "Testes ao Longo do Tempo",
-    "difficultyDistTitle": "Distribuição de Dificuldade"
+    "difficultyDistTitle": "Distribuição de Dificuldade",
+    "usersTitle": "Gerenciar Usuários",
+    "usersDescription": "Atribuir ou revogar privilégios de administrador para usuários.",
+    "tableUser": "Usuário",
+    "tableEmail": "E-mail",
+    "tableAdmin": "Admin",
+    "anonymous": "Anônimo",
+    "noUsers": "Nenhum usuário encontrado.",
+    "usersError": "Não foi possível carregar os usuários.",
+    "statusUpdateSuccess": "Status de administrador atualizado.",
+    "statusUpdateSuccessDesc": "As permissões do usuário foram alteradas.",
+    "statusUpdateError": "Falha ao atualizar o status."
   }
 }

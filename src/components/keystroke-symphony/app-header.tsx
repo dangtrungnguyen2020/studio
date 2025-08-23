@@ -10,6 +10,7 @@ import {
   Newspaper,
   ShieldCheck,
   LayoutDashboard,
+  Users,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -25,11 +26,13 @@ import LanguageSwitcher from '@/components/language-switcher';
 import LoginDialog from '@/components/keystroke-symphony/login-dialog';
 import UserMenu from '@/components/keystroke-symphony/user-menu';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, adminUids } from '@/lib/firebase';
+import { auth } from '@/lib/firebase';
 import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
+import { getAdminUids } from '@/app/actions-for-client';
 
 type AppHeaderProps = {
-  page: 'home' | 'game' | 'info' | 'articles' | 'new-article' | 'view-article' | 'admin' | 'admin-dashboard';
+  page: 'home' | 'game' | 'info' | 'articles' | 'new-article' | 'view-article' | 'admin' | 'admin-dashboard' | 'admin-users';
 };
 
 export default function AppHeader({ page }: AppHeaderProps) {
@@ -39,22 +42,33 @@ export default function AppHeader({ page }: AppHeaderProps) {
   const tSettings = useTranslations('ThemeSwitcher');
   const tArticles = useTranslations('ArticlePage');
   const tAdmin = useTranslations('AdminPage');
+  
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  const isAdmin = user && adminUids.includes(user.uid);
+  useEffect(() => {
+    async function checkAdmin() {
+      if (user) {
+        const uids = await getAdminUids();
+        setIsAdmin(uids.includes(user.uid));
+      } else {
+        setIsAdmin(false);
+      }
+    }
+    checkAdmin();
+  }, [user]);
+
 
   const getTitle = () => {
     switch (page) {
       case 'game':
         return tGame('title');
       case 'articles':
-        return tArticles.raw('title');
-       case 'new-article':
-        return tArticles.raw('title');
-       case 'view-article':
+      case 'new-article':
+      case 'view-article':
         return tArticles.raw('title');
       case 'admin':
-        return tAdmin.raw('title');
       case 'admin-dashboard':
+      case 'admin-users':
         return tAdmin.raw('title');
       default:
         return tHome('title');
@@ -75,6 +89,8 @@ export default function AppHeader({ page }: AppHeaderProps) {
         return tAdmin('subtitle');
        case 'admin-dashboard':
         return tAdmin('dashboardSubtitle');
+       case 'admin-users':
+        return tAdmin('usersSubtitle');
       default:
         return undefined;
     }
@@ -138,6 +154,7 @@ export default function AppHeader({ page }: AppHeaderProps) {
             {isAdmin && (
               <>
                <DropdownMenuSeparator />
+               <DropdownMenuLabel>{tAdmin('title')}</DropdownMenuLabel>
                <Link href="/admin/dashboard">
                 <DropdownMenuItem>
                   <LayoutDashboard className="h-4 w-4 mr-2" />
@@ -148,6 +165,12 @@ export default function AppHeader({ page }: AppHeaderProps) {
                 <DropdownMenuItem>
                   <ShieldCheck className="h-4 w-4 mr-2" />
                   {tAdmin('reviewTitle')}
+                </DropdownMenuItem>
+              </Link>
+              <Link href="/admin/users">
+                <DropdownMenuItem>
+                  <Users className="h-4 w-4 mr-2" />
+                  {tAdmin('usersTitle')}
                 </DropdownMenuItem>
               </Link>
               </>

@@ -186,6 +186,7 @@
     "title": "व्यवस्थापक",
     "subtitle": "/ समीक्षा",
     "dashboardSubtitle": "/ डैशबोर्ड",
+    "usersSubtitle": "/ उपयोगकर्ता",
     "pendingTitle": "लंबित लेख",
     "pendingDescription": "उपयोगकर्ता द्वारा सबमिट किए गए लेखों की समीक्षा करें और उन्हें स्वीकृत या अस्वीकृत करें।",
     "tableTitle": "शीर्षक",
@@ -214,6 +215,17 @@
     "avgAccuracyTitle": "औसत सटीकता",
     "avgAccuracyDesc": "सभी टेस्टों में औसत सटीकता प्रतिशत।",
     "testsOverTimeTitle": "समय के साथ टेस्ट",
-    "difficultyDistTitle": "कठिनाई वितरण"
+    "difficultyDistTitle": "कठिनाई वितरण",
+    "usersTitle": "उपयोगकर्ताओं का प्रबंधन करें",
+    "usersDescription": "उपयोगकर्ताओं के लिए व्यवस्थापक विशेषाधिकार निर्दिष्ट करें या रद्द करें।",
+    "tableUser": "उपयोगकर्ता",
+    "tableEmail": "ईमेल",
+    "tableAdmin": "व्यवस्थापक",
+    "anonymous": "गुमनाम",
+    "noUsers": "कोई उपयोगकर्ता नहीं मिला।",
+    "usersError": "उपयोगकर्ताओं को लोड नहीं किया जा सका।",
+    "statusUpdateSuccess": "व्यवस्थापक स्थिति अपडेट की गई।",
+    "statusUpdateSuccessDesc": "उपयोगकर्ता की अनुमतियाँ बदल दी गई हैं।",
+    "statusUpdateError": "स्थिति अपडेट करने में विफल।"
   }
 }

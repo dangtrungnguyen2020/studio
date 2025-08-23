@@ -186,6 +186,7 @@
     "title": "管理",
     "subtitle": "/ 审核",
     "dashboardSubtitle": "/ 仪表板",
+    "usersSubtitle": "/ 用户",
     "pendingTitle": "待审核的文章",
     "pendingDescription": "审核并批准或拒绝用户提交的文章。",
     "tableTitle": "标题",
@@ -214,6 +215,17 @@
     "avgAccuracyTitle": "平均准确率",
     "avgAccuracyDesc": "所有测试的平均准确率百分比。",
     "testsOverTimeTitle": "随时间变化的测试",
-    "difficultyDistTitle": "难度分布"
+    "difficultyDistTitle": "难度分布",
+    "usersTitle": "管理用户",
+    "usersDescription": "为用户分配或撤销管理员权限。",
+    "tableUser": "用户",
+    "tableEmail": "电子邮件",
+    "tableAdmin": "管理员",
+    "anonymous": "匿名",
+    "noUsers": "未找到用户。",
+    "usersError": "无法加载用户。",
+    "statusUpdateSuccess": "管理员状态已更新。",
+    "statusUpdateSuccessDesc": "用户的权限已更改。",
+    "statusUpdateError": "更新状态失败。"
   }
 }
