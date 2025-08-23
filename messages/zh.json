@@ -1,4 +1,3 @@
-
 {
   "HomePage": {
     "title": "击键交响曲",
@@ -147,7 +146,12 @@
     "accuracy": "准确率",
     "difficulty": "难度",
     "notEnoughData": "数据不足，无法显示图表。完成更多测试以查看您的进度！",
-    "noHistory": "您还没有完成任何测试。"
+    "noHistory": "您还没有完成任何测试。",
+    "myArticlesTitle": "我的文章",
+    "articleTitle": "标题",
+    "articleStatus": "状态",
+    "noArticles": "您还没有发表任何文章。",
+    "rejectionReason": "拒绝原因"
   },
   "ArticlePage": {
     "title": "文章",
@@ -165,16 +169,38 @@
     "formContentPlaceholder": "在这里写您的文章。支持 Markdown。",
     "formPreview": "预览",
     "formCancel": "取消",
-    "formSubmit": "发表文章",
+    "formSubmit": "提交文章",
     "formLanguage": "文章语言",
     "formLanguagePlaceholder": "选择一种语言...",
-    "createSuccessTitle": "文章已发表！",
-    "createSuccessDesc": "您的文章现在已经上线，供社区阅读。",
+    "createSuccessTitle": "文章已提交！",
+    "createSuccessDesc": "您的文章已提交以供审核。",
     "createErrorTitle": "发表失败",
     "notFound": "未找到文章",
     "backToArticles": "返回文章列表",
     "shareTitle": "分享",
     "shareLinkCopied": "链接已复制！",
     "shareLinkCopiedDesc": "文章链接已复制到您的剪贴板。"
+  },
+  "AdminPage": {
+    "title": "管理",
+    "subtitle": "/ 审核",
+    "pendingTitle": "待审核的文章",
+    "pendingDescription": "审核并批准或拒绝用户提交的文章。",
+    "tableTitle": "标题",
+    "tableAuthor": "作者",
+    "tableDate": "提交日期",
+    "tableActions": "操作",
+    "noPending": "没有待审核的文章。",
+    "approveSuccess": "文章已批准",
+    "approveSuccessDesc": "文章现已公开。",
+    "approveError": "批准失败",
+    "rejectSuccess": "文章已拒绝",
+    "rejectSuccessDesc": "作者已收到通知。",
+    "rejectError": "拒绝失败",
+    "rejectModalTitle": "拒绝文章",
+    "rejectModalDesc": "请提供拒绝此文章的原因。作者将可以看到此原因。",
+    "rejectReasonPlaceholder": "输入拒绝原因...",
+    "cancel": "取消",
+    "rejectButton": "拒绝"
   }
 }

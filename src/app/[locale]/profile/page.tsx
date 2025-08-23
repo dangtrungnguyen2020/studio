@@ -1,18 +1,16 @@
-
 // src/app/profile/page.tsx
 "use client";
 
 import { useState, useEffect, useMemo } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/lib/firebase';
-import { getTestResults, TestResult } from '@/app/actions';
+import { getTestResults, getUserArticles, TestResult, Article } from '@/app/actions';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-  CardFooter
 } from '@/components/ui/card';
 import {
   Table,
@@ -26,14 +24,15 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-  ChartConfig,
 } from '@/components/ui/chart';
-import { BarChart, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Bar } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Loader2 } from 'lucide-react';
+import { ArrowLeft, Loader2, CheckCircle, XCircle, Clock, AlertTriangle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { format } from 'date-fns';
+import { Badge } from '@/components/ui/badge';
+import Link from 'next/link';
 
 const chartConfig = {
   wpm: {
@@ -44,28 +43,32 @@ const chartConfig = {
     label: 'Accuracy',
     color: 'hsl(var(--accent))',
   },
-} satisfies ChartConfig;
+};
 
 export default function ProfilePage() {
   const t = useTranslations('ProfilePage');
   const [user, loadingAuth] = useAuthState(auth);
-  const [results, setResults] = useState<TestResult[]>([]);
+  const [testResults, setTestResults] = useState<TestResult[]>([]);
+  const [articles, setArticles] = useState<Article[]>([]);
   const [loadingData, setLoadingData] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
     if (user) {
-      getTestResults(user.uid)
-        .then(setResults)
-        .finally(() => setLoadingData(false));
+      Promise.all([
+        getTestResults(user.uid),
+        getUserArticles(user.uid),
+      ]).then(([tests, userArticles]) => {
+        setTestResults(tests);
+        setArticles(userArticles);
+      }).finally(() => setLoadingData(false));
     } else if (!loadingAuth) {
-      // Redirect to home if not logged in after auth state is resolved
       router.push('/');
     }
   }, [user, loadingAuth, router]);
 
   const chartData = useMemo(() => {
-    return results
+    return testResults
       .slice()
       .reverse() // Show oldest first in chart
       .map((r) => ({
@@ -73,20 +76,30 @@ export default function ProfilePage() {
         wpm: r.wpm,
         accuracy: r.accuracy,
       }));
-  }, [results]);
+  }, [testResults]);
 
   const summaryStats = useMemo(() => {
-    if (results.length === 0) {
+    if (testResults.length === 0) {
       return { avgWpm: 0, avgAcc: 0, testsTaken: 0 };
     }
-    const totalWpm = results.reduce((acc, r) => acc + r.wpm, 0);
-    const totalAcc = results.reduce((acc, r) => acc + r.accuracy, 0);
+    const totalWpm = testResults.reduce((acc, r) => acc + r.wpm, 0);
+    const totalAcc = testResults.reduce((acc, r) => acc + r.accuracy, 0);
     return {
-      avgWpm: Math.round(totalWpm / results.length),
-      avgAcc: Math.round(totalAcc / results.length),
-      testsTaken: results.length,
+      avgWpm: Math.round(totalWpm / testResults.length),
+      avgAcc: Math.round(totalAcc / testResults.length),
+      testsTaken: testResults.length,
     };
-  }, [results]);
+  }, [testResults]);
+
+  const getStatusIcon = (status: Article['status']) => {
+    switch (status) {
+        case 'approved': return <CheckCircle className="h-4 w-4 text-green-500" />;
+        case 'rejected': return <XCircle className="h-4 w-4 text-destructive" />;
+        case 'pending':
+        default:
+             return <Clock className="h-4 w-4 text-yellow-500" />;
+    }
+  }
   
   if (loadingAuth || loadingData) {
     return (
@@ -132,7 +145,7 @@ export default function ProfilePage() {
             <CardTitle>{t('progressChartTitle')}</CardTitle>
           </CardHeader>
           <CardContent>
-            {results.length > 1 ? (
+            {testResults.length > 1 ? (
                 <ChartContainer config={chartConfig} className="h-64 w-full">
                     <LineChart data={chartData} margin={{ top: 5, right: 20, left: -10, bottom: 0 }}>
                         <CartesianGrid vertical={false} />
@@ -155,6 +168,61 @@ export default function ProfilePage() {
 
         <Card>
           <CardHeader>
+            <CardTitle>{t('myArticlesTitle')}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>{t('articleTitle')}</TableHead>
+                  <TableHead>{t('date')}</TableHead>
+                  <TableHead>{t('articleStatus')}</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {articles.map((article) => (
+                  <TableRow key={article.id}>
+                    <TableCell>
+                        <Link href={`/articles/${article.id}`} className="hover:underline text-primary">
+                            {article.title}
+                        </Link>
+                    </TableCell>
+                    <TableCell>{format(article.createdAt, 'PP')}</TableCell>
+                    <TableCell>
+                        <Tooltip>
+                             <TooltipTrigger>
+                                <Badge variant={
+                                    article.status === 'approved' ? 'default' : 
+                                    article.status === 'rejected' ? 'destructive' : 'secondary'
+                                } className="capitalize flex items-center gap-1">
+                                    {getStatusIcon(article.status)}
+                                    {article.status}
+                                </Badge>
+                            </TooltipTrigger>
+                             {article.status === 'rejected' && article.rejectionReason && (
+                                <TooltipContent className="max-w-xs">
+                                    <p className="font-bold mb-1">{t('rejectionReason')}</p>
+                                    <p>{article.rejectionReason}</p>
+                                </TooltipContent>
+                            )}
+                        </Tooltip>
+                    </TableCell>
+                  </TableRow>
+                ))}
+                 {articles.length === 0 && (
+                    <TableRow>
+                        <TableCell colSpan={3} className="text-center h-24">
+                           {t('noArticles')}
+                        </TableCell>
+                    </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
             <CardTitle>{t('historyTitle')}</CardTitle>
           </CardHeader>
           <CardContent>
@@ -168,7 +236,7 @@ export default function ProfilePage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {results.map((result) => (
+                {testResults.map((result) => (
                   <TableRow key={result.id}>
                     <TableCell>{format(result.timestamp, 'PPpp')}</TableCell>
                     <TableCell>{result.wpm}</TableCell>
@@ -176,7 +244,7 @@ export default function ProfilePage() {
                     <TableCell className="capitalize">{result.difficulty}</TableCell>
                   </TableRow>
                 ))}
-                 {results.length === 0 && (
+                 {testResults.length === 0 && (
                     <TableRow>
                         <TableCell colSpan={4} className="text-center h-24">
                            {t('noHistory')}

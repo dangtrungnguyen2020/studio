@@ -1,4 +1,3 @@
-
 {
   "HomePage": {
     "title": "कीस्ट्रोक सिम्फनी",
@@ -147,7 +146,12 @@
     "accuracy": "सटीकता",
     "difficulty": "कठिनाई",
     "notEnoughData": "चार्ट प्रदर्शित करने के लिए पर्याप्त डेटा नहीं है। अपनी प्रगति देखने के लिए और टेस्ट पूरे करें!",
-    "noHistory": "आपने अभी तक कोई टेस्ट पूरा नहीं किया है।"
+    "noHistory": "आपने अभी तक कोई टेस्ट पूरा नहीं किया है।",
+    "myArticlesTitle": "मेरे लेख",
+    "articleTitle": "शीर्षक",
+    "articleStatus": "स्थिति",
+    "noArticles": "आपने अभी तक कोई लेख पोस्ट नहीं किया है।",
+    "rejectionReason": "अस्वीकृति का कारण"
   },
   "ArticlePage": {
     "title": "लेख",
@@ -165,16 +169,38 @@
     "formContentPlaceholder": "अपना लेख यहाँ लिखें। मार्कडाउन समर्थित है।",
     "formPreview": "पूर्वावलोकन",
     "formCancel": "रद्द करें",
-    "formSubmit": "लेख प्रकाशित करें",
+    "formSubmit": "लेख जमा करें",
     "formLanguage": "लेख की भाषा",
     "formLanguagePlaceholder": "एक भाषा चुनें...",
-    "createSuccessTitle": "लेख प्रकाशित!",
-    "createSuccessDesc": "आपका लेख अब समुदाय के पढ़ने के लिए लाइव है।",
+    "createSuccessTitle": "लेख सबमिट किया गया!",
+    "createSuccessDesc": "आपका लेख समीक्षा के लिए सबमिट कर दिया गया है।",
     "createErrorTitle": "प्रकाशन विफल",
     "notFound": "लेख नहीं मिला",
     "backToArticles": "लेखों पर वापस",
     "shareTitle": "शेयर करें",
     "shareLinkCopied": "लिंक कॉपी किया गया!",
     "shareLinkCopiedDesc": "लेख का लिंक आपके क्लिपबोर्ड पर कॉपी कर लिया गया है।"
+  },
+  "AdminPage": {
+    "title": "व्यवस्थापक",
+    "subtitle": "/ समीक्षा",
+    "pendingTitle": "लंबित लेख",
+    "pendingDescription": "उपयोगकर्ता द्वारा सबमिट किए गए लेखों की समीक्षा करें और उन्हें स्वीकृत या अस्वीकृत करें।",
+    "tableTitle": "शीर्षक",
+    "tableAuthor": "लेखक",
+    "tableDate": "प्रस्तुत",
+    "tableActions": "कार्रवाइयाँ",
+    "noPending": "समीक्षा के लिए कोई लंबित लेख नहीं है।",
+    "approveSuccess": "लेख स्वीकृत",
+    "approveSuccessDesc": "लेख अब सार्वजनिक है।",
+    "approveError": "अनुमोदन विफल",
+    "rejectSuccess": "लेख अस्वीकृत",
+    "rejectSuccessDesc": "लेखक को सूचित कर दिया गया है।",
+    "rejectError": "अस्वीकृति विफल",
+    "rejectModalTitle": "लेख अस्वीकृत करें",
+    "rejectModalDesc": "कृपया इस लेख को अस्वीकृत करने का कारण बताएं। यह लेखक को दिखाई देगा।",
+    "rejectReasonPlaceholder": "अस्वीकृति का कारण दर्ज करें...",
+    "cancel": "रद्द करें",
+    "rejectButton": "अस्वीकृत करें"
   }
 }

@@ -3,8 +3,8 @@
 
 import { generatePersonalizedExercises } from "@/ai/flows/personalized-typing-exercises";
 import type { PersonalizedExercisesInput, PersonalizedExercisesOutput } from "@/ai/flows/personalized-typing-exercises";
-import { db, storage } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp, query, where, getDocs, orderBy, doc, getDoc } from "firebase/firestore";
+import { db, storage, adminUids } from "@/lib/firebase";
+import { collection, addDoc, serverTimestamp, query, where, getDocs, orderBy, doc, getDoc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { randomUUID } from "crypto";
 
@@ -107,13 +107,16 @@ export type Article = {
   authorPhotoURL: string;
   createdAt: Date;
   language: string;
+  status: 'pending' | 'approved' | 'rejected';
+  rejectionReason?: string;
 };
 
-export async function createArticle(data: Omit<Article, 'id' | 'createdAt'>) {
+export async function createArticle(data: Omit<Article, 'id' | 'createdAt' | 'status' | 'rejectionReason'>) {
   try {
     const docRef = await addDoc(collection(db, "articles"), {
       ...data,
       createdAt: serverTimestamp(),
+      status: 'pending',
     });
     return docRef.id;
   } catch (error) {
@@ -124,7 +127,11 @@ export async function createArticle(data: Omit<Article, 'id' | 'createdAt'>) {
 
 export async function getArticles(): Promise<Article[]> {
   try {
-    const q = query(collection(db, "articles"), orderBy("createdAt", "desc"));
+    const q = query(
+        collection(db, "articles"), 
+        where("status", "==", "approved"),
+        orderBy("createdAt", "desc")
+    );
     const querySnapshot = await getDocs(q);
     const articles: Article[] = [];
     querySnapshot.forEach((doc) => {
@@ -161,5 +168,80 @@ export async function getArticle(id: string): Promise<Article | null> {
   } catch (error) {
     console.error("Error fetching article:", error);
     return null;
+  }
+}
+
+export async function getUserArticles(userId: string): Promise<Article[]> {
+  if (!userId) return [];
+  try {
+    const q = query(
+      collection(db, 'articles'),
+      where('authorId', '==', userId),
+      orderBy('createdAt', 'desc')
+    );
+    const querySnapshot = await getDocs(q);
+    const articles: Article[] = [];
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      articles.push({
+        id: doc.id,
+        ...data,
+        createdAt: data.createdAt.toDate(),
+      } as Article);
+    });
+    return articles;
+  } catch (error) {
+    console.error('Error fetching user articles:', error);
+    return [];
+  }
+}
+
+// Admin actions
+export async function getPendingArticles(userId: string): Promise<Article[]> {
+  if (!adminUids.includes(userId)) {
+    throw new Error('Unauthorized');
+  }
+  try {
+    const q = query(collection(db, 'articles'), where('status', '==', 'pending'), orderBy('createdAt', 'asc'));
+    const querySnapshot = await getDocs(q);
+    const articles: Article[] = [];
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      articles.push({
+        id: doc.id,
+        ...data,
+        createdAt: data.createdAt.toDate(),
+      } as Article);
+    });
+    return articles;
+  } catch (error) {
+    console.error('Error fetching pending articles:', error);
+    return [];
+  }
+}
+
+export async function approveArticle(userId: string, articleId: string) {
+  if (!adminUids.includes(userId)) {
+    throw new Error('Unauthorized');
+  }
+  try {
+    const articleRef = doc(db, 'articles', articleId);
+    await updateDoc(articleRef, { status: 'approved' });
+  } catch (error) {
+    console.error('Error approving article:', error);
+    throw new Error('Failed to approve article.');
+  }
+}
+
+export async function rejectArticle(userId: string, articleId: string, reason: string) {
+  if (!adminUids.includes(userId)) {
+    throw new Error('Unauthorized');
+  }
+  try {
+    const articleRef = doc(db, 'articles', articleId);
+    await updateDoc(articleRef, { status: 'rejected', rejectionReason: reason });
+  } catch (error) {
+    console.error('Error rejecting article:', error);
+    throw new Error('Failed to reject article.');
   }
 }

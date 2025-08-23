@@ -1,4 +1,3 @@
-
 {
   "HomePage": {
     "title": "Keystroke Symphony",
@@ -126,7 +125,7 @@
     "russian": "Russe",
     "japanese": "Japonais"
   },
-    "UserMenu": {
+  "UserMenu": {
     "profile": "Profil",
     "statistics": "Statistiques",
     "level": "Niveau",
@@ -147,7 +146,12 @@
     "accuracy": "Précision",
     "difficulty": "Difficulté",
     "notEnoughData": "Pas assez de données pour afficher un graphique. Terminez plus de tests pour voir vos progrès !",
-    "noHistory": "Vous n'avez encore terminé aucun test."
+    "noHistory": "Vous n'avez encore terminé aucun test.",
+    "myArticlesTitle": "Mes articles",
+    "articleTitle": "Titre",
+    "articleStatus": "Statut",
+    "noArticles": "Vous n'avez encore publié aucun article.",
+    "rejectionReason": "Motif du rejet"
   },
   "ArticlePage": {
     "title": "Articles",
@@ -165,16 +169,38 @@
     "formContentPlaceholder": "Rédigez votre article ici. Le Markdown est pris en charge.",
     "formPreview": "Aperçu",
     "formCancel": "Annuler",
-    "formSubmit": "Publier l'article",
+    "formSubmit": "Soumettre l'article",
     "formLanguage": "Langue de l'article",
     "formLanguagePlaceholder": "Sélectionnez une langue...",
-    "createSuccessTitle": "Article publié !",
-    "createSuccessDesc": "Votre article est maintenant en ligne pour que la communauté puisse le lire.",
+    "createSuccessTitle": "Article soumis !",
+    "createSuccessDesc": "Votre article a été soumis pour examen.",
     "createErrorTitle": "Échec de la publication",
     "notFound": "Article non trouvé",
     "backToArticles": "Retour aux articles",
     "shareTitle": "Partager",
     "shareLinkCopied": "Lien copié !",
     "shareLinkCopiedDesc": "Le lien de l'article a été copié dans votre presse-papiers."
+  },
+  "AdminPage": {
+    "title": "Admin",
+    "subtitle": "/ Examen",
+    "pendingTitle": "Articles en attente",
+    "pendingDescription": "Examinez et approuvez ou rejetez les articles soumis par les utilisateurs.",
+    "tableTitle": "Titre",
+    "tableAuthor": "Auteur",
+    "tableDate": "Soumis le",
+    "tableActions": "Actions",
+    "noPending": "Aucun article en attente d'examen.",
+    "approveSuccess": "Article approuvé",
+    "approveSuccessDesc": "L'article est maintenant public.",
+    "approveError": "Échec de l'approbation",
+    "rejectSuccess": "Article rejeté",
+    "rejectSuccessDesc": "L'auteur a été notifié.",
+    "rejectError": "Échec du rejet",
+    "rejectModalTitle": "Rejeter l'article",
+    "rejectModalDesc": "Veuillez fournir une raison pour rejeter cet article. Elle sera visible par l'auteur.",
+    "rejectReasonPlaceholder": "Saisissez le motif du rejet...",
+    "cancel": "Annuler",
+    "rejectButton": "Rejeter"
   }
 }

@@ -1,4 +1,3 @@
-
 {
   "HomePage": {
     "title": "Keystroke Symphony",
@@ -147,7 +146,12 @@
     "accuracy": "Precisión",
     "difficulty": "Dificultad",
     "notEnoughData": "No hay suficientes datos para mostrar un gráfico. ¡Completa más pruebas para ver tu progreso!",
-    "noHistory": "Aún no has completado ninguna prueba."
+    "noHistory": "Aún no has completado ninguna prueba.",
+    "myArticlesTitle": "Mis Artículos",
+    "articleTitle": "Título",
+    "articleStatus": "Estado",
+    "noArticles": "Aún no has publicado ningún artículo.",
+    "rejectionReason": "Razón del Rechazo"
   },
   "ArticlePage": {
     "title": "Artículos",
@@ -165,16 +169,38 @@
     "formContentPlaceholder": "Escribe tu artículo aquí. Se admite Markdown.",
     "formPreview": "Vista previa",
     "formCancel": "Cancelar",
-    "formSubmit": "Publicar artículo",
+    "formSubmit": "Enviar artículo",
     "formLanguage": "Idioma del artículo",
     "formLanguagePlaceholder": "Selecciona un idioma...",
-    "createSuccessTitle": "¡Artículo publicado!",
-    "createSuccessDesc": "Tu artículo ahora está en vivo para que la comunidad lo lea.",
+    "createSuccessTitle": "¡Artículo enviado!",
+    "createSuccessDesc": "Tu artículo ha sido enviado para su revisión.",
     "createErrorTitle": "Error al publicar",
     "notFound": "Artículo no encontrado",
     "backToArticles": "Volver a los artículos",
     "shareTitle": "Compartir",
     "shareLinkCopied": "¡Enlace copiado!",
     "shareLinkCopiedDesc": "El enlace del artículo ha sido copiado a tu portapapeles."
+  },
+  "AdminPage": {
+    "title": "Administración",
+    "subtitle": "/ Revisión",
+    "pendingTitle": "Artículos Pendientes",
+    "pendingDescription": "Revisa y aprueba o rechaza los artículos enviados por los usuarios.",
+    "tableTitle": "Título",
+    "tableAuthor": "Autor",
+    "tableDate": "Enviado",
+    "tableActions": "Acciones",
+    "noPending": "No hay artículos pendientes para revisar.",
+    "approveSuccess": "Artículo Aprobado",
+    "approveSuccessDesc": "El artículo ahora es público.",
+    "approveError": "Error al Aprobar",
+    "rejectSuccess": "Artículo Rechazado",
+    "rejectSuccessDesc": "Se ha notificado al autor.",
+    "rejectError": "Error al Rechazar",
+    "rejectModalTitle": "Rechazar Artículo",
+    "rejectModalDesc": "Por favor, proporciona una razón para rechazar este artículo. Esto será visible para el autor.",
+    "rejectReasonPlaceholder": "Introduce la razón del rechazo...",
+    "cancel": "Cancelar",
+    "rejectButton": "Rechazar"
   }
 }

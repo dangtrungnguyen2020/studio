@@ -1,4 +1,3 @@
-
 {
   "HomePage": {
     "title": "Sinfonia de Teclas",
@@ -147,7 +146,12 @@
     "accuracy": "Precisão",
     "difficulty": "Dificuldade",
     "notEnoughData": "Não há dados suficientes para exibir um gráfico. Conclua mais testes para ver seu progresso!",
-    "noHistory": "Você ainda não concluiu nenhum teste."
+    "noHistory": "Você ainda não concluiu nenhum teste.",
+    "myArticlesTitle": "Meus Artigos",
+    "articleTitle": "Título",
+    "articleStatus": "Status",
+    "noArticles": "Você ainda não publicou nenhum artigo.",
+    "rejectionReason": "Motivo da Rejeição"
   },
   "ArticlePage": {
     "title": "Artigos",
@@ -165,16 +169,38 @@
     "formContentPlaceholder": "Escreva seu artigo aqui. Markdown é suportado.",
     "formPreview": "Pré-visualização",
     "formCancel": "Cancelar",
-    "formSubmit": "Publicar Artigo",
+    "formSubmit": "Enviar Artigo",
     "formLanguage": "Idioma do Artigo",
     "formLanguagePlaceholder": "Selecione um idioma...",
-    "createSuccessTitle": "Artigo Publicado!",
-    "createSuccessDesc": "Seu artigo agora está disponível para a comunidade ler.",
+    "createSuccessTitle": "Artigo Enviado!",
+    "createSuccessDesc": "Seu artigo foi enviado para revisão.",
     "createErrorTitle": "Falha na Publicação",
     "notFound": "Artigo Não Encontrado",
     "backToArticles": "Voltar para Artigos",
     "shareTitle": "Compartilhar",
     "shareLinkCopied": "Link copiado!",
     "shareLinkCopiedDesc": "O link do artigo foi copiado para a sua área de transferência."
+  },
+  "AdminPage": {
+    "title": "Admin",
+    "subtitle": "/ Revisão",
+    "pendingTitle": "Artigos Pendentes",
+    "pendingDescription": "Revise e aprove ou rejeite os artigos enviados pelos usuários.",
+    "tableTitle": "Título",
+    "tableAuthor": "Autor",
+    "tableDate": "Enviado",
+    "tableActions": "Ações",
+    "noPending": "Nenhum artigo pendente para revisar.",
+    "approveSuccess": "Artigo Aprovado",
+    "approveSuccessDesc": "O artigo agora está público.",
+    "approveError": "Falha ao Aprovar",
+    "rejectSuccess": "Artigo Rejeitado",
+    "rejectSuccessDesc": "O autor foi notificado.",
+    "rejectError": "Falha ao Rejeitar",
+    "rejectModalTitle": "Rejeitar Artigo",
+    "rejectModalDesc": "Forneça um motivo para rejeitar este artigo. Isso será visível para o autor.",
+    "rejectReasonPlaceholder": "Digite o motivo da rejeição...",
+    "cancel": "Cancelar",
+    "rejectButton": "Rejeitar"
   }
 }

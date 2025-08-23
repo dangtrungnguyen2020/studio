@@ -1,4 +1,3 @@
-
 {
   "HomePage": {
     "title": "Keystroke Symphony",
@@ -149,7 +148,12 @@
     "accuracy": "Accuracy",
     "difficulty": "Difficulty",
     "notEnoughData": "Not enough data to display a chart. Complete more tests to see your progress!",
-    "noHistory": "You haven't completed any tests yet."
+    "noHistory": "You haven't completed any tests yet.",
+    "myArticlesTitle": "My Articles",
+    "articleTitle": "Title",
+    "articleStatus": "Status",
+    "noArticles": "You haven't posted any articles yet.",
+    "rejectionReason": "Rejection Reason"
   },
   "ArticlePage": {
     "title": "Articles",
@@ -170,13 +174,35 @@
     "formSubmit": "Publish Article",
     "formLanguage": "Article Language",
     "formLanguagePlaceholder": "Select a language...",
-    "createSuccessTitle": "Article Published!",
-    "createSuccessDesc": "Your article is now live for the community to read.",
+    "createSuccessTitle": "Article Submitted!",
+    "createSuccessDesc": "Your article has been submitted for review.",
     "createErrorTitle": "Publishing Failed",
     "notFound": "Article Not Found",
     "backToArticles": "Back to Articles",
     "shareTitle": "Share",
     "shareLinkCopied": "Link Copied!",
     "shareLinkCopiedDesc": "The article link has been copied to your clipboard."
+  },
+  "AdminPage": {
+    "title": "Admin",
+    "subtitle": "/ Review",
+    "pendingTitle": "Pending Articles",
+    "pendingDescription": "Review and approve or reject user-submitted articles.",
+    "tableTitle": "Title",
+    "tableAuthor": "Author",
+    "tableDate": "Submitted",
+    "tableActions": "Actions",
+    "noPending": "No pending articles to review.",
+    "approveSuccess": "Article Approved",
+    "approveSuccessDesc": "The article is now public.",
+    "approveError": "Approval Failed",
+    "rejectSuccess": "Article Rejected",
+    "rejectSuccessDesc": "The author has been notified.",
+    "rejectError": "Rejection Failed",
+    "rejectModalTitle": "Reject Article",
+    "rejectModalDesc": "Please provide a reason for rejecting this article. This will be visible to the author.",
+    "rejectReasonPlaceholder": "Enter rejection reason...",
+    "cancel": "Cancel",
+    "rejectButton": "Reject"
   }
 }

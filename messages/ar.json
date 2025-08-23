@@ -1,4 +1,3 @@
-
 {
   "HomePage": {
     "title": "سيمفونية ضغطات المفاتيح",
@@ -126,7 +125,7 @@
     "russian": "الروسية",
     "japanese": "اليابانية"
   },
-    "UserMenu": {
+  "UserMenu": {
     "profile": "الملف الشخصي",
     "statistics": "الإحصائيات",
     "level": "المستوى",
@@ -147,7 +146,12 @@
     "accuracy": "الدقة",
     "difficulty": "الصعوبة",
     "notEnoughData": "لا توجد بيانات كافية لعرض مخطط. أكمل المزيد من الاختبارات لرؤية تقدمك!",
-    "noHistory": "لم تكمل أي اختبارات بعد."
+    "noHistory": "لم تكمل أي اختبارات بعد.",
+    "myArticlesTitle": "مقالاتي",
+    "articleTitle": "العنوان",
+    "articleStatus": "الحالة",
+    "noArticles": "لم تنشر أي مقالات بعد.",
+    "rejectionReason": "سبب الرفض"
   },
   "ArticlePage": {
     "title": "مقالات",
@@ -165,16 +169,38 @@
     "formContentPlaceholder": "اكتب مقالتك هنا. يتم دعم Markdown.",
     "formPreview": "معاينة",
     "formCancel": "إلغاء",
-    "formSubmit": "نشر المقال",
+    "formSubmit": "إرسال المقال",
     "formLanguage": "لغة المقال",
     "formLanguagePlaceholder": "اختر لغة...",
-    "createSuccessTitle": "تم نشر المقال!",
-    "createSuccessDesc": "مقالك الآن مباشر ليقرأه المجتمع.",
+    "createSuccessTitle": "تم إرسال المقال!",
+    "createSuccessDesc": "تم إرسال مقالك للمراجعة.",
     "createErrorTitle": "فشل النشر",
     "notFound": "لم يتم العثور على المقال",
     "backToArticles": "العودة إلى المقالات",
     "shareTitle": "مشاركة",
     "shareLinkCopied": "تم نسخ الرابط!",
     "shareLinkCopiedDesc": "تم نسخ رابط المقال إلى حافظتك."
+  },
+  "AdminPage": {
+    "title": "مشرف",
+    "subtitle": "/ مراجعة",
+    "pendingTitle": "المقالات المعلقة",
+    "pendingDescription": "مراجعة والموافقة على أو رفض المقالات المقدمة من المستخدمين.",
+    "tableTitle": "العنوان",
+    "tableAuthor": "المؤلف",
+    "tableDate": "تم الإرسال",
+    "tableActions": "الإجراءات",
+    "noPending": "لا توجد مقالات معلقة للمراجعة.",
+    "approveSuccess": "تمت الموافقة على المقال",
+    "approveSuccessDesc": "المقال الآن عام.",
+    "approveError": "فشلت الموافقة",
+    "rejectSuccess": "تم رفض المقال",
+    "rejectSuccessDesc": "تم إخطار المؤلف.",
+    "rejectError": "فشل الرفض",
+    "rejectModalTitle": "رفض المقال",
+    "rejectModalDesc": "يرجى تقديم سبب لرفض هذا المقال. سيكون هذا مرئيًا للمؤلف.",
+    "rejectReasonPlaceholder": "أدخل سبب الرفض...",
+    "cancel": "إلغاء",
+    "rejectButton": "رفض"
   }
 }

@@ -16,6 +16,10 @@ const firebaseConfig = {
   "messagingSenderId": "316751782475"
 };
 
+// For this prototype, we'll hardcode admin UIDs. 
+// In a real application, this should be managed securely in your database.
+export const adminUids = ["YOUR_ADMIN_UID_HERE"];
+
 
 let app: FirebaseApp;
 if (!getApps().length) {

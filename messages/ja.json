@@ -1,4 +1,3 @@
-
 {
   "HomePage": {
     "title": "キーストロークシンフォニー",
@@ -126,7 +125,7 @@
     "russian": "ロシア語",
     "japanese": "日本語"
   },
-    "UserMenu": {
+  "UserMenu": {
     "profile": "プロフィール",
     "statistics": "統計",
     "level": "レベル",
@@ -147,7 +146,12 @@
     "accuracy": "正確性",
     "difficulty": "難易度",
     "notEnoughData": "チャートを表示するためのデータが不足しています。進捗を確認するには、さらにテストを完了してください！",
-    "noHistory": "まだテストを完了していません。"
+    "noHistory": "まだテストを完了していません。",
+    "myArticlesTitle": "私の記事",
+    "articleTitle": "タイトル",
+    "articleStatus": "ステータス",
+    "noArticles": "まだ記事を投稿していません。",
+    "rejectionReason": "拒否の理由"
   },
   "ArticlePage": {
     "title": "記事",
@@ -165,16 +169,38 @@
     "formContentPlaceholder": "ここに記事を書いてください。Markdownがサポートされています。",
     "formPreview": "プレビュー",
     "formCancel": "キャンセル",
-    "formSubmit": "記事を公開",
+    "formSubmit": "記事を送信",
     "formLanguage": "記事の言語",
     "formLanguagePlaceholder": "言語を選択してください...",
-    "createSuccessTitle": "記事が公開されました！",
-    "createSuccessDesc": "あなたの記事がコミュニティで読めるようになりました。",
+    "createSuccessTitle": "記事が送信されました！",
+    "createSuccessDesc": "あなたの記事がレビューのために送信されました。",
     "createErrorTitle": "公開に失敗しました",
     "notFound": "記事が見つかりません",
     "backToArticles": "記事一覧に戻る",
     "shareTitle": "共有",
     "shareLinkCopied": "リンクがコピーされました！",
     "shareLinkCopiedDesc": "記事へのリンクがクリップボードにコピーされました。"
+  },
+  "AdminPage": {
+    "title": "管理者",
+    "subtitle": "/ レビュー",
+    "pendingTitle": "保留中の記事",
+    "pendingDescription": "ユーザーが送信した記事を確認し、承認または拒否します。",
+    "tableTitle": "タイトル",
+    "tableAuthor": "著者",
+    "tableDate": "送信日",
+    "tableActions": "アクション",
+    "noPending": "レビュー待ちの記事はありません。",
+    "approveSuccess": "記事が承認されました",
+    "approveSuccessDesc": "記事は現在公開されています。",
+    "approveError": "承認に失敗しました",
+    "rejectSuccess": "記事が拒否されました",
+    "rejectSuccessDesc": "著者に通知されました。",
+    "rejectError": "拒否に失敗しました",
+    "rejectModalTitle": "記事を拒否",
+    "rejectModalDesc": "この記事を拒否する理由を入力してください。これは著者に表示されます。",
+    "rejectReasonPlaceholder": "拒否の理由を入力してください...",
+    "cancel": "キャンセル",
+    "rejectButton": "拒否"
   }
 }

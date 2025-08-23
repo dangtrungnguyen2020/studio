@@ -1,4 +1,3 @@
-
 {
   "HomePage": {
     "title": "Keystroke Symphony",
@@ -147,7 +146,12 @@
     "accuracy": "Genauigkeit",
     "difficulty": "Schwierigkeit",
     "notEnoughData": "Nicht genügend Daten, um ein Diagramm anzuzeigen. Schließen Sie weitere Tests ab, um Ihren Fortschritt zu sehen!",
-    "noHistory": "Sie haben noch keine Tests abgeschlossen."
+    "noHistory": "Sie haben noch keine Tests abgeschlossen.",
+    "myArticlesTitle": "Meine Artikel",
+    "articleTitle": "Titel",
+    "articleStatus": "Status",
+    "noArticles": "Sie haben noch keine Artikel veröffentlicht.",
+    "rejectionReason": "Ablehnungsgrund"
   },
   "ArticlePage": {
     "title": "Artikel",
@@ -165,16 +169,38 @@
     "formContentPlaceholder": "Schreiben Sie Ihren Artikel hier. Markdown wird unterstützt.",
     "formPreview": "Vorschau",
     "formCancel": "Abbrechen",
-    "formSubmit": "Artikel veröffentlichen",
+    "formSubmit": "Artikel einreichen",
     "formLanguage": "Artikelsprache",
     "formLanguagePlaceholder": "Wählen Sie eine Sprache...",
-    "createSuccessTitle": "Artikel veröffentlicht!",
-    "createSuccessDesc": "Ihr Artikel ist jetzt live und kann von der Community gelesen werden.",
+    "createSuccessTitle": "Artikel eingereicht!",
+    "createSuccessDesc": "Ihr Artikel wurde zur Überprüfung eingereicht.",
     "createErrorTitle": "Veröffentlichung fehlgeschlagen",
     "notFound": "Artikel nicht gefunden",
     "backToArticles": "Zurück zu den Artikeln",
     "shareTitle": "Teilen",
     "shareLinkCopied": "Link kopiert!",
     "shareLinkCopiedDesc": "Der Link zum Artikel wurde in Ihre Zwischenablage kopiert."
+  },
+  "AdminPage": {
+    "title": "Admin",
+    "subtitle": "/ Überprüfung",
+    "pendingTitle": "Ausstehende Artikel",
+    "pendingDescription": "Überprüfen und genehmigen oder ablehnen Sie von Benutzern eingereichte Artikel.",
+    "tableTitle": "Titel",
+    "tableAuthor": "Autor",
+    "tableDate": "Eingereicht",
+    "tableActions": "Aktionen",
+    "noPending": "Keine ausstehenden Artikel zur Überprüfung.",
+    "approveSuccess": "Artikel genehmigt",
+    "approveSuccessDesc": "Der Artikel ist jetzt öffentlich.",
+    "approveError": "Genehmigung fehlgeschlagen",
+    "rejectSuccess": "Artikel abgelehnt",
+    "rejectSuccessDesc": "Der Autor wurde benachrichtigt.",
+    "rejectError": "Ablehnung fehlgeschlagen",
+    "rejectModalTitle": "Artikel ablehnen",
+    "rejectModalDesc": "Bitte geben Sie einen Grund für die Ablehnung dieses Artikels an. Dieser wird für den Autor sichtbar sein.",
+    "rejectReasonPlaceholder": "Ablehnungsgrund eingeben...",
+    "cancel": "Abbrechen",
+    "rejectButton": "Ablehnen"
   }
 }

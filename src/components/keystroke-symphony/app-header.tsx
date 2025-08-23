@@ -8,6 +8,7 @@ import {
   Gamepad2,
   BookOpen,
   Newspaper,
+  ShieldCheck,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -23,11 +24,11 @@ import LanguageSwitcher from '@/components/language-switcher';
 import LoginDialog from '@/components/keystroke-symphony/login-dialog';
 import UserMenu from '@/components/keystroke-symphony/user-menu';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '@/lib/firebase';
+import { auth, adminUids } from '@/lib/firebase';
 import { useTranslations } from 'next-intl';
 
 type AppHeaderProps = {
-  page: 'home' | 'game' | 'info' | 'articles' | 'new-article' | 'view-article';
+  page: 'home' | 'game' | 'info' | 'articles' | 'new-article' | 'view-article' | 'admin';
 };
 
 export default function AppHeader({ page }: AppHeaderProps) {
@@ -36,6 +37,9 @@ export default function AppHeader({ page }: AppHeaderProps) {
   const tGame = useTranslations('GamePage');
   const tSettings = useTranslations('ThemeSwitcher');
   const tArticles = useTranslations('ArticlePage');
+  const tAdmin = useTranslations('AdminPage');
+
+  const isAdmin = user && adminUids.includes(user.uid);
 
   const getTitle = () => {
     switch (page) {
@@ -47,6 +51,8 @@ export default function AppHeader({ page }: AppHeaderProps) {
         return tArticles.raw('title');
        case 'view-article':
         return tArticles.raw('title');
+      case 'admin':
+        return tAdmin.raw('title');
       default:
         return tHome('title');
     }
@@ -62,6 +68,8 @@ export default function AppHeader({ page }: AppHeaderProps) {
         return tArticles('newArticleSubtitle');
        case 'view-article':
          return ''
+       case 'admin':
+        return tAdmin('subtitle');
       default:
         return undefined;
     }
@@ -122,6 +130,14 @@ export default function AppHeader({ page }: AppHeaderProps) {
                   {tArticles('title')}
                 </DropdownMenuItem>
               </Link>
+            {isAdmin && (
+               <Link href="/admin">
+                <DropdownMenuItem>
+                  <ShieldCheck className="h-4 w-4 mr-2" />
+                  {tAdmin('title')}
+                </DropdownMenuItem>
+              </Link>
+            )}
             {page !== 'info' && (
                 <>
                 <DropdownMenuSeparator />
@@ -139,4 +155,3 @@ export default function AppHeader({ page }: AppHeaderProps) {
     </header>
   );
 }
-

@@ -1,4 +1,3 @@
-
 {
   "HomePage": {
     "title": "Симфония нажатий",
@@ -147,7 +146,12 @@
     "accuracy": "Точность",
     "difficulty": "Сложность",
     "notEnoughData": "Недостаточно данных для отображения диаграммы. Пройдите больше тестов, чтобы увидеть свой прогресс!",
-    "noHistory": "Вы еще не прошли ни одного теста."
+    "noHistory": "Вы еще не прошли ни одного теста.",
+    "myArticlesTitle": "Мои статьи",
+    "articleTitle": "Заголовок",
+    "articleStatus": "Статус",
+    "noArticles": "Вы еще не опубликовали ни одной статьи.",
+    "rejectionReason": "Причина отклонения"
   },
   "ArticlePage": {
     "title": "Статьи",
@@ -165,16 +169,38 @@
     "formContentPlaceholder": "Напишите свою статью здесь. Поддерживается Markdown.",
     "formPreview": "Предварительный просмотр",
     "formCancel": "Отмена",
-    "formSubmit": "Опубликовать статью",
+    "formSubmit": "Отправить статью",
     "formLanguage": "Язык статьи",
     "formLanguagePlaceholder": "Выберите язык...",
-    "createSuccessTitle": "Статья опубликована!",
-    "createSuccessDesc": "Ваша статья теперь доступна для чтения сообществом.",
+    "createSuccessTitle": "Статья отправлена!",
+    "createSuccessDesc": "Ваша статья отправлена на проверку.",
     "createErrorTitle": "Ошибка публикации",
     "notFound": "Статья не найдена",
     "backToArticles": "Назад к статьям",
     "shareTitle": "Поделиться",
     "shareLinkCopied": "Ссылка скопирована!",
     "shareLinkCopiedDesc": "Ссылка на статью скопирована в буфер обмена."
+  },
+  "AdminPage": {
+    "title": "Админ",
+    "subtitle": "/ Проверка",
+    "pendingTitle": "Статьи на рассмотрении",
+    "pendingDescription": "Просмотрите и одобрите или отклоните статьи, отправленные пользователями.",
+    "tableTitle": "Заголовок",
+    "tableAuthor": "Автор",
+    "tableDate": "Отправлено",
+    "tableActions": "Действия",
+    "noPending": "Нет статей на рассмотрении.",
+    "approveSuccess": "Статья одобрена",
+    "approveSuccessDesc": "Статья теперь общедоступна.",
+    "approveError": "Ошибка одобрения",
+    "rejectSuccess": "Статья отклонена",
+    "rejectSuccessDesc": "Автор был уведомлен.",
+    "rejectError": "Ошибка отклонения",
+    "rejectModalTitle": "Отклонить статью",
+    "rejectModalDesc": "Пожалуйста, укажите причину отклонения этой статьи. Она будет видна автору.",
+    "rejectReasonPlaceholder": "Введите причину отклонения...",
+    "cancel": "Отмена",
+    "rejectButton": "Отклонить"
   }
 }

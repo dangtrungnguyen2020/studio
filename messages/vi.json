@@ -1,4 +1,3 @@
-
 {
   "HomePage": {
     "title": "Keystroke Symphony",
@@ -149,7 +148,12 @@
     "accuracy": "Độ chính xác",
     "difficulty": "Độ khó",
     "notEnoughData": "Không đủ dữ liệu để hiển thị biểu đồ. Hoàn thành thêm bài kiểm tra để xem tiến trình của bạn!",
-    "noHistory": "Bạn chưa hoàn thành bài kiểm tra nào."
+    "noHistory": "Bạn chưa hoàn thành bài kiểm tra nào.",
+    "myArticlesTitle": "Bài viết của tôi",
+    "articleTitle": "Tiêu đề",
+    "articleStatus": "Trạng thái",
+    "noArticles": "Bạn chưa đăng bài viết nào.",
+    "rejectionReason": "Lý do từ chối"
   },
   "ArticlePage": {
     "title": "Bài viết",
@@ -167,16 +171,38 @@
     "formContentPlaceholder": "Viết bài của bạn ở đây. Hỗ trợ Markdown.",
     "formPreview": "Xem trước",
     "formCancel": "Hủy",
-    "formSubmit": "Xuất bản bài viết",
+    "formSubmit": "Gửi bài viết",
     "formLanguage": "Ngôn ngữ bài viết",
     "formLanguagePlaceholder": "Chọn một ngôn ngữ...",
-    "createSuccessTitle": "Bài viết đã được xuất bản!",
-    "createSuccessDesc": "Bài viết của bạn hiện đã được đăng cho cộng đồng đọc.",
-    "createErrorTitle": "Xuất bản thất bại",
+    "createSuccessTitle": "Bài viết đã được gửi!",
+    "createSuccessDesc": "Bài viết của bạn đã được gửi để xem xét.",
+    "createErrorTitle": "Gửi bài thất bại",
     "notFound": "Không tìm thấy bài viết",
     "backToArticles": "Quay lại danh sách bài viết",
     "shareTitle": "Chia sẻ",
     "shareLinkCopied": "Đã sao chép liên kết!",
     "shareLinkCopiedDesc": "Liên kết bài viết đã được sao chép vào bộ nhớ tạm."
+  },
+  "AdminPage": {
+    "title": "Quản trị",
+    "subtitle": "/ Xem xét",
+    "pendingTitle": "Bài viết đang chờ xử lý",
+    "pendingDescription": "Xem xét và phê duyệt hoặc từ chối các bài viết do người dùng gửi.",
+    "tableTitle": "Tiêu đề",
+    "tableAuthor": "Tác giả",
+    "tableDate": "Ngày gửi",
+    "tableActions": "Hành động",
+    "noPending": "Không có bài viết nào đang chờ xem xét.",
+    "approveSuccess": "Phê duyệt bài viết thành công",
+    "approveSuccessDesc": "Bài viết hiện đã được công khai.",
+    "approveError": "Phê duyệt thất bại",
+    "rejectSuccess": "Từ chối bài viết thành công",
+    "rejectSuccessDesc": "Tác giả đã được thông báo.",
+    "rejectError": "Từ chối thất bại",
+    "rejectModalTitle": "Từ chối bài viết",
+    "rejectModalDesc": "Vui lòng cung cấp lý do từ chối bài viết này. Tác giả sẽ thấy lý do này.",
+    "rejectReasonPlaceholder": "Nhập lý do từ chối...",
+    "cancel": "Hủy",
+    "rejectButton": "Từ chối"
   }
 }
