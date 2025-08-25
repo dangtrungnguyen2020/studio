@@ -102,7 +102,7 @@ const Keyboard = ({
       (pressedKey === " " && key.label === "Space");
 
     return cn(
-      "h-12 rounded-md flex items-center justify-center p-2 text-sm font-medium transition-all duration-100 ease-in-out",
+      "rounded-md flex items-center justify-center p-2 text-sm font-medium transition-all duration-100 ease-in-out",
       "shadow-sm border border-border bg-secondary/50",
       `row-span-${key.rowSpan || 1}`,
       `col-span-${key.colSpan || 2}`,
