@@ -1,6 +1,6 @@
 import type { Difficulty } from "./keyboards";
 
-const veryEasyChars = "abcdefghijklmnopqrstuvwxyz1234567890";
+const veryEasyChars = "abcdefghijklmnopqrstuvwxyz";
 const easyWords =
   "the of to and a in is it you that he was for on are with as I his they be at one have this from or had by hot but some what there we can out other were all your when up use word how said an each she".split(
     " "

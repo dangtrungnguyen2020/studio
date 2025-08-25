@@ -24,6 +24,15 @@ const arrowKeyIcons: { [key: string]: React.ReactNode } = {
   ArrowRight: <ArrowRight className="inline-block h-7 w-7 m-3" />,
 };
 
+type TextNode = {
+  type: "error" | "text" | "remaining";
+  text: string;
+};
+type TestResult = {
+  textNodes: Array<TextNode>;
+  errorsMap: Map<string, number>;
+};
+
 const TypingTest = ({
   text,
   onComplete,
@@ -31,12 +40,14 @@ const TypingTest = ({
   onCharIndexChange,
 }: TypingTestProps) => {
   const t = useTranslations("TypingTest");
-  const [userInput, setUserInput] = useState<string[]>([]);
+  const [userInput, setUserInput] = useState<string>("");
+  const [textNodes, setTextNodes] = useState<Array<TextNode>>([
+    { type: "remaining", text },
+  ]);
+  const [wordsInput, setWordsInput] = useState<Array<string>>([]);
   const [startTime, setStartTime] = useState<number | null>(null);
-  const [errors, setErrors] = useState(0);
-  const [inputHtml, setInputHtml] = useState<React.ReactNode>(null);
   const [errorsMap, setErrorsMap] = useState<Map<string, number>>(new Map());
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const currentTextRef = useRef<HTMLSpanElement>(null);
 
@@ -46,24 +57,23 @@ const TypingTest = ({
     [words]
   );
 
-  const currentIndex = userInput.length;
-
   const resetTest = useCallback(() => {
-    setUserInput([]);
-    setInputHtml(null);
+    setUserInput("");
+    // setInputHtml(null);
+    setTextNodes([{ type: "remaining", text }]);
+    setWordsInput([]);
     setStartTime(null);
-    setErrors(0);
     setErrorsMap(new Map());
     onCharIndexChange(0);
     onKeyPress(null);
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, [onCharIndexChange, onKeyPress]);
+  }, [text]);
 
   useEffect(() => {
     resetTest();
-  }, [text, resetTest]);
+  }, [text]);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -71,91 +81,21 @@ const TypingTest = ({
     }
   }, []);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    onKeyPress(e.key);
-
-    if (e.key === "Escape") {
-      resetTest();
-      return;
-    }
-
-    const totalLength = isSpecialTraining ? words.length : text.length;
-
-    if (currentIndex >= totalLength && e.key !== "Backspace") {
-      return;
-    }
-
-    if (
-      !startTime &&
-      (e.key.length === 1 || e.key.startsWith("Arrow")) &&
-      !e.ctrlKey &&
-      !e.metaKey &&
-      !e.altKey
-    ) {
-      setStartTime(Date.now());
-    }
-
-    if (e.key === "Backspace") {
-      // disable backspace
-      /* if (currentIndex > 0) {
-        setUserInput((prev) => prev.slice(0, -1));
-        onCharIndexChange(currentIndex - 1);
-      } */
-      return;
-    }
-
-    const isTypingKey = e.key.length === 1 || e.key.startsWith("Arrow");
-
-    if (isTypingKey && !e.ctrlKey && !e.metaKey) {
-      const char = e.key;
-      const targetChar = isSpecialTraining
-        ? words[currentIndex]
-        : text[currentIndex];
-
-      if (char !== targetChar) {
-        setErrors((prev) => prev + 1);
-        const originalChar = targetChar;
-        setErrorsMap((prev) => {
-          const newMap = new Map(prev);
-          newMap.set(originalChar, (newMap.get(originalChar) || 0) + 1);
-          return newMap;
-        });
-        setInputHtml((current) => (
-          <>
-            {current}
-            {targetChar === " " ? (
-              <span className="bg-destructive/20 rounded-sm">&nbsp;</span>
-            ) : (
-              <span className="text-destructive">{targetChar}</span>
-            )}
-          </>
-        ));
-      } else {
-        setInputHtml((current) => (
-          <>
-            {current}
-            {char}
-          </>
-        ));
-      }
-
-      setUserInput((prev) => [...prev, char]);
-      onCharIndexChange(currentIndex + 1);
-    }
-  };
-
   useEffect(() => {
     const totalLength = isSpecialTraining ? words.length : text.length;
-    if (userInput.length === totalLength && totalLength > 0 && startTime) {
+
+    if (
+      (userInput.length === totalLength || wordsInput.length === totalLength) &&
+      totalLength > 0 &&
+      startTime
+    ) {
       const endTime = Date.now();
       const durationInMinutes = (endTime - startTime) / 1000 / 60;
-      const wordsTyped = isSpecialTraining ? totalLength : text.length / 5;
-      const wpm = Math.round(wordsTyped / durationInMinutes);
-      const accuracy = Math.round(((totalLength - errors) / totalLength) * 100);
+      // const wordsTyped = isSpecialTraining ? totalLength : text.length / 5;
+      const wpm = Math.round(totalLength / durationInMinutes);
       onComplete({ wpm, accuracy, errors: errorsMap });
     }
-  }, [userInput]);
+  }, [userInput, wordsInput]);
 
   useEffect(() => {
     if (containerRef.current && currentTextRef.current) {
@@ -170,10 +110,16 @@ const TypingTest = ({
         elementRect.bottom <= containerRect.bottom;
 
       if (!isVisible) {
-        activeElement.scrollIntoView({ behavior: "smooth", block: "center" });
+        // activeElement.scrollIntoView({ behavior: "smooth", block: "center" });
+        setTimeout(() =>
+          container.scrollTo({
+            top: activeElement.offsetTop - container.clientHeight / 2,
+            behavior: "smooth",
+          })
+        );
       }
     }
-  }, [currentIndex]);
+  }, [userInput, wordsInput, currentTextRef]);
 
   const wpm = useMemo(() => {
     if (!startTime || userInput.length === 0) return 0;
@@ -184,46 +130,145 @@ const TypingTest = ({
     return Math.round(wordsTyped / durationInMinutes);
   }, [startTime, userInput, isSpecialTraining]);
 
+  const errors = useMemo(() => {
+    return Array.from(errorsMap.values()).reduce((a, c) => a + c, 0);
+  }, [errorsMap]);
+
   const accuracy = useMemo(() => {
-    if (userInput.length === 0) return 100;
-    const currentErrors = errors;
-    return Math.round(
-      ((userInput.length - currentErrors) / userInput.length) * 100
-    );
+    const inputLength = isSpecialTraining
+      ? wordsInput.length
+      : userInput.length;
+    if (inputLength === 0) return 100;
+
+    return Math.round(((inputLength - errors) / inputLength) * 100);
   }, [userInput, errors]);
 
-  const renderTest = () => {
-    console.log("### render Text Test", text);
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    const isTypingKey = e.key.length === 1 || e.key.startsWith("Arrow");
 
+    if (isTypingKey && isSpecialTraining && !e.ctrlKey && !e.metaKey) {
+      e.preventDefault();
+      const char = e.key;
+      if (!startTime && char) {
+        setStartTime(Date.now());
+      }
+      onKeyPress(
+        e.key != "Process" ? e.key : String.fromCharCode(e.keyCode || e.which)
+      );
+
+      if (char != words[wordsInput.length]) {
+        const word = words[wordsInput.length];
+        setErrorsMap((prev) => {
+          const newMap = new Map(prev);
+          newMap.set(word, (newMap.get(word) || 0) + 1);
+          return newMap;
+        });
+      }
+      onCharIndexChange(wordsInput.length + 1);
+      setWordsInput((current) => [...current, char]);
+    }
+  };
+
+  const buildTrainingTest = (expected: string, input: string): TestResult => {
+    const results: Array<TextNode> = [];
+    const errorMap: Map<string, number> = new Map();
+    let currentText = "";
+    let type = "text";
+    let check = true;
+    let i = 0;
+    while (check && i < expected.length) {
+      if (i < input.length) {
+        let char = expected[i];
+        if (char == input[i]) {
+          if (type == "text") currentText += char;
+          else {
+            currentText &&
+              results.push({ type, text: currentText } as TextNode);
+            currentText = "" + char;
+            type = "text";
+          }
+        } else {
+          errorMap.set(char, (errorMap.get(char) || 0) + 1);
+          if (type == "error") currentText += char;
+          else {
+            currentText &&
+              results.push({ type, text: currentText } as TextNode);
+            currentText = "" + char;
+            type = "error";
+          }
+        }
+        i++;
+      } else {
+        currentText && results.push({ type, text: currentText } as TextNode);
+        results.push({ type: "remaining", text: expected.slice(i) });
+        check = false;
+      }
+    }
+    return { textNodes: results, errorsMap: errorMap };
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const inputValue = e.currentTarget.value;
+    const index = inputValue.length - 1;
+    e.preventDefault();
+    onKeyPress(e.target.value[index]);
+
+    if (!startTime && inputValue?.length > 0) {
+      setStartTime(Date.now());
+    }
+
+    if (!isSpecialTraining) {
+      const { textNodes, errorsMap }: TestResult = buildTrainingTest(
+        text,
+        inputValue
+      );
+      setTextNodes(textNodes);
+      setErrorsMap(errorsMap);
+    }
+    setUserInput(inputValue);
+    onCharIndexChange(index + 1);
+  };
+
+  const renderTest = () => {
     const currentIndex = userInput.length;
     return (
-      <span className="h8 text-primary">
-        {inputHtml}
-        <span className="text-muted-foreground">
-          <span
-            ref={currentTextRef}
-            className="relative inline-block after:content-[''] after:block after:absolute after:h-[2px] after:bg-accent after:w-full after:mt-0 after:bottom-1"
-          >
-            {text.slice(currentIndex, currentIndex + 1)}
-          </span>
-          {text.slice(currentIndex + 1)}
-        </span>
-      </span>
+      <p className="h8 text-primary">
+        {textNodes.map((textNode, index) =>
+          textNode.type != "remaining" ? (
+            <span
+              key={index}
+              className={
+                textNode.type == "error" ? "bg-destructive/20 rounded-sm" : ""
+              }
+            >
+              {textNode.text}
+            </span>
+          ) : (
+            <span key={index} className="text-muted-foreground">
+              <span
+                ref={currentTextRef}
+                className="relative inline-block after:content-[''] after:block after:absolute after:h-[2px] after:bg-accent after:w-full after:mt-0 after:bottom-1"
+              >
+                {textNode.text.slice(0, 1)}
+              </span>
+              {textNode.text.slice(1)}
+            </span>
+          )
+        )}
+      </p>
     );
   };
 
   const renderSpecialTraining = () => {
-    console.log("### render Arrow Test", words);
-
     return (
       <>
         {words.map((char, index) => {
           let charState: "correct" | "incorrect" | "current" | "pending" =
             "pending";
 
-          if (index < userInput.length) {
-            charState = userInput[index] === char ? "correct" : "incorrect";
-          } else if (index === userInput.length) {
+          if (index < wordsInput.length) {
+            charState = wordsInput[index] === char ? "correct" : "incorrect";
+          } else if (index === wordsInput.length) {
             charState = "current";
           }
           return (
@@ -272,19 +317,19 @@ const TypingTest = ({
           )}
         >
           {isSpecialTraining ? renderSpecialTraining() : renderTest()}
-          <input
+          <textarea
+            id="userInput"
             ref={inputRef}
-            type="text"
-            className="absolute inset-0 opacity-0 w-full h-full cursor-default"
+            className="absolute inset-0 opacity-0 w-full h-full p-4 cursor-default"
             onKeyDown={handleKeyDown}
-            value={""} // Input is controlled differently for this component
-            onChange={() => {}} // React requires onChange for controlled components
+            onChange={handleInputChange}
+            value={userInput} // Input is controlled differently for this component
             onBlur={() => {
               if (startTime) inputRef.current?.focus();
             }}
             autoFocus
             tabIndex={-1}
-          />
+          ></textarea>
         </CardContent>
       </Card>
     </div>
