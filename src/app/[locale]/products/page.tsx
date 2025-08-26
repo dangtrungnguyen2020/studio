@@ -1,9 +1,8 @@
-
 // src/app/[locale]/products/page.tsx
 "use client";
 
 import { useState, useEffect, useMemo } from 'react';
-import { getProducts, Product } from '@/app/actions';
+import { getProducts, Product } from '@/app/actions/product';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';

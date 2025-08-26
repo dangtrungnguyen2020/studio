@@ -4,7 +4,8 @@
 import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/lib/firebase';
-import { getUsersAndAdminStatus, setAdminStatus, UserWithAdminStatus } from '@/app/actions';
+import { getUsersAndAdminStatus, setAdminStatus } from '@/app/actions/user';
+import type { UserWithAdminStatus } from '@/app/actions/user';
 import {
   Card,
   CardContent,

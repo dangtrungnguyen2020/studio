@@ -1,4 +1,3 @@
-
 // src/app/[locale]/articles/new/page.tsx
 'use client';
 
@@ -8,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/lib/firebase';
-import { uploadImage, createArticle } from '@/app/actions';
+import { uploadImage, createArticle } from '@/app/actions/article';
 import { useRouter } from '@/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -61,7 +60,7 @@ export default function NewArticlePage() {
     return null;
   }
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>>) => {
     setIsSubmitting(true);
     try {
       const formData = new FormData();

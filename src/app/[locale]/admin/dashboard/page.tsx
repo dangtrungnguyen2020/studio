@@ -4,7 +4,8 @@
 import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/lib/firebase';
-import { getAdminDashboardStats, AdminDashboardStats } from '@/app/actions';
+import { getAdminDashboardStats } from '@/app/actions/user';
+import type { AdminDashboardStats } from '@/app/actions/user';
 import {
   Card,
   CardContent,

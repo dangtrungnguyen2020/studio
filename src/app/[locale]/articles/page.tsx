@@ -1,9 +1,8 @@
-
 // src/app/[locale]/articles/page.tsx
 "use client";
 
 import { useState, useEffect } from 'react';
-import { getArticles, Article } from '@/app/actions';
+import { getArticles, Article } from '@/app/actions/article';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';

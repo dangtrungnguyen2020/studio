@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { getProduct, Product } from '@/app/actions';
+import { getProduct, Product } from '@/app/actions/product';
 import { Loader2, ArrowLeft, Languages } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -114,4 +114,3 @@ export default function ProductDetailPage() {
     </div>
   );
 }
-

@@ -4,7 +4,9 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/lib/firebase';
-import { getTestResults, getUserArticles, TestResult, Article } from '@/app/actions';
+import { getTestResults } from '@/app/actions/user';
+import type { TestResult } from '@/app/actions/user';
+import { getUserArticles, Article } from '@/app/actions/article';
 import {
   Card,
   CardContent,
@@ -184,7 +186,7 @@ export default function ProfilePage() {
                   <TableRow key={article.id}>
                     <TableCell>
                         <Link href={`/articles/${article.id}`} className="hover:underline text-primary">
-                            {article.title}
+                            {article.title[article.originalLanguage]}
                         </Link>
                     </TableCell>
                     <TableCell>{format(article.createdAt, 'PP')}</TableCell>

@@ -1,10 +1,9 @@
-
 // src/app/[locale]/articles/[id]/page.tsx
 "use client";
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { getArticle, Article } from '@/app/actions';
+import { getArticle, Article } from '@/app/actions/article';
 import { Loader2, ArrowLeft, Share2, Copy, Languages } from 'lucide-react';
 import { FaFacebook } from 'react-icons/fa';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';

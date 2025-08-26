@@ -4,7 +4,8 @@
 import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/lib/firebase';
-import { getPendingArticles, approveArticle, rejectArticle, Article } from '@/app/actions';
+import { getPendingArticles, approveArticle, rejectArticle } from '@/app/actions/article';
+import type { Article } from '@/app/actions/article';
 import {
   Card,
   CardContent,
