@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
@@ -11,6 +10,7 @@ import {
   ArrowUp,
   ArrowDown,
   Command,
+  Option,
 } from "lucide-react";
 
 interface KeyboardProps {
@@ -34,13 +34,14 @@ const Keyboard = ({
     ArrowRight: <ArrowRight size={16} />,
     ArrowUp: <ArrowUp size={16} />,
     ArrowDown: <ArrowDown size={16} />,
-    Alt: <Command size={16} />,
+    Win: <Command size={16} />,
+    Alt: <Option size={16} />,
     "↑": <ArrowUp size={16} />,
     "↓": <ArrowDown size={16} />,
     "←": <ArrowLeft size={16} />,
     "→": <ArrowRight size={16} />,
   };
-  
+
   const words = useMemo(() => text.split(" "), [text]);
   const isArrowTraining = useMemo(
     () => words.every((word) => word.startsWith("Arrow")),
@@ -74,13 +75,17 @@ const Keyboard = ({
 
   const getKeyClass = (key: KeyDefinition) => {
     const targetChar =
-      text && text.length > 0 && currentCharIndex < (isArrowTraining ? words.length : text.length)
-        ? (isArrowTraining ? words[currentCharIndex] : text[currentCharIndex])
+      text &&
+      text.length > 0 &&
+      currentCharIndex < (isArrowTraining ? words.length : text.length)
+        ? isArrowTraining
+          ? words[currentCharIndex]
+          : text[currentCharIndex]
         : null;
-        
+
     let isTargetKey = false;
     if (targetChar) {
-       if (isArrowTraining) {
+      if (isArrowTraining) {
         isTargetKey = key.label === keyToLabelMap[targetChar];
       } else {
         isTargetKey =
@@ -97,7 +102,7 @@ const Keyboard = ({
       (pressedKey === " " && key.label === "Space");
 
     return cn(
-      "h-12 rounded-md flex items-center justify-center p-2 text-sm font-medium transition-all duration-100 ease-in-out",
+      "rounded-md flex items-center justify-center p-2 text-sm font-medium transition-all duration-100 ease-in-out",
       "shadow-sm border border-border bg-secondary/50",
       `row-span-${key.rowSpan || 1}`,
       `col-span-${key.colSpan || 2}`,
@@ -107,7 +112,10 @@ const Keyboard = ({
   };
 
   const maxCols = keyboardLayout.reduce((max, row) => {
-    const rowCols = row.reduce((sum, key) => sum + (key.colSpan || (key.label ? 2 : 1)), 0);
+    const rowCols = row.reduce(
+      (sum, key) => sum + (key.colSpan || (key.label ? 2 : 1)),
+      0
+    );
     return Math.max(max, rowCols);
   }, 0);
 
@@ -120,7 +128,11 @@ const Keyboard = ({
       }}
     >
       {keyboardLayout.flat().map((key, index) => (
-        <div key={index} className={key.label ? getKeyClass(key) : ""} style={getKeyStyle(key)}>
+        <div
+          key={index}
+          className={key.label ? getKeyClass(key) : ""}
+          style={getKeyStyle(key)}
+        >
           {key.label ? keyIcons[key.label] || key.label : ""}
         </div>
       ))}
