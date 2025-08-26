@@ -5,8 +5,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useTranslations } from "next-intl";
 import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Difficulty } from "@/lib/keyboards";
 
 interface TypingTestProps {
+  difficulty: Difficulty;
   text: string;
   onComplete: (stats: {
     wpm: number;
@@ -38,6 +40,7 @@ type TestResult = {
 
 const TypingTest = ({
   text,
+  difficulty,
   onComplete,
   onKeyPress,
   onCharIndexChange,
@@ -56,8 +59,10 @@ const TypingTest = ({
 
   const words = useMemo(() => text.split(" "), [text]);
   const isSpecialTraining = useMemo(
-    () => words.every((word) => word.startsWith("Arrow")),
-    [words]
+    // () => words.every((word) => word.startsWith("Arrow")),
+    () =>
+      ["very-easy", "arrow-training", "numpad-training"].includes(difficulty),
+    [difficulty]
   );
 
   const resetTest = useCallback(() => {
@@ -332,7 +337,13 @@ const TypingTest = ({
                 "border border-primary": charState === "current",
               })}
             >
-              {arrowKeyIcons[char]}
+              {difficulty == "arrow-training" ? (
+                arrowKeyIcons[char]
+              ) : (
+                <div className="flex items-center justify-center h-7 w-7 m-3">
+                  {char}
+                </div>
+              )}
             </span>
           );
         })}

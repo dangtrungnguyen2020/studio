@@ -228,6 +228,7 @@ export default function Home() {
                 />
               ) : (
                 <TypingTest
+                  difficulty={difficulty}
                   key={testId}
                   text={testText}
                   onComplete={handleTestComplete}
