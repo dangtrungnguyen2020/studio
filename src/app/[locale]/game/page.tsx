@@ -72,7 +72,7 @@ export default function GamePage() {
           style={{ minHeight: "1px" }}
         >
           <AdBanner className="w-64 min-w-1 max-w-2xs overflow-hidden" />
-          <Card className="w-full max-w-5xl mb-4 shadow-lg border-primary/20 h-full flex flex-col flex-1">
+          <Card className="w-[64rem] max-w-5xl mx-auto flex flex-col flex-1 overflow-hidden rounded-lg border bg-card text-card-foreground shadow-lg border-primary/20 p-4">
             <CardContent className="p-4 sm:p-6 flex-1 flex flex-col">
               <Game />
             </CardContent>
