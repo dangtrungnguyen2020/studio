@@ -25,11 +25,14 @@ const arrowKeyIcons: { [key: string]: React.ReactNode } = {
 };
 
 type TextNode = {
-  type: "error" | "text" | "remaining";
+  type: "error" | "text" | "remaining" | "current";
   text: string;
 };
+
+type WordNode = Array<TextNode>;
+
 type TestResult = {
-  textNodes: Array<TextNode>;
+  textNodes: Array<WordNode>;
   errorsMap: Map<string, number>;
 };
 
@@ -41,8 +44,8 @@ const TypingTest = ({
 }: TypingTestProps) => {
   const t = useTranslations("TypingTest");
   const [userInput, setUserInput] = useState<string>("");
-  const [textNodes, setTextNodes] = useState<Array<TextNode>>([
-    { type: "remaining", text },
+  const [wordNodes, setWordNodes] = useState<Array<WordNode>>([
+    // [{ type: "remaining", text }],
   ]);
   const [wordsInput, setWordsInput] = useState<Array<string>>([]);
   const [startTime, setStartTime] = useState<number | null>(null);
@@ -59,8 +62,8 @@ const TypingTest = ({
 
   const resetTest = useCallback(() => {
     setUserInput("");
-    // setInputHtml(null);
-    setTextNodes([{ type: "remaining", text }]);
+    const { textNodes, errorsMap }: TestResult = buildTrainingTest(text, "");
+    setWordNodes(textNodes);
     setWordsInput([]);
     setStartTime(null);
     setErrorsMap(new Map());
@@ -79,6 +82,8 @@ const TypingTest = ({
     if (inputRef.current) {
       inputRef.current.focus();
     }
+    const { textNodes, errorsMap }: TestResult = buildTrainingTest(text, "");
+    setWordNodes(textNodes);
   }, []);
 
   useEffect(() => {
@@ -91,7 +96,6 @@ const TypingTest = ({
     ) {
       const endTime = Date.now();
       const durationInMinutes = (endTime - startTime) / 1000 / 60;
-      // const wordsTyped = isSpecialTraining ? totalLength : text.length / 5;
       const wpm = Math.round(totalLength / durationInMinutes);
       onComplete({ wpm, accuracy, errors: errorsMap });
     }
@@ -169,41 +173,69 @@ const TypingTest = ({
     }
   };
 
-  const buildTrainingTest = (expected: string, input: string): TestResult => {
-    const results: Array<TextNode> = [];
+  const buildTrainingTest = (target: string, input: string): TestResult => {
+    const results: Array<WordNode> = [];
     const errorMap: Map<string, number> = new Map();
-    let currentText = "";
-    let type = "text";
-    let check = true;
+    let wordNode: WordNode = (results[0] = []);
+    let textNode: TextNode | null = null;
+    let checkEOF = false;
     let i = 0;
-    while (check && i < expected.length) {
+    while (!checkEOF && i < target.length) {
       if (i < input.length) {
-        let char = expected[i];
+        let char = target[i];
         if (char == input[i]) {
-          if (type == "text") currentText += char;
+          if (char == " ") {
+            results.push([{ type: "text", text: " " }]);
+            wordNode = results[results.length] = [{ type: "text", text: "" }];
+            textNode = wordNode[0];
+            i++;
+            continue;
+          }
+          if (textNode && textNode.type == "text") textNode.text += char;
           else {
-            currentText &&
-              results.push({ type, text: currentText } as TextNode);
-            currentText = "" + char;
-            type = "text";
+            textNode = wordNode[wordNode.length] = {
+              type: "text",
+              text: "" + char,
+            };
           }
         } else {
-          errorMap.set(char, (errorMap.get(char) || 0) + 1);
-          if (type == "error") currentText += char;
+          errorMap.set(target[i], (errorMap.get(target[i]) || 0) + 1);
+          if (char == " ") {
+            results.push([{ type: "error", text: " " }]);
+            wordNode = results[results.length] = [{ type: "error", text: "" }];
+            textNode = wordNode[0];
+            i++;
+            continue;
+          }
+          if (textNode && textNode.type == "error") textNode.text += char;
           else {
-            currentText &&
-              results.push({ type, text: currentText } as TextNode);
-            currentText = "" + char;
-            type = "error";
+            textNode = wordNode[wordNode.length] = {
+              type: "error",
+              text: "" + char,
+            };
           }
         }
         i++;
       } else {
-        currentText && results.push({ type, text: currentText } as TextNode);
-        results.push({ type: "remaining", text: expected.slice(i) });
-        check = false;
+        let remainingText = target.slice(i);
+        const match = remainingText.match(/^(\s*\S+)([\s\S]*)$/);
+
+        if (match) {
+          if (match[1] && !match[1].startsWith(" ")) {
+            wordNode[wordNode.length] = {
+              type: "current",
+              text: match[1],
+            };
+          } else {
+            results.push([{ type: "current", text: match[1] }]);
+          }
+          results.push([{ type: "remaining", text: match[2] }]);
+        }
+        // }
+        checkEOF = true;
       }
     }
+
     return { textNodes: results, errorsMap: errorMap };
   };
 
@@ -222,7 +254,7 @@ const TypingTest = ({
         text,
         inputValue
       );
-      setTextNodes(textNodes);
+      setWordNodes(textNodes);
       setErrorsMap(errorsMap);
     }
     setUserInput(inputValue);
@@ -230,31 +262,48 @@ const TypingTest = ({
   };
 
   const renderTest = () => {
-    const currentIndex = userInput.length;
     return (
-      <p className="h8 text-primary">
-        {textNodes.map((textNode, index) =>
-          textNode.type != "remaining" ? (
-            <span
-              key={index}
-              className={
-                textNode.type == "error" ? "bg-destructive/20 rounded-sm" : ""
-              }
-            >
-              {textNode.text}
-            </span>
-          ) : (
-            <span key={index} className="text-muted-foreground">
-              <span
-                ref={currentTextRef}
-                className="relative inline-block after:content-[''] after:block after:absolute after:h-[2px] after:bg-accent after:w-full after:mt-0 after:bottom-1"
-              >
-                {textNode.text.slice(0, 1)}
-              </span>
-              {textNode.text.slice(1)}
-            </span>
-          )
-        )}
+      <p className="h8 text-primary max-w-full break-words">
+        {wordNodes.map((word, index) => (
+          <span key={`word-${index}`} className="text-nowrap">
+            {word.map((textNode, i) =>
+              textNode.type != "remaining" && textNode.type != "current" ? (
+                <span
+                  key={`text-${i}`}
+                  className={
+                    textNode.type == "error"
+                      ? "bg-destructive/20 rounded-sm"
+                      : ""
+                  }
+                >
+                  {textNode.text}
+                </span>
+              ) : (
+                <span
+                  key={index}
+                  className={cn("text-muted-foreground", {
+                    "whitespace-break-spaces": textNode.type == "remaining",
+                    current: textNode.type == "current",
+                  })}
+                >
+                  {textNode.type == "current" ? (
+                    <>
+                      <span
+                        ref={currentTextRef}
+                        className="relative inline-block after:content-[''] after:block after:absolute after:h-[2px] after:bg-accent after:w-full after:mt-0 after:bottom-1"
+                      >
+                        {textNode.text.slice(0, 1)}
+                      </span>
+                      {textNode.text.slice(1)}
+                    </>
+                  ) : (
+                    textNode.text
+                  )}
+                </span>
+              )
+            )}
+          </span>
+        ))}
       </p>
     );
   };
