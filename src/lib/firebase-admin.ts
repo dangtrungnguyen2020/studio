@@ -1,10 +1,12 @@
-// src/lib/firebase-admin.ts
-import admin from 'firebase-admin';
-import { getFirestore } from 'firebase-admin/firestore';
+import fs from "node:fs";
+import admin from "firebase-admin";
+import { getFirestore } from "firebase-admin/firestore";
 
-const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT
-  ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)
-  : undefined;
+const filePath = process.env.FIREBASE_SERVICE_ACCOUNT_PATH;
+
+const serviceAccount = filePath
+  ? JSON.parse(fs.readFileSync(filePath, "utf8"))
+  : {};
 
 if (!admin.apps.length) {
   admin.initializeApp({
