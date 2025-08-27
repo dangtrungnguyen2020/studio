@@ -108,7 +108,7 @@ export default function AppHeader({ page }: AppHeaderProps) {
   const subtitle = getSubtitle();
 
   return (
-    <header className="w-full max-w-5xl mx-auto flex justify-between items-center my-6 px-4 sm:px-0">
+    <header className="w-full flex justify-between items-center p-6 max-sm:py-4">
       <div className="flex items-center gap-2">
         <h1 className="text-2xl sm:text-3xl font-bold text-primary">
           {title}

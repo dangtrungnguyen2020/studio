@@ -131,13 +131,13 @@ const TypingTest = ({
   }, [userInput, wordsInput, currentTextRef]);
 
   const wpm = useMemo(() => {
-    if (!startTime || userInput.length === 0) return 0;
+    const totalLength = isSpecialTraining
+      ? wordsInput.length
+      : userInput.length;
+    if (!startTime || totalLength === 0) return 0;
     const durationInMinutes = (Date.now() - startTime) / 1000 / 60;
-    const wordsTyped = isSpecialTraining
-      ? userInput.length
-      : userInput.length / 5;
-    return Math.round(wordsTyped / durationInMinutes);
-  }, [startTime, userInput, isSpecialTraining]);
+    return Math.round(totalLength / durationInMinutes);
+  }, [userInput, wordsInput]);
 
   const errors = useMemo(() => {
     return Array.from(errorsMap.values()).reduce((a, c) => a + c, 0);
@@ -150,7 +150,7 @@ const TypingTest = ({
     if (inputLength === 0) return 100;
 
     return Math.round(((inputLength - errors) / inputLength) * 100);
-  }, [userInput, errors]);
+  }, [errors]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     const isTypingKey = e.key.length === 1 || e.key.startsWith("Arrow");
@@ -164,7 +164,7 @@ const TypingTest = ({
       onKeyPress(
         e.key != "Process" ? e.key : String.fromCharCode(e.keyCode || e.which)
       );
-
+      if (wordsInput.length >= words.length) return;
       if (char != words[wordsInput.length]) {
         const word = words[wordsInput.length];
         setErrorsMap((prev) => {
@@ -254,16 +254,16 @@ const TypingTest = ({
       setStartTime(Date.now());
     }
 
-    if (!isSpecialTraining) {
+    if (!isSpecialTraining && userInput.length < text.length) {
       const { textNodes, errorsMap }: TestResult = buildTrainingTest(
         text,
         inputValue
       );
       setWordNodes(textNodes);
       setErrorsMap(errorsMap);
+      setUserInput(inputValue);
+      onCharIndexChange(index + 1);
     }
-    setUserInput(inputValue);
-    onCharIndexChange(index + 1);
   };
 
   const renderTest = () => {

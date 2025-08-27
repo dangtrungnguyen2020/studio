@@ -42,6 +42,13 @@ type TestStats = {
   errors: Map<string, number>;
 };
 
+const keyToLabelMap: { [key: string]: string } = {
+  ArrowUp: "↑",
+  ArrowDown: "↓",
+  ArrowLeft: "←",
+  ArrowRight: "→",
+};
+
 export default function Home() {
   const t = useTranslations("HomePage");
   const tSettings = useTranslations("ThemeSwitcher");
@@ -58,12 +65,24 @@ export default function Home() {
 
   const [lastPressedKey, setLastPressedKey] = useState<string | null>(null);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
+  const [keyHint, setKeyHint] = useState<string | undefined>("");
 
   const [results, setResults] = useState<TestStats | null>(null);
   const [showResults, setShowResults] = useState(false);
   const [showKeyboard, setShowKeyboard] = useState(true);
 
   const isMobile = useIsMobile();
+
+  useEffect(() => {
+    if (
+      ["very-easy", "arrow-training", "numpad-training"].includes(difficulty)
+    ) {
+      const char = testText.split(" ")[currentCharIndex];
+      setKeyHint(difficulty == "arrow-training" ? keyToLabelMap[char] : char);
+    } else {
+      setKeyHint(testText[currentCharIndex]);
+    }
+  }, [difficulty, testText, currentCharIndex]);
 
   const handleDifficultyChange = (newDifficulty: Difficulty) => {
     setDifficulty(newDifficulty);
@@ -133,126 +152,126 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleRestart]);
 
-  if (isMobile) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-background text-center p-4">
-        <h1 className="text-2xl font-bold mb-4">
-          {t("unsupportedDeviceTitle")}
-        </h1>
-        <p className="max-w-md">{t("unsupportedDeviceMessage")}</p>
-      </div>
-    );
-  }
-
   return (
     <TooltipProvider>
       <div className="min-h-screen max-h-screen h-full overflow-hidden bg-background text-foreground flex flex-col items-center">
         <AppHeader page="home" />
-        <main
-          className="w-full mx-auto flex flex-row gap-8 justify-stretch flex-1"
-          style={{ minHeight: "1px" }}
-        >
-          <AdBanner className="w-64 min-w-1 max-w-2xs overflow-hidden" />
-          <div className="w-[64rem] max-w-5xl mx-auto flex flex-col flex-1 overflow-hidden rounded-lg border bg-card text-card-foreground shadow-lg border-primary/20 p-4">
-            <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4 mb-6">
-              <Select
-                value={difficulty}
-                onValueChange={(v) => handleDifficultyChange(v as Difficulty)}
-              >
-                <SelectTrigger className="w-full sm:w-[200px]">
-                  <SelectValue placeholder={t("selectDifficulty")} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="arrow-training">
-                    {t("arrowTraining")}
-                  </SelectItem>
-                  <SelectItem value="numpad-training">
-                    {t("numpadTraining")}
-                  </SelectItem>
-                  <Separator />
-                  <SelectItem value="very-easy">{t("veryEasy")}</SelectItem>
-                  <SelectItem value="easy">{t("easy")}</SelectItem>
-                  <SelectItem value="medium">{t("medium")}</SelectItem>
-                  <SelectItem value="hard">{t("hard")}</SelectItem>
-                  <SelectItem value="expert">{t("expert")}</SelectItem>
-                  <SelectItem value="custom">{t("customText")}</SelectItem>
-                </SelectContent>
-              </Select>
-              {difficulty === "custom" && (
-                <div className="flex gap-2">
-                  {isEditingCustomText ? (
-                    <Button onClick={handleApplyCustomText} size="sm">
-                      <Check className="mr-2 h-4 w-4" />
-                      Apply
-                    </Button>
-                  ) : (
+
+        {isMobile ? (
+          <div className="flex flex-col items-center justify-center min-h-screen bg-background text-center p-4">
+            <h1 className="text-2xl font-bold mb-4">
+              {t("unsupportedDeviceTitle")}
+            </h1>
+            <p className="max-w-md">{t("unsupportedDeviceMessage")}</p>
+          </div>
+        ) : (
+          <main
+            className="w-full mx-auto flex flex-row gap-8 justify-stretch flex-1"
+            style={{ minHeight: "1px" }}
+          >
+            <AdBanner className="w-64 min-w-1 max-w-2xs overflow-hidden" />
+            <div className="w-[64rem] max-w-5xl mx-auto flex flex-col flex-1 overflow-hidden rounded-lg border bg-card text-card-foreground shadow-lg border-primary/20 p-4">
+              <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4 mb-6">
+                <Select
+                  value={difficulty}
+                  onValueChange={(v) => handleDifficultyChange(v as Difficulty)}
+                >
+                  <SelectTrigger className="w-full sm:w-[200px]">
+                    <SelectValue placeholder={t("selectDifficulty")} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="arrow-training">
+                      {t("arrowTraining")}
+                    </SelectItem>
+                    <SelectItem value="numpad-training">
+                      {t("numpadTraining")}
+                    </SelectItem>
+                    <Separator />
+                    <SelectItem value="very-easy">{t("veryEasy")}</SelectItem>
+                    <SelectItem value="easy">{t("easy")}</SelectItem>
+                    <SelectItem value="medium">{t("medium")}</SelectItem>
+                    <SelectItem value="hard">{t("hard")}</SelectItem>
+                    <SelectItem value="expert">{t("expert")}</SelectItem>
+                    <SelectItem value="custom">{t("customText")}</SelectItem>
+                  </SelectContent>
+                </Select>
+                {difficulty === "custom" && (
+                  <div className="flex gap-2">
+                    {isEditingCustomText ? (
+                      <Button onClick={handleApplyCustomText} size="sm">
+                        <Check className="mr-2 h-4 w-4" />
+                        Apply
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={() => setIsEditingCustomText(true)}
+                        variant="outline"
+                        size="sm"
+                      >
+                        <Edit className="mr-2 h-4 w-4" />
+                        Edit
+                      </Button>
+                    )}
+                  </div>
+                )}
+                <Tooltip>
+                  <TooltipTrigger asChild>
                     <Button
-                      onClick={() => setIsEditingCustomText(true)}
+                      onClick={handleRestart}
                       variant="outline"
                       size="sm"
+                      className="w-full sm:w-auto ml-auto"
                     >
-                      <Edit className="mr-2 h-4 w-4" />
-                      Edit
+                      <RefreshCw className="mr-2 h-4 w-4" />
+                      {t("restartTest")}
                     </Button>
-                  )}
-                </div>
-              )}
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    onClick={handleRestart}
-                    variant="outline"
-                    size="sm"
-                    className="w-full sm:w-auto ml-auto"
-                  >
-                    <RefreshCw className="mr-2 h-4 w-4" />
-                    {t("restartTest")}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: t.raw("restartTooltip"),
-                    }}
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: t.raw("restartTooltip"),
+                      }}
+                    />
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <div className="flex flex-col flex-1 overflow-hidden">
+                {difficulty === "custom" && isEditingCustomText ? (
+                  <Textarea
+                    placeholder={t("customTextPlaceholder")}
+                    value={customText}
+                    onChange={(e) => setCustomText(e.target.value)}
+                    className="flex-1 min-h-[50px] mb-4"
                   />
-                </TooltipContent>
-              </Tooltip>
-            </div>
-            <div className="flex flex-col flex-1 overflow-hidden">
-              {difficulty === "custom" && isEditingCustomText ? (
-                <Textarea
-                  placeholder={t("customTextPlaceholder")}
-                  value={customText}
-                  onChange={(e) => setCustomText(e.target.value)}
-                  className="flex-1 min-h-[50px] mb-4"
-                />
-              ) : (
-                <TypingTest
-                  difficulty={difficulty}
-                  key={testId}
-                  text={testText}
-                  onComplete={handleTestComplete}
-                  onKeyPress={setLastPressedKey}
-                  onCharIndexChange={setCurrentCharIndex}
-                />
-              )}
-            </div>
+                ) : (
+                  <TypingTest
+                    difficulty={difficulty}
+                    key={testId}
+                    text={testText}
+                    onComplete={handleTestComplete}
+                    onKeyPress={setLastPressedKey}
+                    onCharIndexChange={setCurrentCharIndex}
+                  />
+                )}
+              </div>
 
-            {/* <AdBanner /> */}
+              {/* <AdBanner /> */}
 
-            <div className="flex flex-row justify-center">
-              {showKeyboard && (
-                <Keyboard
-                  layout={layout}
-                  lastPressedKey={lastPressedKey}
-                  text={testText}
-                  currentCharIndex={currentCharIndex}
-                />
-              )}
+              <div className="flex flex-row justify-center">
+                {showKeyboard && (
+                  <Keyboard
+                    layout={layout}
+                    lastPressedKey={lastPressedKey}
+                    hint={keyHint}
+                    // text={testText}
+                    // currentCharIndex={currentCharIndex}
+                  />
+                )}
+              </div>
             </div>
-          </div>
-          <AdBanner className="w-64 min-w-1 max-w-2xs overflow-hidden" />
-        </main>
+            <AdBanner className="w-64 min-w-1 max-w-2xs overflow-hidden" />
+          </main>
+        )}
         <footer className="w-full flex justify-between items-center mt-4 p-4 border-t">
           <div className="w-full max-w-5xl mx-auto flex flex-1 justify-between items-center gap-8">
             <div className="flex items-center gap-4">

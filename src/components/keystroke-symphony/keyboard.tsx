@@ -16,16 +16,18 @@ import {
 interface KeyboardProps {
   layout: KeyboardLayout;
   lastPressedKey: string | null;
-  text: string;
-  currentCharIndex: number;
+  // text: string;
+  // currentCharIndex: number;
+  hint: string | undefined | null;
 }
 
 const Keyboard = ({
   layout,
   lastPressedKey,
-  text,
-  currentCharIndex,
-}: KeyboardProps) => {
+  hint,
+}: // text,
+// currentCharIndex,
+KeyboardProps) => {
   const keyboardLayout = KEYBOARD_LAYOUTS[layout];
   const [pressedKey, setPressedKey] = useState<string | null>(null);
 
@@ -42,11 +44,11 @@ const Keyboard = ({
     "→": <ArrowRight size={16} />,
   };
 
-  const words = useMemo(() => text.split(" "), [text]);
-  const isArrowTraining = useMemo(
-    () => words.every((word) => word.startsWith("Arrow")),
-    [words]
-  );
+  // const words = useMemo(() => text.split(" "), [text]);
+  // const isArrowTraining = useMemo(
+  //   () => words.every((word) => word.startsWith("Arrow")),
+  //   [words]
+  // );
 
   useEffect(() => {
     if (lastPressedKey) {
@@ -66,35 +68,35 @@ const Keyboard = ({
     return style;
   };
 
-  const keyToLabelMap: { [key: string]: string } = {
-    ArrowUp: "↑",
-    ArrowDown: "↓",
-    ArrowLeft: "←",
-    ArrowRight: "→",
-  };
+  // const keyToLabelMap: { [key: string]: string } = {
+  //   ArrowUp: "↑",
+  //   ArrowDown: "↓",
+  //   ArrowLeft: "←",
+  //   ArrowRight: "→",
+  // };
 
   const getKeyClass = (key: KeyDefinition) => {
-    const targetChar =
-      text &&
-      text.length > 0 &&
-      currentCharIndex < (isArrowTraining ? words.length : text.length)
-        ? isArrowTraining
-          ? words[currentCharIndex]
-          : text[currentCharIndex]
-        : null;
+    const targetChar = hint;
+    // text &&
+    // text.length > 0 &&
+    // currentCharIndex < (isArrowTraining ? words.length : text.length)
+    //   ? isArrowTraining
+    //     ? words[currentCharIndex]
+    //     : text[currentCharIndex]
+    //   : null;
 
     let isTargetKey = false;
     if (targetChar) {
-      if (isArrowTraining) {
-        isTargetKey = key.label === keyToLabelMap[targetChar];
-      } else {
-        isTargetKey =
-          key.label?.toLowerCase() === targetChar.toLowerCase() ||
-          (key.label === "Space" && targetChar === " ") ||
-          (key.label === "Shift" &&
-            targetChar.toUpperCase() === targetChar &&
-            /[a-z]/i.test(targetChar));
-      }
+      //   if (isArrowTraining) {
+      //     isTargetKey = key.label === keyToLabelMap[targetChar];
+      //   } else {
+      isTargetKey =
+        key.label?.toLowerCase() === targetChar.toLowerCase() ||
+        (key.label === "Space" && targetChar === " ") ||
+        (key.label === "Shift" &&
+          targetChar.toUpperCase() === targetChar &&
+          /[a-z]/i.test(targetChar));
+      // }
     }
 
     const isPressed =
