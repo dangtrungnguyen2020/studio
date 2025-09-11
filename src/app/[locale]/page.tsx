@@ -35,6 +35,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase";
 import { Separator } from "@/components/ui/separator";
 import AppHeader from "@/components/keystroke-symphony/app-header";
+import { saveTestResults } from "../actions/game";
 
 type TestStats = {
   wpm: number;
@@ -124,6 +125,22 @@ export default function Home() {
   const handleTestComplete = (stats: TestStats) => {
     setResults(stats);
     setShowResults(true);
+    console.log("### handle Test Complete", user, stats);
+
+    if (user) {
+      const errorsObject: Record<string, number> = {};
+      stats.errors.forEach((value, key) => {
+        errorsObject[key] = value;
+      });
+
+      saveTestResults({
+        userId: user.uid,
+        wpm: stats.wpm,
+        accuracy: stats.accuracy,
+        errors: errorsObject,
+        difficulty: difficulty,
+      });
+    }
   };
 
   useEffect(() => {

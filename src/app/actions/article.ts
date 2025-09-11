@@ -1,7 +1,7 @@
 "use server";
 
 import { translateText } from "@/ai/flows/translate-text";
-import { db } from "@/lib/firebase";
+import { db, getUserClaims } from "@/lib/firebase-admin";
 import {
   collection,
   addDoc,
@@ -21,19 +21,30 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { randomUUID } from "crypto";
 import { getLocale } from "next-intl/server";
 import { app } from "@/lib/firebase";
+import { Article } from "@/domain/entities/article";
+import { revalidatePath } from "next/cache";
+import { verifyAdmin } from "./user";
 
-async function getAdminUids(): Promise<string[]> {
-  const adminDoc = await getDoc(doc(db, "app-settings", "admins"));
-  if (adminDoc.exists()) {
-    return adminDoc.data()?.uids || [];
+async function getAdminUids(idToken: string) {
+  const claims = await getUserClaims(idToken);
+  if (!claims || (claims.role !== "admin" && claims.role !== "editor")) {
+    return {
+      error:
+        "Permission Denied: Must be an admin or editor to create an article.",
+    };
   }
+  // const adminRef = await db.collection("app-settings").where({roles: "admins"});
+  // const adminDoc = await adminRef.get();
+  // if (adminDoc.exists) {
+  //   return adminDoc.data()?.uids || [];
+  // }
   return [];
 }
-
+/* 
 async function verifyAdmin(userId: string): Promise<boolean> {
   const adminUids = await getAdminUids();
   return adminUids.includes(userId);
-}
+} */
 
 export async function uploadImage(formData: FormData): Promise<string> {
   const file = formData.get("image") as File;
@@ -49,20 +60,6 @@ export async function uploadImage(formData: FormData): Promise<string> {
   const downloadURL = await getDownloadURL(snapshot.ref);
   return downloadURL;
 }
-
-export type Article = {
-  id: string;
-  title: Record<string, string>; // language -> text
-  content: Record<string, string>; // language -> text
-  imageUrl: string;
-  authorId: string;
-  authorName: string;
-  authorPhotoURL: string;
-  createdAt: Date;
-  originalLanguage: string;
-  status: "pending" | "approved" | "rejected";
-  rejectionReason?: string;
-};
 
 export async function createArticle(data: {
   title: string;
@@ -96,19 +93,20 @@ export async function createArticle(data: {
       articleData.title!.en = titleTranslation.translation;
       articleData.content!.en = contentTranslation.translation;
     }
+    const result = await db.collection("articles").add({
+      ...articleData,
+      createdAt: new Date(),
+    });
 
-    const docRef = await addDoc(collection(db, "articles"), articleData);
-    return docRef.id;
+    revalidatePath("/articles");
+    return result;
   } catch (error) {
     console.error("Error creating article:", error);
     throw new Error("Failed to create article.");
   }
 }
 
-async function translateArticle(
-  article: Article,
-  targetLocale: string
-): Promise<Article> {
+async function translateArticle(article: Article, targetLocale: string) {
   if (article.title[targetLocale] && article.content[targetLocale]) {
     return article;
   }
@@ -127,24 +125,30 @@ async function translateArticle(
   updatedArticle.title[targetLocale] = titleTranslation.translation;
   updatedArticle.content[targetLocale] = contentTranslation.translation;
 
-  const articleRef = doc(db, "articles", article.id);
-  updateDoc(articleRef, {
-    [`title.${targetLocale}`]: titleTranslation.translation,
-    [`content.${targetLocale}`]: contentTranslation.translation,
-  }).catch(console.error);
+  const articleRef = db.collection("articles").doc(article.id);
+  // const articleDoc = await articleRef.get();
+  // if (!articleDoc.exists) {
+  //   return { error: 'Article not found.' };
+  // }
+
+  await articleRef
+    .update({
+      [`title.${targetLocale}`]: titleTranslation.translation,
+      [`content.${targetLocale}`]: contentTranslation.translation,
+    })
+    .catch(console.error);
 
   return updatedArticle;
 }
 
-export async function getArticles(): Promise<Article[]> {
+export async function getArticles() {
   try {
     const locale = await getLocale();
-    const q = query(
-      collection(db, "articles"),
-      where("status", "==", "approved"),
-      orderBy("createdAt", "desc")
-    );
-    const querySnapshot = await getDocs(q);
+    const q = db
+      .collection("articles")
+      .where("status", "==", "approved")
+      .orderBy("createdAt", "desc");
+    const querySnapshot = await q.get();
     const articles: Article[] = [];
     querySnapshot.forEach((doc) => {
       const data = doc.data();
@@ -171,16 +175,16 @@ export async function getArticles(): Promise<Article[]> {
   }
 }
 
-export async function getArticle(id: string): Promise<Article | null> {
+export async function getArticle(id: string) {
   try {
-    const docRef = doc(db, "articles", id);
-    const docSnap = await getDoc(docRef);
+    const docRef = db.collection("articles").doc(id);
+    const docSnap = await docRef.get();
 
-    if (docSnap.exists()) {
+    if (docSnap.exists) {
       let article = {
         id: docSnap.id,
         ...docSnap.data(),
-        createdAt: docSnap.data().createdAt.toDate(),
+        createdAt: docSnap.data()?.createdAt.toDate(),
       } as Article;
 
       const locale = await getLocale();
@@ -200,12 +204,11 @@ export async function getArticle(id: string): Promise<Article | null> {
 export async function getUserArticles(userId: string): Promise<Article[]> {
   if (!userId) return [];
   try {
-    const q = query(
-      collection(db, "articles"),
-      where("authorId", "==", userId),
-      orderBy("createdAt", "desc")
-    );
-    const querySnapshot = await getDocs(q);
+    const q = db
+      .collection("articles")
+      .where("authorId", "==", userId)
+      .orderBy("createdAt", "desc");
+    const querySnapshot = await q.get();
     const articles: Article[] = [];
     querySnapshot.forEach((doc) => {
       const data = doc.data();
@@ -233,12 +236,11 @@ export async function getPendingArticles(userId: string): Promise<Article[]> {
     throw new Error("Unauthorized");
   }
   try {
-    const q = query(
-      collection(db, "articles"),
-      where("status", "==", "pending"),
-      orderBy("createdAt", "asc")
-    );
-    const querySnapshot = await getDocs(q);
+    const q = db
+      .collection("articles")
+      .where("status", "==", "pending")
+      .orderBy("createdAt", "asc");
+    const querySnapshot = await q.get();
     const articles: Article[] = [];
     querySnapshot.forEach((doc) => {
       const data = doc.data();
@@ -260,8 +262,13 @@ export async function approveArticle(userId: string, articleId: string) {
     throw new Error("Unauthorized");
   }
   try {
-    const articleRef = doc(db, "articles", articleId);
-    await updateDoc(articleRef, { status: "approved" });
+    const articleRef = db.collection("articles").doc(articleId);
+    const articleDoc = await articleRef.get();
+
+    if (!articleDoc.exists) {
+      return { error: "Article not found." };
+    }
+    await articleRef.update({ status: "approved" });
   } catch (error) {
     console.error("Error approving article:", error);
     throw new Error("Failed to approve article.");
@@ -277,11 +284,12 @@ export async function rejectArticle(
     throw new Error("Unauthorized");
   }
   try {
-    const articleRef = doc(db, "articles", articleId);
-    await updateDoc(articleRef, {
-      status: "rejected",
-      rejectionReason: reason,
-    });
+    const articleRef = db.collection("articles").doc(articleId);
+    const articleDoc = await articleRef.get();
+    if (!articleDoc.exists) {
+      return { error: "Article not found." };
+    }
+    await articleRef.update({ status: "rejected", rejectionReason: reason });
   } catch (error) {
     console.error("Error rejecting article:", error);
     throw new Error("Failed to reject article.");

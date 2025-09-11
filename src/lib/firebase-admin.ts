@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import admin from "firebase-admin";
 import { getFirestore } from "firebase-admin/firestore";
-import { App } from "firebase-admin/app";
+import { App, getApp, getApps, initializeApp } from "firebase-admin/app";
 
 const filePath = process.env.FIREBASE_SERVICE_ACCOUNT_PATH;
 
@@ -9,12 +9,30 @@ const serviceAccount = filePath
   ? JSON.parse(fs.readFileSync(filePath, "utf8"))
   : {};
 
-const app: App = admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  // Add your databaseURL here if needed
-  // databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
-});
+let app: App;
 
-const db = getFirestore(app);
+if (!getApps().length) {
+  app = admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    // Add your databaseURL here if needed
+    // databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
+  });
+} else {
+  app = getApp();
+}
 
-export { admin, db };
+const auth = admin.auth();
+const db = admin.firestore();
+
+// A helper function to verify the user's ID token and get their claims
+export async function getUserClaims(idToken: string) {
+  try {
+    const decodedToken = await auth.verifyIdToken(idToken);
+    return decodedToken;
+  } catch (error) {
+    console.error("Error verifying ID token:", error);
+    return null;
+  }
+}
+
+export { auth, db };
