@@ -5,8 +5,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase";
 import { getTestResults } from "@/app/actions/game";
-import type { TestResult } from "@/app/actions/game";
-import { getUserArticles, Article } from "@/app/actions/article";
+import { getUserArticles } from "@/app/actions/article";
 import {
   Card,
   CardContent,
@@ -35,22 +34,16 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer,
 } from "recharts";
 import { Button } from "@/components/ui/button";
-import {
-  ArrowLeft,
-  Loader2,
-  CheckCircle,
-  XCircle,
-  Clock,
-  AlertTriangle,
-} from "lucide-react";
+import { ArrowLeft, Loader2, CheckCircle, XCircle, Clock } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { TestResult } from "@/domain/entities/game";
+import { Article } from "@/domain/entities/article";
 
 const chartConfig = {
   wpm: {
@@ -75,6 +68,8 @@ export default function ProfilePage() {
     if (user) {
       Promise.all([getTestResults(user.uid), getUserArticles(user.uid)])
         .then(([tests, userArticles]) => {
+          console.log("### profile data:", tests);
+
           setTestResults(tests);
           setArticles(userArticles);
         })
@@ -239,7 +234,7 @@ export default function ProfilePage() {
                     </TableCell>
                     <TableCell>{format(article.createdAt, "PP")}</TableCell>
                     <TableCell>
-                      <Tooltip>
+                      {/* <Tooltip>
                         <TooltipTrigger>
                           <Badge
                             variant={
@@ -264,7 +259,7 @@ export default function ProfilePage() {
                               <p>{article.rejectionReason}</p>
                             </TooltipContent>
                           )}
-                      </Tooltip>
+                      </Tooltip> */}
                     </TableCell>
                   </TableRow>
                 ))}

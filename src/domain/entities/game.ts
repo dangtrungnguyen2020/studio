@@ -1,3 +1,5 @@
+import { FieldValue } from "firebase-admin/firestore";
+
 // Test results
 export type SaveTestResultsInput = {
   userId: string;
@@ -5,6 +7,7 @@ export type SaveTestResultsInput = {
   accuracy: number;
   errors: Record<string, number>;
   difficulty: string;
+  date?: FieldValue;
 };
 
 export type TestResult = {

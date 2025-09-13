@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import admin from "firebase-admin";
+import * as admin from "firebase-admin";
 import { getFirestore } from "firebase-admin/firestore";
 import { App, getApp, getApps, initializeApp } from "firebase-admin/app";
 

@@ -122,12 +122,13 @@ export default function Home() {
     setCurrentCharIndex(0);
   };
 
-  const handleTestComplete = (stats: TestStats) => {
+  const handleTestComplete = async (stats: TestStats) => {
     setResults(stats);
     setShowResults(true);
     console.log("### handle Test Complete", user, stats);
+    const idToken = await auth.currentUser?.getIdToken();
 
-    if (user) {
+    if (user && idToken) {
       const errorsObject: Record<string, number> = {};
       stats.errors.forEach((value, key) => {
         errorsObject[key] = value;

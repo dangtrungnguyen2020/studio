@@ -5,25 +5,7 @@ import type {
   PersonalizedExercisesInput,
   PersonalizedExercisesOutput,
 } from "@/ai/flows/personalized-typing-exercises";
-import { db } from "@/lib/firebase";
-import {
-  collection,
-  addDoc,
-  serverTimestamp,
-  query,
-  where,
-  getDocs,
-  orderBy,
-  doc,
-  getDoc,
-  updateDoc,
-  getCountFromServer,
-  setDoc,
-  deleteField,
-  arrayUnion,
-  arrayRemove,
-} from "firebase/firestore";
-import { getAuth as getAdminAuth } from "firebase-admin/auth";
+import { auth, db } from "@/lib/firebase-admin";
 import {
   AdminDashboardStats,
   SaveTestResultsInput,
@@ -31,6 +13,7 @@ import {
   UserWithAdminStatus,
 } from "@/domain/entities/game";
 import { verifyAdmin } from "./user";
+import { FieldValue } from "firebase-admin/firestore";
 
 // AI-powered exercises
 export async function getAIPoweredExercises(
@@ -45,36 +28,34 @@ export async function getAIPoweredExercises(
   }
 }
 
-export async function saveTestResults(input: SaveTestResultsInput) {
-  console.log("### saveTestResults", input);
-
-  if (!input.userId) {
-    console.log("Attempted to save results without a user ID.");
-    return;
-  }
+export async function saveTestResults(data: SaveTestResultsInput) {
+  console.log("### saveTestResults", data.userId, data);
   try {
-    const docRef = await addDoc(collection(db, "typing-sessions"), {
-      ...input,
-      timestamp: serverTimestamp(),
+    // Use a subcollection to store user-specific sessions
+    const sessionsCollectionRef = db.collection("typing-sessions");
+    await sessionsCollectionRef.add({
+      ...data,
+      timestamp: FieldValue.serverTimestamp(),
     });
-    console.log("Test results saved with ID: ", docRef.id);
+
+    return { success: true, message: "Typing session saved successfully!" };
   } catch (error) {
-    console.error("Error saving test results to Firestore:", error);
+    console.error("Error creating typing session:", error);
+    return { success: false, message: "Failed to save session." };
   }
 }
 
 export async function getTestResults(userId: string): Promise<TestResult[]> {
-  if (!userId) {
-    return [];
-  }
-
   try {
-    const q = query(
-      collection(db, "typing-sessions"),
-      where("userId", "==", userId),
-      orderBy("timestamp", "desc")
-    );
-    const querySnapshot = await getDocs(q);
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+    // Use the Admin SDK's chained method calls to reference the collection and apply the filter
+    const sessionsCollectionRef = db.collection("typing-sessions");
+    const sessionsQuery = sessionsCollectionRef
+      .where("timestamp", ">=", thirtyDaysAgo)
+      .where("userId", "==", userId);
+    const querySnapshot = await sessionsQuery.get();
     const results: TestResult[] = [];
     querySnapshot.forEach((doc) => {
       const data = doc.data();
@@ -99,10 +80,20 @@ export async function getUserDashboardStats(
   // if (!(await verifyAdmin(userId))) {
   //   throw new Error("Unauthorized");
   // }
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
   try {
-    const sessionsCollection = collection(db, "typing-sessions");
-    const snapshot = await getDocs(sessionsCollection);
+    const sessionsCollectionRef = db
+      .collection("typing-sessions")
+      .doc(userId)
+      .collection("sessions");
+    const sessionsQuery = sessionsCollectionRef.where(
+      "date",
+      ">=",
+      thirtyDaysAgo
+    );
+    const snapshot = await sessionsQuery.get();
 
     let totalWpm = 0;
     let totalAccuracy = 0;
@@ -142,61 +133,5 @@ export async function getUserDashboardStats(
   } catch (error) {
     console.error("Error fetching admin dashboard stats:", error);
     throw new Error("Failed to fetch dashboard data.");
-  }
-}
-/* 
-export async function getUsersAndAdminStatus(
-  userId: string
-): Promise<UserWithAdminStatus[]> {
-  // if (!(await verifyAdmin(userId))) {
-  //   throw new Error("Unauthorized");
-  // }
-
-  try {
-    const authAdmin = getAdminAuth();
-    const userRecords = await authAdmin.listUsers();
-
-    const users = userRecords.users.map((user) => ({
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      isAdmin: adminUids.includes(user.uid),
-    }));
-
-    return users;
-  } catch (error) {
-    console.error("Error fetching users:", error);
-    throw new Error("Failed to fetch user data.");
-  }
-} */
-
-export async function setAdminStatus(
-  idToken: string,
-  targetUserId: string,
-  isAdmin: boolean
-) {
-  if (!(await verifyAdmin(idToken))) {
-    throw new Error("Unauthorized");
-  }
-  if (idToken === targetUserId) {
-    throw new Error("Cannot change your own admin status.");
-  }
-
-  try {
-    const adminDocRef = doc(db, "app-settings", "admins");
-
-    if (isAdmin) {
-      await updateDoc(adminDocRef, {
-        uids: arrayUnion(targetUserId),
-      });
-    } else {
-      await updateDoc(adminDocRef, {
-        uids: arrayRemove(targetUserId),
-      });
-    }
-  } catch (error) {
-    console.error("Error updating admin status:", error);
-    throw new Error("Failed to update admin status.");
   }
 }
